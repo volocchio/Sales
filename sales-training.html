@@ -52,14 +52,19 @@ td{padding:8px 12px;border-bottom:1px solid var(--border);}
 tr:hover td{background:#f8fafc;}
 
 /* ── file links ── */
-.file-link{display:inline-flex;align-items:center;gap:4px;font-size:13px;padding:4px 10px;background:#f1f5f9;border-radius:6px;margin:3px 2px;}
+.file-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;padding:4px 10px;background:#f1f5f9;border-radius:6px;margin:3px 2px;}
 .file-link:hover{background:var(--accent);color:#fff;text-decoration:none;}
-.file-link::before{content:"📄";font-size:12px;}
-.file-link.folder::before{content:"📁";}
-.file-link.img::before{content:"🖼️";}
-.file-link.xls::before{content:"📊";}
-.file-link.video::before{content:"🎥";}
-.file-link.ppt::before{content:"📑";}
+.file-link::before{content:"DOC";font-size:10px;font-weight:700;letter-spacing:.35px;line-height:1;padding:2px 5px;border-radius:4px;background:#e2e8f0;color:#334155;}
+.file-link.folder::before{content:"DIR";}
+.file-link.img::before{content:"IMG";}
+.file-link.xls::before{content:"XLS";}
+.file-link.video::before{content:"VID";}
+.file-link.ppt::before{content:"PPT";}
+
+/* mini-thumbnails in photo library */
+#photos .file-link.img.has-thumb{gap:8px;}
+#photos .file-link.img.has-thumb::before{display:none;}
+#photos .mini-thumb{width:18px;height:18px;border-radius:4px;object-fit:cover;border:1px solid #cbd5e1;flex-shrink:0;background:#e2e8f0;display:block;}
 
 /* ── progress ── */
 .progress-bar{display:flex;gap:4px;margin:12px 0;}
@@ -1239,6 +1244,29 @@ window.addEventListener('scroll', () => {
   navLinks.forEach(a => {
     a.classList.toggle('active', a.getAttribute('href') === '#' + current);
   });
+});
+
+// Build mini-thumbnails for image links in the Photo & Graphic Library.
+document.querySelectorAll('#photos a.file-link.img[href]').forEach(link => {
+  const href = link.getAttribute('href') || '';
+  if (!/\.(png|jpe?g|gif|webp|bmp|svg)$/i.test(href)) return;
+
+  const thumb = document.createElement('img');
+  thumb.className = 'mini-thumb';
+  thumb.src = href;
+  thumb.alt = link.textContent.trim() + ' thumbnail';
+  thumb.loading = 'lazy';
+  thumb.decoding = 'async';
+
+  thumb.addEventListener('load', () => {
+    link.classList.add('has-thumb');
+  });
+
+  thumb.addEventListener('error', () => {
+    thumb.remove();
+  });
+
+  link.prepend(thumb);
 });
 </script>
 </body>
