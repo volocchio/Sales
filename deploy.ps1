@@ -30,7 +30,7 @@ $rest = $teamsPath.Substring(2) -replace '\\', '/'
 $wslTeamsPath = "/mnt/$drive$rest"
 
 Write-Host "Syncing Teams_Channel to VPS static site..."
-& wsl rsync -az --delete --mkpath -e "ssh -i /home/honeybadger/.ssh/id_ed25519" "$wslTeamsPath/" "root@185.164.110.65:/var/www/sales-training/Teams_Channel/"
+& wsl rsync -az --delete --mkpath -e "ssh -i /home/honeybadger/.ssh/id_ed25519 -o ServerAliveInterval=30 -o ServerAliveCountMax=10" "$wslTeamsPath/" "root@185.164.110.65:/var/www/sales-training/Teams_Channel/"
 if ($LASTEXITCODE -ne 0) {
 	exit $LASTEXITCODE
 }
