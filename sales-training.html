@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>SMARTWING™ Sales Training Portal</title>
+<style>
+:root{--bg:#f8fafc;--card:#fff;--accent:#0f4c81;--accent2:#1a6fb5;--green:#16a34a;--border:#e2e8f0;--text:#1e293b;--muted:#64748b;--phase1:#0f4c81;--phase2:#b45309;--phase3:#16a34a;--sidebar-w:280px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+a{color:var(--accent2);text-decoration:none;}
+a:hover{text-decoration:underline;}
+
+/* ── layout ── */
+.top-bar{background:var(--accent);color:#fff;padding:16px 24px;position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;gap:16px;}
+.top-bar h1{font-size:20px;font-weight:700;letter-spacing:.5px;}
+.top-bar .sub{font-size:13px;opacity:.75;margin-left:auto;}
+.sidebar{position:fixed;top:56px;left:0;bottom:0;width:var(--sidebar-w);background:#fff;border-right:1px solid var(--border);overflow-y:auto;padding:16px 0;z-index:90;}
+.sidebar h3{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);padding:12px 20px 6px;margin-top:8px;}
+.sidebar a{display:block;padding:7px 20px;font-size:14px;color:var(--text);border-left:3px solid transparent;transition:all .15s;}
+.sidebar a:hover,.sidebar a.active{background:#f1f5f9;border-left-color:var(--accent);color:var(--accent);text-decoration:none;}
+.sidebar a .badge{display:inline-block;font-size:10px;padding:1px 6px;border-radius:8px;margin-left:6px;color:#fff;vertical-align:middle;}
+.badge-p1{background:var(--phase1);}
+.badge-p2{background:var(--phase2);}
+.badge-p3{background:var(--phase3);}
+.main{margin-left:var(--sidebar-w);margin-top:56px;padding:32px 40px 80px;max-width:960px;}
+
+/* ── sections ── */
+.section{margin-bottom:48px;}
+.section h2{font-size:24px;font-weight:700;margin-bottom:4px;padding-bottom:8px;border-bottom:2px solid var(--border);}
+.section h2 .phase-tag{font-size:12px;padding:2px 10px;border-radius:10px;color:#fff;vertical-align:middle;margin-left:8px;}
+.section h3{font-size:18px;margin:20px 0 8px;color:var(--accent);}
+.section h4{font-size:15px;margin:14px 0 6px;font-weight:600;}
+.section p,.section li{font-size:14px;}
+.section ul,.section ol{margin:6px 0 12px 20px;}
+.section li{margin-bottom:4px;}
+
+/* ── cards ── */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:16px 0;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;transition:box-shadow .15s;}
+.card:hover{box-shadow:0 2px 12px rgba(0,0,0,.08);}
+.card h4{margin:0 0 6px;font-size:15px;}
+.card p{font-size:13px;color:var(--muted);margin:0 0 10px;}
+.card .links{display:flex;flex-wrap:wrap;gap:6px;}
+.card .links a{font-size:12px;padding:3px 10px;background:#f1f5f9;border-radius:6px;color:var(--accent);}
+.card .links a:hover{background:var(--accent);color:#fff;text-decoration:none;}
+
+/* ── tables ── */
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px;}
+th{background:var(--accent);color:#fff;padding:8px 12px;text-align:left;font-weight:600;}
+td{padding:8px 12px;border-bottom:1px solid var(--border);}
+tr:hover td{background:#f8fafc;}
+
+/* ── file links ── */
+.file-link{display:inline-flex;align-items:center;gap:4px;font-size:13px;padding:4px 10px;background:#f1f5f9;border-radius:6px;margin:3px 2px;}
+.file-link:hover{background:var(--accent);color:#fff;text-decoration:none;}
+.file-link::before{content:"📄";font-size:12px;}
+.file-link.folder::before{content:"📁";}
+.file-link.img::before{content:"🖼️";}
+.file-link.xls::before{content:"📊";}
+.file-link.video::before{content:"🎥";}
+.file-link.ppt::before{content:"📑";}
+
+/* ── progress ── */
+.progress-bar{display:flex;gap:4px;margin:12px 0;}
+.progress-bar .seg{height:8px;border-radius:4px;flex:1;}
+.week-header{display:flex;align-items:center;gap:12px;margin:24px 0 12px;}
+.week-header h3{margin:0;}
+.week-tag{font-size:11px;padding:2px 8px;border-radius:6px;color:#fff;}
+
+/* ── callout ── */
+.callout{border-left:4px solid var(--accent);background:#f0f7ff;padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:14px;}
+.callout.warn{border-left-color:#d97706;background:#fffbeb;}
+.callout.tip{border-left-color:var(--green);background:#f0fdf4;}
+.callout strong{display:block;margin-bottom:4px;}
+
+/* ── checklist ── */
+.checklist{list-style:none;margin:8px 0;padding:0;}
+.checklist li{padding:6px 0;font-size:14px;display:flex;align-items:flex-start;gap:8px;}
+.checklist li::before{content:"☐";font-size:16px;color:var(--muted);flex-shrink:0;line-height:1.4;}
+
+/* ── responsive ── */
+@media(max-width:768px){
+  .sidebar{display:none;}
+  .main{margin-left:0;padding:20px 16px 60px;}
+  .card-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ TOP BAR ═══════════ -->
+<div class="top-bar">
+  <h1>✈️ SMARTWING™ Sales Training Portal</h1>
+  <span class="sub">Tamarack Aerospace — New Hire Onboarding Program</span>
+</div>
+
+<!-- ═══════════ SIDEBAR NAV ═══════════ -->
+<nav class="sidebar">
+  <h3>Getting Started</h3>
+  <a href="#welcome">Welcome & Overview</a>
+  <a href="#collateral">Collateral Library Map</a>
+
+  <h3>Phase 1 — Foundation <span class="badge badge-p1">Wk 1–2</span></h3>
+  <a href="#aero">Aerodynamic Principles</a>
+  <a href="#platforms">Platform Deep Dives</a>
+  <a href="#gen2">GEN2 Models</a>
+  <a href="#kingair">King Air Market</a>
+  <a href="#spin">SPIN Selling</a>
+  <a href="#personas">Buyer Personas</a>
+  <a href="#roi">ROI Framework</a>
+  <a href="#stories">Customer Stories</a>
+  <a href="#hard-conversations">Hard Conversations</a>
+
+  <h3>Phase 2 — Execution <span class="badge badge-p2">Wk 3–4</span></h3>
+  <a href="#cold-call">Cold Calling</a>
+  <a href="#prospecting">Prospecting</a>
+  <a href="#objections">Objection Handling</a>
+  <a href="#followup">Follow-Up Sequence</a>
+  <a href="#competitive">Competitive Positioning</a>
+  <a href="#crm">CRM & Pipeline</a>
+  <a href="#demo-flight">Demo Flights</a>
+  <a href="#closing">Proposals & Closing</a>
+  <a href="#post-sale">Post-Sale</a>
+
+  <h3>Phase 3 — Mastery <span class="badge badge-p3">Wk 5–6</span></h3>
+  <a href="#live-calling">Live Calling</a>
+  <a href="#advanced">Advanced Topics</a>
+  <a href="#certification">Certification</a>
+
+  <h3>Reference</h3>
+  <a href="#cheat-sheet">Daily Cheat Sheet</a>
+  <a href="#tools">Sales Tools & One-Pagers</a>
+  <a href="#activecare">ActiveCare & ForeFlight</a>
+  <a href="#sustainability">Sustainability</a>
+  <a href="#installation">Installation Centers</a>
+  <a href="#ebooks">Product eBooks</a>
+  <a href="#wings">WINGS Course</a>
+  <a href="#forms">Forms & Checklists</a>
+  <a href="#pricing">Pricing</a>
+  <a href="#photos">Photo & Graphic Library</a>
+</nav>
+
+<!-- ═══════════ MAIN CONTENT ═══════════ -->
+<div class="main">
+
+<!-- ▀▀▀▀▀▀▀▀▀▀ WELCOME ▀▀▀▀▀▀▀▀▀▀ -->
+<div class="section" id="welcome">
+  <h2>Welcome to Tamarack Aerospace</h2>
+  <p>This training program runs <strong>6 weeks (30 sessions)</strong> and will turn you into a certified ATLAS Sales Professional capable of independently prospecting, qualifying, pitching, handling objections, closing, and supporting post-sale follow-through across all Citation, M2, and King Air platforms.</p>
+
+  <div class="progress-bar">
+    <div class="seg" style="background:var(--phase1)" title="Phase 1: Foundation"></div>
+    <div class="seg" style="background:var(--phase1)" title="Phase 1: Foundation"></div>
+    <div class="seg" style="background:var(--phase2)" title="Phase 2: Execution"></div>
+    <div class="seg" style="background:var(--phase2)" title="Phase 2: Execution"></div>
+    <div class="seg" style="background:var(--phase3)" title="Phase 3: Mastery"></div>
+    <div class="seg" style="background:var(--phase3)" title="Phase 3: Mastery"></div>
+  </div>
+
+  <table>
+    <tr><th>Phase</th><th>Weeks</th><th>Focus</th><th>Sessions</th></tr>
+    <tr><td style="color:var(--phase1);font-weight:700">Phase 1 — Foundation</td><td>1–2</td><td>Product knowledge, aerodynamics, sales methodology, customer psychology</td><td>1–10</td></tr>
+    <tr><td style="color:var(--phase2);font-weight:700">Phase 2 — Execution</td><td>3–4</td><td>Call craft, prospecting, objection handling, demo flights, closing</td><td>11–20</td></tr>
+    <tr><td style="color:var(--phase3);font-weight:700">Phase 3 — Mastery</td><td>5–6</td><td>Supervised live calling, independent prospecting, certification</td><td>21–30</td></tr>
+  </table>
+
+  <div class="callout">
+    <strong>📋 Full Training Curriculum</strong>
+    The complete 30-session training program with daily schedules, assessments, and role-play scenarios:
+    <br/><a class="file-link" href="Training/ATLAS Sales Training Program.docx.md">ATLAS Sales Training Program</a>
+  </div>
+
+  <h3>Day 1 Assignments</h3>
+  <ul class="checklist">
+    <li>Read this entire training portal — bookmark it</li>
+    <li>Tour the collateral library (folder structure below)</li>
+    <li>Read the <a href="#aero">Aerodynamic Principles</a> section</li>
+    <li>Review the <a href="#kickoff">2026 Sales Kickoff</a> presentation</li>
+  </ul>
+</div>
+
+<!-- ▀▀▀▀▀▀▀▀▀▀ COLLATERAL MAP ▀▀▀▀▀▀▀▀▀▀ -->
+<div class="section" id="collateral">
+  <h2>Collateral Library Map</h2>
+  <p>Know where to find everything. This is your filing cabinet.</p>
+
+  <table>
+    <tr><th>Need</th><th>Where to Find It</th></tr>
+    <tr><td>Spec comparisons (OEM vs ATLAS)</td><td><a class="file-link folder" href="Teams_Channel/By model-Sales Documents/">By model-Sales Documents/[model]/</a></td></tr>
+    <tr><td>Performance charts &amp; graphs</td><td><a class="file-link folder" href="Aircraft Models/">Aircraft Models/[model]/Charts and Graphs/</a></td></tr>
+    <tr><td>FlightAware real-world tracks</td><td><a class="file-link folder" href="Aircraft Models/">Aircraft Models/[model]/FlightAware Tracks/</a></td></tr>
+    <tr><td>Aircraft photos</td><td><a class="file-link folder" href="Teams_Channel/Winglet Pictures/">Winglet Pictures/</a></td></tr>
+    <tr><td>Buyer personas</td><td><a class="file-link folder" href="Sales and Marketing/Personas/">Sales and Marketing/Personas/</a></td></tr>
+    <tr><td>ROI guides</td><td><a class="file-link folder" href="Sales and Marketing/ROI/">Sales and Marketing/ROI/</a></td></tr>
+    <tr><td>Sales kits (by owner type)</td><td><a class="file-link folder" href="Sales and Marketing/Sales Kits/">Sales and Marketing/Sales Kits/</a></td></tr>
+    <tr><td>One-pagers (per model)</td><td><a class="file-link folder" href="Sales and Marketing/One-Pagers/">Sales and Marketing/One-Pagers/</a></td></tr>
+    <tr><td>Product eBooks</td><td><a class="file-link folder" href="Teams_Channel/Product eBooks/2025 eBooks/">Product eBooks/2025 eBooks/</a></td></tr>
+    <tr><td>Marketing slicks &amp; mailers</td><td><a class="file-link folder" href="Teams_Channel/Marketing material for sales/">Marketing material for sales/</a></td></tr>
+    <tr><td>Customer send library</td><td><a class="file-link folder" href="Teams_Channel/Marketing material for sales/Customer Send LIbrary/">Customer Send Library/</a></td></tr>
+    <tr><td>Pricing</td><td><a class="file-link" href="Teams_Channel/Pricing/2026 PRICING.pdf">2026 Pricing</a></td></tr>
+    <tr><td>PSA forms &amp; contracts</td><td><a class="file-link folder" href="Teams_Channel/PSA forms/">PSA forms/</a></td></tr>
+    <tr><td>Salesforce guides</td><td><a class="file-link folder" href="Teams_Channel/Salesforce/">Salesforce/</a></td></tr>
+    <tr><td>WINGS pilot course</td><td><a class="file-link folder" href="Teams_Channel/WINGS Course/">WINGS Course/</a></td></tr>
+    <tr><td>Presentations</td><td><a class="file-link folder" href="Presentations/">Presentations/</a></td></tr>
+    <tr><td>Shared cross-model resources</td><td><a class="file-link folder" href="Shared Resources/">Shared Resources/</a></td></tr>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--              PHASE 1 — FOUNDATION              -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<div class="section" id="aero">
+  <div class="week-header">
+    <h2>Aerodynamic Principles — Why Winglets Work <span class="phase-tag" style="background:var(--phase1)">Week 1</span></h2>
+  </div>
+  <p><em>Session 2 — Instructor-led, 90 minutes. Teach from first principles so you can explain the product to a skeptical pilot.</em></p>
+
+  <h3>Core Concepts</h3>
+  <ol>
+    <li><strong>Lift-induced drag</strong> — spanwise airflow, wingtip vortices, energy loss</li>
+    <li><strong>Aspect ratio</strong> — why a longer, narrower wing is more efficient</li>
+    <li><strong>Passive vs. active winglets</strong> — passive winglets add span but also add structural load and drag in turbulence; active winglets use the ATLAS load-alleviation system to allow 2–3x more span extension without structural penalty</li>
+    <li><strong>The ATLAS system</strong> — active load alleviation via accelerometers, control module, and TACS (Tamarack Active Camber Surface) on each winglet; responds in milliseconds to gusts; certified under FAA STC</li>
+  </ol>
+
+  <div class="callout tip">
+    <strong>💡 Analogy to Memorize</strong>
+    "Think of passive winglets as wearing a heavy backpack to hike farther. ATLAS gives you the same distance with a lighter pack — because it actively manages the weight distribution in real time."
+  </div>
+
+  <h3>Key Numbers to Memorize</h3>
+  <table>
+    <tr><th>Fact</th><th>Number</th></tr>
+    <tr><td>Active vs. passive efficiency</td><td><strong>2–3x more efficient</strong></td></tr>
+    <tr><td>Fuel burn reduction</td><td><strong>13–28%</strong> depending on model</td></tr>
+    <tr><td>Total installations worldwide</td><td><strong>220+</strong></td></tr>
+    <tr><td>Patents</td><td><strong>30+</strong></td></tr>
+  </table>
+
+  <h3>Reference Materials</h3>
+  <div>
+    <a class="file-link" href="Teams_Channel/Active Winglet benefits bullet points.pdf">Active Winglet Benefits Bullet Points</a>
+    <a class="file-link" href="Teams_Channel/Active Winglet turning radius blueprint.pdf">Turning Radius Blueprint</a>
+    <a class="file-link img" href="Teams_Channel/Graphics/Wingtip vortices w and wo winglets.JPG">Wingtip Vortices Comparison</a>
+    <a class="file-link img" href="Teams_Channel/Graphics/Wingtip vortices.JPG">Wingtip Vortices</a>
+    <a class="file-link img" href="Teams_Channel/Graphics/Passive Winglet.JPG">Passive Winglet</a>
+    <a class="file-link img" href="Teams_Channel/Graphics/Captureairflow over a wing.JPG">Airflow Over a Wing</a>
+    <a class="file-link img" href="Teams_Channel/Graphics/Internal diagram.png">Internal Diagram</a>
+    <a class="file-link" href="Teams_Channel/Marketing material for sales/The Tamarack Active Winglet, system and components.pdf">System &amp; Components Overview</a>
+    <a class="file-link" href="Teams_Channel/Marketing material for sales/Tamarack Active Winglet Safety.pdf">Active Winglet Safety</a>
+  </div>
+</div>
+
+<!-- ── PLATFORM DEEP DIVES ── -->
+<div class="section" id="platforms">
+  <div class="week-header">
+    <h2>Platform Deep Dives <span class="phase-tag" style="background:var(--phase1)">Week 1</span></h2>
+  </div>
+  <p><em>Sessions 3–5 — Learn every model's numbers cold. This is the foundation of every sales conversation.</em></p>
+
+  <h3>CJ / CJ1 / CJ1+ (525 Series)</h3>
+  <table>
+    <tr><th>Metric</th><th>Stock CJ</th><th>ATLAS CJ</th><th>Delta</th></tr>
+    <tr><td>MZFW</td><td>8,400 lb</td><td>8,800 lb</td><td><strong>+400 lb</strong></td></tr>
+    <tr><td>Max Payload</td><td>1,730 lb</td><td>2,052 lb</td><td><strong>+322 lb</strong></td></tr>
+    <tr><td>Time to FL410</td><td>60+ min</td><td>≤32 min</td><td><strong>−28 min</strong></td></tr>
+    <tr><td>Block Fuel Burn</td><td>900 pph</td><td>600–650 pph</td><td><strong>−28%</strong></td></tr>
+    <tr><td>Range @ MCT</td><td>1,100 nm / 3 hr</td><td>1,400 nm / 4 hr</td><td><strong>+300 nm</strong></td></tr>
+  </table>
+  <div class="callout tip"><strong>🏆 CJ World Record</strong> 1,853 nm nonstop with 26 kt tailwind — 6 hours, 16 minutes.</div>
+  <div>
+    <a class="file-link" href="Teams_Channel/By model-Sales Documents/CJ/CJ Specs OEM vs ATLAS.pdf">CJ Specs OEM vs ATLAS</a>
+    <a class="file-link" href="Sales and Marketing/One-Pagers/SMARTWING for Citation CJ.md">CJ One-Pager</a>
+    <a class="file-link" href="Sales and Marketing/One-Pagers/SMARTWING for Citation CJ1-CJ1+.md">CJ1/CJ1+ One-Pager</a>
+    <a class="file-link folder" href="Teams_Channel/By model-Sales Documents/CJ/Charts and graphs/">CJ Charts &amp; Graphs</a>
+    <a class="file-link folder" href="Teams_Channel/By model-Sales Documents/CJ/Flight Aware flights-ATLAS equipped/">CJ FlightAware Tracks</a>
+    <a class="file-link folder" href="Teams_Channel/By model-Sales Documents/CJ/Content grab bag/">CJ Content Grab Bag</a>
+  </div>
+
+  <h3>CJ2 / CJ2+ (525A Series)</h3>
+  <table>
+    <tr><th>Metric</th><th>Stock CJ2</th><th>ATLAS CJ2</th><th>Delta</th></tr>
+    <tr><td>MZFW</td><td>9,300 lb</td><td>10,100 lb</td><td><strong>+800 lb</strong></td></tr>
+    <tr><td>Max Payload</td><td>1,490 lb</td><td>2,211 lb</td><td><strong>+721 lb</strong></td></tr>
+    <tr><td>Time to FL450</td><td>40+ min</td><td>≤30 min</td><td><strong>−10 min</strong></td></tr>
+    <tr><td>Block Fuel Burn</td><td>900 pph</td><td>680–700 pph</td><td><strong>−22%</strong></td></tr>
+    <tr><td>Range @ MCT</td><td>1,200 nm / 4.5 hr</td><td>1,650 nm / 5.5 hr</td><td><strong>+450 nm</strong></td></tr>
+  </table>
+  <div class="callout"><strong>💰 Charter Angle</strong> "The CJ2 is already the practical charter aircraft. ATLAS makes it the profitable one." Stock CJ2 at FL400 operates at <strong>16% lower efficiency</strong> than ATLAS at FL450.</div>
+  <div>
+    <a class="file-link" href="Teams_Channel/By model-Sales Documents/CJ2/CJ2 Specs OEM vs ATLAS.pdf">CJ2 Specs OEM vs ATLAS</a>
+    <a class="file-link" href="Sales and Marketing/One-Pagers/SMARTWING for Citation CJ2.md">CJ2 One-Pager</a>
+    <a class="file-link" href="Sales and Marketing/One-Pagers/SMARTWING for Citation CJ2+.md">CJ2+ One-Pager</a>
+    <a class="file-link folder" href="Teams_Channel/By model-Sales Documents/CJ2/Charts and Graphs/">CJ2 Charts &amp; Graphs</a>
+    <a class="file-link folder" href="Teams_Channel/By model-Sales Documents/CJ2/Flight aware flights-Atlas equipped/">CJ2 FlightAware Tracks</a>
+    <a class="file-link" href="Teams_Channel/Marketing material for sales/Customer Send LIbrary/CJ2+ Performance enhancements .pdf">CJ2+ Performance Enhancements</a>
+    <a class="file-link" href="Teams_Channel/Marketing material for sales/CJ2+ vertical performance-Enhancment .pdf">CJ2+ Vertical Performance</a>
+  </div>
+
+  <h3>CJ3 / CJ3+ (525B Series)</h3>
+  <table>
+    <tr><th>Metric</th><th>Stock CJ3</th><th>ATLAS CJ3</th><th>Delta</th></tr>
+    <tr><td>MZFW</td><td>10,510 lb</td><td>10,910 lb</td><td><strong>+400 lb</strong></td></tr>
+    <tr><td>Max Payload</td><td>2,325 lb</td><td>2,645 lb</td><td><strong>+320 lb</strong></td></tr>
+    <tr><td>Time to FL450</td><td>30 min</td><td>≤25 min</td><td><strong>−5 min</strong></td></tr>
+    <tr><td>Block Fuel Burn</td><td>875 pph</td><td>680 pph</td><td><strong>−22%</strong></td></tr>
+    <tr><td>Range @ MCT</td><td>1,650 nm / 5 hr</td><td>1,900 nm / 6 hr</td><td><strong>+250 nm</strong></td></tr>
+  </table>
+  <div class="callout tip"><strong>🌍 Transatlantic Capable</strong> SMARTWING™ CJ3 completed Shannon → Gander. Mosier world trip proved global reliability.</div>
+  <div>
+    <a class="file-link" href="Teams_Channel/By model-Sales Documents/CJ3 & CJ3+/CJ3 Specs OEM vs ATLAS.pdf">CJ3 Specs OEM vs ATLAS</a>
+    <a class="file-link" href="Teams_Channel/By model-Sales Documents/CJ3 & CJ3+/CJ3+ Specs OEM vs ATLAS.pdf">CJ3+ Specs OEM vs ATLAS</a>
+    <a class="file-link" href="Sales and Marketing/One-Pagers/SMARTWING for Citation CJ3-CJ3+.md">CJ3/CJ3+ One-Pager</a>
+    <a class="file-link folder" href="Teams_Channel/By model-Sales Documents/CJ3 & CJ3+/Charts and Graphs/">CJ3 Charts &amp; Graphs</a>
+    <a class="file-link folder" href="Teams_Channel/By model-Sales Documents/CJ3 & CJ3+/525B Flight stories/">CJ3 Flight Stories</a>
+    <a class="file-link folder" href="Teams_Channel/By model-Sales Documents/CJ3 & CJ3+/Flight Aware flight- ATLAS equipped/">CJ3 FlightAware Tracks</a>
+    <a class="file-link xls" href="Aircraft Models/CJ3-CJ3+/CJ3 Cruise Calculator All Mach Numbers New N1 Calc.xlsm">CJ3 Cruise Calculator</a>
+  </div>
+
+  <h3>M2 (525 Series)</h3>
+  <table>
+    <tr><th>Metric</th><th>Stock M2</th><th>ATLAS M2</th><th>Delta</th></tr>
+    <tr><td>MZFW</td><td>8,500 lb</td><td>8,900 lb</td><td><strong>+400 lb</strong></td></tr>
+    <tr><td>Max Payload</td><td>1,500 lb</td><td>1,823 lb</td><td><strong>+323 lb</strong></td></tr>
+    <tr><td>Time to FL410</td><td>30 min</td><td>≤22 min</td><td><strong>−8 min</strong></td></tr>
+    <tr><td>Block Fuel Burn</td><td>790 pph</td><td>690 pph</td><td><strong>−13%</strong></td></tr>
+    <tr><td>Range @ MCT</td><td>1,550 nm / 3.5 hr</td><td>1,700 nm / 4 hr</td><td><strong>+150 nm</strong></td></tr>
+  </table>
+  <div class="callout tip"><strong>🔑 M2 Exclusive</strong> YAW Damper INOP restriction <strong>removed</strong> — a unique selling point for M2 operators.</div>
+  <div>
+    <a class="file-link" href="Teams_Channel/By model-Sales Documents/M2/M2 Specs OEM vs ATLAS.pdf">M2 Specs OEM vs ATLAS</a>
+    <a class="file-link" href="Sales and Marketing/One-Pagers/SMARTWING for Citation M2.md">M2 One-Pager</a>
+    <a class="file-link" href="Teams_Channel/Marketing material for sales/Customer Send LIbrary/M2 Performance Enhancement Final.pdf">M2 Performance Enhancement</a>
+    <a class="file-link" href="Teams_Channel/Marketing material for sales/Customer Send LIbrary/M2 GEN2 Performance Enhancement.pdf">M2 GEN2 Performance Enhancement</a>
+    <a class="file-link folder" href="Teams_Channel/By model-Sales Documents/M2/Charts and graphs/">M2 Charts &amp; Graphs</a>
+    <a class="file-link folder" href="Teams_Channel/By model-Sales Documents/M2/FlightAware logs/">M2 FlightAware Tracks</a>
+  </div>
+
+  <h3>525 Series Differences</h3>
+  <div>
+    <a class="file-link xls" href="Teams_Channel/Differences Cessna 525 Series.xls">Differences Cessna 525 Series</a>
+    <a class="file-link img" href="Teams_Channel/ATLAS Payload weights.JPG">ATLAS Payload Weights</a>
+    <a class="file-link img" href="Teams_Channel/Winglet Pictures/Winglet wingspan all models picture.png">Wingspan All Models</a>
+  </div>
+</div>
+
+<!-- ── GEN2 ── -->
+<div class="section" id="gen2">
+  <h2>GEN2 Models <span class="phase-tag" style="background:var(--phase1)">Week 1</span></h2>
+  <p>SMARTWING™ is certified for the latest-generation M2 GEN2, CJ3 GEN2, and CJ3+ GEN2. Same proven performance gains, newest aircraft.</p>
+
+  <div class="callout">
+    <strong>Objection: "It's a brand-new aircraft, why modify it?"</strong>
+    "You've invested in the newest, most capable version. SMARTWING™ is the one modification that makes it perform beyond its design specs — and Vref gives you 100% of the investment back in resale value. You're not modifying it; you're completing it."
+  </div>
+
+  <div>
+    <a class="file-link" href="Aircraft Models/GEN2 Sales Guide.md">GEN2 Sales Guide (Full)</a>
+    <a class="file-link img" href="Teams_Channel/Winglet Pictures/Tamarack M2 GEN2 2x2 picture.png">M2 GEN2 Photo</a>
+  </div>
+</div>
+
+<!-- ── KING AIR ── -->
+<div class="section" id="kingair">
+  <h2>King Air Market — Performance SMARTWING™ <span class="phase-tag" style="background:var(--phase1)">Week 1</span></h2>
+  <p>A new market: turboprop fleet operators, charter, medevac, military, ISR. Different from Citation sales — mission-driven buyers, fleet economics, procurement cycles.</p>
+
+  <table>
+    <tr><th>Factor</th><th>Citation Market</th><th>King Air Market</th></tr>
+    <tr><td>Buyer type</td><td>Owner-pilot / personal</td><td>Operator / fleet manager</td></tr>
+    <tr><td>Decision driver</td><td>Personal ROI / lifestyle</td><td>Mission capability / economics</td></tr>
+    <tr><td>Quantity</td><td>Single aircraft</td><td>Fleet potential (5–50)</td></tr>
+    <tr><td>Cycle length</td><td>2–6 months</td><td>6–18 months</td></tr>
+    <tr><td>Key metric</td><td>Fuel savings + Vref</td><td>Revenue per flight hour + dispatch rate</td></tr>
+  </table>
+
+  <div class="callout tip">
+    <strong>🚑 Special Mission Angle</strong>
+    For medevac operators: "SMARTWING™ means you can accept patient transfers at greater distances without refueling. That's not an economic argument — it's a patient outcome argument."
+  </div>
+
+  <div>
+    <a class="file-link" href="Aircraft Models/King Air Sales Introduction Guide.md">King Air Sales Introduction Guide</a>
+    <a class="file-link img" href="Teams_Channel/Winglet Pictures/King Air 350 picture.png">King Air 350 Photo</a>
+  </div>
+</div>
+
+<!-- ── SPIN SELLING ── -->
+<div class="section" id="spin">
+  <div class="week-header">
+    <h2>SPIN Selling Framework <span class="phase-tag" style="background:var(--phase1)">Week 2</span></h2>
+  </div>
+  <p><em>Session 6 — Instructor-led, 120 minutes. All ATLAS sales conversations use this methodology.</em></p>
+
+  <div class="card-grid">
+    <div class="card">
+      <h4>S — Situation</h4>
+      <p>Establish the prospect's current aircraft, usage, mission profile</p>
+      <ul>
+        <li>"What model are you flying?"</li>
+        <li>"How many hours per year?"</li>
+        <li>"What's your typical mission — distance, passenger count?"</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>P — Problem</h4>
+      <p>Surface pain points the prospect may not have articulated</p>
+      <ul>
+        <li>"Have you ever had to make a fuel stop you didn't want to?"</li>
+        <li>"Do you find the aircraft limiting at high-altitude airports?"</li>
+        <li>"What does your fuel bill look like annually?"</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>I — Implication</h4>
+      <p>Deepen the pain, make the cost of inaction tangible</p>
+      <ul>
+        <li>"What does that extra fuel stop cost you — in time, in fuel, in wear?"</li>
+        <li>"How does that limit where you can take the aircraft?"</li>
+        <li>"What's the opportunity cost when you can't make a nonstop trip?"</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>N — Need-Payoff</h4>
+      <p>Let the prospect articulate the value of the solution</p>
+      <ul>
+        <li>"If you could eliminate that fuel stop, what would that mean for your schedule?"</li>
+        <li>"What would an extra 300 nm of range open up for you?"</li>
+        <li>"If the winglets paid for themselves in under two years, would that change the conversation?"</li>
+      </ul>
+    </div>
+  </div>
+
+  <div>
+    <a class="file-link folder" href="Sales and Marketing/Sales Kits/">Sales Kits (by owner type)</a>
+  </div>
+</div>
+
+<!-- ── PERSONAS ── -->
+<div class="section" id="personas">
+  <h2>Buyer Personas <span class="phase-tag" style="background:var(--phase1)">Week 2</span></h2>
+  <p><em>Session 7 — Know your persona within the first 2 minutes of the call. It determines everything else.</em></p>
+
+  <div class="card-grid">
+    <div class="card" style="border-top:3px solid #2563eb">
+      <h4>The Go-Getter</h4>
+      <p>Self-made, 45–65, time is money. Competitive edge, status.</p>
+      <p><strong>Lead with:</strong> Range/speed gains and business case. Be prepared and direct — don't waste their time.</p>
+    </div>
+    <div class="card" style="border-top:3px solid #9333ea">
+      <h4>The Collector</h4>
+      <p>Affluent, multiple aircraft, values craftsmanship &amp; exclusivity.</p>
+      <p><strong>Lead with:</strong> Vref valuation, aesthetics, engineering pedigree. They buy the best — position ATLAS as the best.</p>
+    </div>
+    <div class="card" style="border-top:3px solid #059669">
+      <h4>The Old Pro</h4>
+      <p>Career aviator, 55+, thousands of hours. Respects experience &amp; safety.</p>
+      <p><strong>Lead with:</strong> Technical depth, test data, pilot testimonials. Don't oversell — let the data speak.</p>
+    </div>
+    <div class="card" style="border-top:3px solid #dc2626">
+      <h4>The Skeptic</h4>
+      <p>Analytical, research-driven. Control, certainty, risk mitigation.</p>
+      <p><strong>Lead with:</strong> STC documentation, AD transparency, demo flight. Proactively address history — never dodge questions.</p>
+    </div>
+  </div>
+
+  <div>
+    <a class="file-link folder" href="Sales and Marketing/Personas/">Persona Detail Sheets</a>
+    <a class="file-link" href="Teams_Channel/Sales Commitments 2026/TAG Customer Profiles.pdf">Customer Profiles</a>
+  </div>
+</div>
+
+<!-- ── ROI ── -->
+<div class="section" id="roi">
+  <h2>ROI — Building the Business Case <span class="phase-tag" style="background:var(--phase1)">Week 2</span></h2>
+  <p><em>Session 8 — The three-step ROI framework every prospect gets.</em></p>
+
+  <div class="card-grid">
+    <div class="card" style="border-left:4px solid var(--accent)">
+      <h4>Step 1: Vref Hard Asset Value</h4>
+      <p>Vref assigns <strong>100% ROI at installation, 90% at year 2</strong>. "This is the only mod I know of where you get your money back before you even fly it."</p>
+    </div>
+    <div class="card" style="border-left:4px solid var(--phase2)">
+      <h4>Step 2: Soft Value Assessment</h4>
+      <p>Rate 8 categories 1–5: Buying habits, Aesthetics, Safety, Comfort, Dispatch, Environmental, Range, Payload. Typical combined soft value: <strong>20–30% above install price</strong>.</p>
+    </div>
+    <div class="card" style="border-left:4px solid var(--green)">
+      <h4>Step 3: Fuel Savings</h4>
+      <p><strong>Example — CJ2 at 300 hrs/yr:</strong><br/>
+        Stock: 900 pph × 300 hr = 270,000 lbs<br/>
+        ATLAS: 690 pph × 300 hr = 207,000 lbs<br/>
+        Savings: 63,000 lbs × $5.50/gal ÷ 6.7 lbs/gal = <strong>~$51,800/year</strong><br/>
+        Payback: <strong>under 4 years from fuel alone</strong></p>
+    </div>
+  </div>
+
+  <div>
+    <a class="file-link folder" href="Sales and Marketing/ROI/">ROI Guides</a>
+  </div>
+</div>
+
+<!-- ── STORIES ── -->
+<div class="section" id="stories">
+  <h2>Customer Stories &amp; Testimonials <span class="phase-tag" style="background:var(--phase1)">Week 2</span></h2>
+  <p><em>Session 9 — "Stories sell. Data supports. Lead with a story that matches the prospect's mission, then back it up with the numbers."</em></p>
+
+  <h4>Key Stories to Know</h4>
+  <ul>
+    <li><strong>CJ World Record:</strong> 1,853 nm nonstop — 6 hr 16 min with 26 kt tailwind</li>
+    <li><strong>CJ3 Shannon → Gander:</strong> Transatlantic crossing — stock CJ3 can't do it</li>
+    <li><strong>Mosier World Trip:</strong> CJ3 around the world — global reliability proven</li>
+    <li><strong>Air Charter Scotland:</strong> Part 135 commercial ops on CJ1 — daily reliability</li>
+    <li><strong>Drew Forhan (200th install):</strong> CJ2+ — became Tamarack's most visible advocate</li>
+    <li><strong>CJ2 OY-NDP:</strong> 1,471 nm nonstop — verified FlightAware</li>
+  </ul>
+
+  <div class="callout tip"><strong>📖 Build Your Story Bank</strong> Select 2 stories per model that resonate with you. Practice telling each in under 90 seconds.</div>
+
+  <div>
+    <a class="file-link folder" href="Teams_Channel/By model-Sales Documents/CJ3 & CJ3+/525B Flight stories/">CJ3 Flight Stories Folder</a>
+    <a class="file-link" href="Teams_Channel/Proper Demo Flight.docx">Proper Demo Flight Guide</a>
+    <a class="file-link" href="Teams_Channel/Tips and Tricks E-book.pdf">Tips and Tricks E-book</a>
+  </div>
+</div>
+
+<!-- ── HARD CONVERSATIONS ── -->
+<div class="section" id="hard-conversations">
+  <h2>Hard Conversations — AD History &amp; Chapter 11 <span class="phase-tag" style="background:var(--phase1)">Week 2</span></h2>
+  <p><em>Session 10 — CRITICAL SESSION. This separates good reps from great ones.</em></p>
+
+  <div class="callout warn">
+    <strong>⚠️ Every serious prospect will ask about these. You must be prepared.</strong>
+  </div>
+
+  <h3>The Airworthiness Directive (AD)</h3>
+  <ol>
+    <li><strong>What happened:</strong> Factual, concise timeline</li>
+    <li><strong>What was done:</strong> Engineering response, testing, resolution</li>
+    <li><strong>Current status:</strong> Full compliance, no outstanding issues</li>
+    <li><strong>Key message:</strong> "The AD process is exactly how aviation safety is supposed to work. A concern was identified, it was addressed with engineering rigor, and the aircraft returned to service safer than before."</li>
+  </ol>
+
+  <h3>Chapter 11 / Company History</h3>
+  <p>Be transparent — don't dodge it. Frame: "The company reorganized, retained its engineering team, and emerged with the same product and stronger support infrastructure."</p>
+
+  <h3>Common Objection Responses</h3>
+  <table>
+    <tr><th>They Say</th><th>You Say</th></tr>
+    <tr><td>"I heard they were grounded"</td><td>Acknowledge → Explain resolution → Pivot to current fleet performance data (220+ installs)</td></tr>
+    <tr><td>"Is the company stable?"</td><td>220+ installs → 6 international centers → 30+ patents → Active development on new platforms</td></tr>
+    <tr><td>"My mechanic says no"</td><td>"Let's connect your mechanic with our engineering team directly."</td></tr>
+  </table>
+
+  <div>
+    <a class="file-link folder" href="Sales and Marketing/AD/">AD Talking Points &amp; Documentation</a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--              PHASE 2 — EXECUTION               -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<!-- ── COLD CALLING ── -->
+<div class="section" id="cold-call">
+  <div class="week-header">
+    <h2>Anatomy of the Cold Call <span class="phase-tag" style="background:var(--phase2)">Week 3</span></h2>
+  </div>
+  <p><em>Session 11 — Break down the call into a repeatable structure.</em></p>
+
+  <h3>Call Structure</h3>
+  <ol>
+    <li><strong>Opening (10 sec)</strong> — Name, company, one-sentence hook:<br/>
+      <em>"Hi [Name], this is [Rep] with Tamarack Aerospace. We make the ATLAS Active Winglets for the [model] — I wanted to share some performance data that's relevant to your aircraft."</em></li>
+    <li><strong>Permission (5 sec)</strong> — "Do you have 2 minutes, or is there a better time?"</li>
+    <li><strong>SPIN sequence (2–3 min)</strong> — Situation → Problem → Implication → Need-Payoff</li>
+    <li><strong>Bridge to next step (30 sec)</strong> — Close on the meeting, not on the phone:<br/>
+      <em>"I'd love to send you the spec comparison for your specific model and set up a 15-minute call to walk through it."</em></li>
+  </ol>
+
+  <h3>Voicemail Protocol (30 seconds max)</h3>
+  <p><em>"Hi [Name], [Rep] with Tamarack. I have some range and fuel data specific to your [model] that I think you'd find interesting. My number is [xxx]. Again, this is [Rep] with Tamarack."</em></p>
+</div>
+
+<!-- ── PROSPECTING ── -->
+<div class="section" id="prospecting">
+  <h2>Regional &amp; Owner-Type Prospecting <span class="phase-tag" style="background:var(--phase2)">Week 3</span></h2>
+  <p><em>Session 12 — Two distinct prospect types require different approaches.</em></p>
+
+  <div class="card-grid">
+    <div class="card">
+      <h4>New Owner (&lt; 2 years)</h4>
+      <p>"You just made a significant investment. ATLAS protects and enhances that investment — Vref assigns 100% value from day one."</p>
+      <p><strong>Timing:</strong> Reach them within first 6 months of ownership.</p>
+    </div>
+    <div class="card">
+      <h4>Long-Term Owner (5+ years)</h4>
+      <p>"You know this aircraft better than anyone. You've felt the limitations. ATLAS addresses every one of those."</p>
+      <p><strong>Counter "I've flown this long without winglets":</strong> "The best time to install was 5 years ago. The second best time is now."</p>
+    </div>
+  </div>
+
+  <div>
+    <a class="file-link folder" href="Sales and Marketing/Sales Kits/">Sales Kits (by owner type)</a>
+    <a class="file-link folder" href="Teams_Channel/Leads/">Lead Lists &amp; Territories</a>
+    <a class="file-link" href="Teams_Channel/Sales Commitments 2026/TAG SOP- Lead Qualified Lead Follow-Up for Tamarack Active Winglets .pdf">Lead Follow-Up SOP</a>
+    <a class="file-link" href="Teams_Channel/Tamarack_FleetDataForm_V1.pdf">Fleet Data Collection Form</a>
+  </div>
+</div>
+
+<!-- ── OBJECTION HANDLING ── -->
+<div class="section" id="objections">
+  <h2>Objection Handling Masterclass <span class="phase-tag" style="background:var(--phase2)">Week 3</span></h2>
+  <p><em>Session 13 — The 13 standard objections and how to handle each. 15-second rapid-fire drill.</em></p>
+
+  <table>
+    <tr><th>#</th><th>Objection</th><th>Response Framework</th></tr>
+    <tr><td>1</td><td>"Too expensive"</td><td>ROI framework — Vref + fuel savings = payback in 1–2 years</td></tr>
+    <tr><td>2</td><td>"I don't fly enough"</td><td>Even at 100 hrs/yr, Vref alone justifies it. Plus safety gains aren't usage-dependent</td></tr>
+    <tr><td>3</td><td>"I'm selling the aircraft"</td><td>ATLAS increases resale value — Vref data proves it</td></tr>
+    <tr><td>4</td><td>"My mechanic doesn't like it"</td><td>Offer direct conversation with Tamarack engineering. Share pilot testimonials</td></tr>
+    <tr><td>5</td><td>"I heard about the AD"</td><td>Session 10 framework — acknowledge, explain, pivot to current performance</td></tr>
+    <tr><td>6</td><td>"I need to think about it"</td><td>"Absolutely. What specific questions can I answer to help?"</td></tr>
+    <tr><td>7</td><td>"Send me information"</td><td>"What's the one thing you'd most want to see — performance, ROI, or pilot feedback?"</td></tr>
+    <tr><td>8</td><td>"I already looked into it"</td><td>"When was that? A lot has changed."</td></tr>
+    <tr><td>9</td><td>"Company stability?"</td><td>Transparent — reorganized, engineering intact, growing fleet</td></tr>
+    <tr><td>10</td><td>"I'll wait for next model"</td><td>"The mod is available now. Waiting costs fuel every flight"</td></tr>
+    <tr><td>11</td><td>"My aircraft isn't worth it"</td><td>"Vref disagrees — measurable value. Performance transforms mission capability"</td></tr>
+    <tr><td>12</td><td>"I fly short legs"</td><td>"Fuel savings, climb, and payload apply to every flight, short or long"</td></tr>
+    <tr><td>13</td><td>"Let me talk to my partner"</td><td>"Would a one-page summary help? What would they need?"</td></tr>
+  </table>
+</div>
+
+<!-- ── FOLLOW-UP ── -->
+<div class="section" id="followup">
+  <h2>60-Day Follow-Up Sequence <span class="phase-tag" style="background:var(--phase2)">Week 3</span></h2>
+  <p><em>Most deals aren't lost to "no" — they're lost to silence. This cadence keeps the conversation alive.</em></p>
+
+  <table>
+    <tr><th>Day</th><th>Action</th><th>Content</th><th>Channel</th></tr>
+    <tr><td>0</td><td>First contact</td><td>Cold call / intro</td><td>Phone</td></tr>
+    <tr><td>0</td><td>Post-call follow-up</td><td>Personalized email + model one-pager</td><td>Email</td></tr>
+    <tr><td>3</td><td>Value touch #1</td><td>FlightAware screenshot or customer story</td><td>Email</td></tr>
+    <tr><td>7</td><td>Second call</td><td>Reference email content, advance conversation</td><td>Phone</td></tr>
+    <tr><td>14</td><td>Value touch #2</td><td>ROI calculation or ForeFlight angle</td><td>Email</td></tr>
+    <tr><td>21</td><td>Third call</td><td>New angle based on persona</td><td>Phone</td></tr>
+    <tr><td>30</td><td>Value touch #3</td><td>Sustainability, ActiveCare, or new testimonial</td><td>Email</td></tr>
+    <tr><td>45</td><td>Re-engagement</td><td>New content or event invitation</td><td>Email</td></tr>
+    <tr><td>60</td><td>Final active attempt</td><td>Direct ask — schedule or pause</td><td>Phone</td></tr>
+    <tr><td>90+</td><td>Nurture</td><td>Quarterly check-in</td><td>Email</td></tr>
+  </table>
+
+  <div class="callout warn">
+    <strong>⚠️ Rules of the Sequence</strong>
+    <ul style="margin-top:6px">
+      <li>Never send a spec sheet without a scheduled follow-up</li>
+      <li>Log everything in CRM — every call, every email, every objection</li>
+      <li>Personalize every touch — their name, model, airports, mission</li>
+      <li>Match content to persona</li>
+      <li>The best follow-up is a referral from a current customer</li>
+    </ul>
+  </div>
+
+  <div>
+    <a class="file-link" href="Sales and Marketing/Sales Tools/Follow-Up Sequence.md">Full Follow-Up Sequence (with email templates)</a>
+  </div>
+</div>
+
+<!-- ── COMPETITIVE ── -->
+<div class="section" id="competitive">
+  <h2>Competitive Positioning <span class="phase-tag" style="background:var(--phase2)">Week 3</span></h2>
+  <p><em>Every prospect is considering alternatives — whether they tell you or not.</em></p>
+
+  <table>
+    <tr><th>Alternative</th><th>Their Objection</th><th>Your Counter</th></tr>
+    <tr><td><strong>Do Nothing</strong></td><td>"I've been flying fine without winglets"</td><td>"Doing nothing costs $[X]/yr in fuel and your aircraft is worth less without it"</td></tr>
+    <tr><td><strong>Trade Up</strong></td><td>"I'm thinking about a bigger plane"</td><td>"$199K mod vs. $2M+ upgrade. Same performance. 10 days, not 10 months"</td></tr>
+    <tr><td><strong>Passive Winglets</strong></td><td>"What about other winglets?"</td><td>"Active winglets are 2–3x more efficient — no weight penalty, active load alleviation"</td></tr>
+    <tr><td><strong>Avionics/Interior</strong></td><td>"Budget is going to avionics"</td><td>"SMARTWING™ is the only mod that pays for itself. Do it first; use fuel savings for avionics"</td></tr>
+    <tr><td><strong>Wait for Future Tech</strong></td><td>"I'll wait for electric/SAF"</td><td>"Those are years away and require a new aircraft. SMARTWING™ works today"</td></tr>
+    <tr><td><strong>Buy Pre-Equipped</strong></td><td>"I'll buy one that already has them"</td><td>"Install now, fly upgraded while you search, sell for more"</td></tr>
+  </table>
+
+  <div>
+    <a class="file-link" href="Sales and Marketing/Sales Tools/Competitive Positioning Guide.md">Full Competitive Positioning Guide</a>
+  </div>
+</div>
+
+<!-- ── CRM ── -->
+<div class="section" id="crm">
+  <h2>CRM &amp; Pipeline Management <span class="phase-tag" style="background:var(--phase2)">Week 3</span></h2>
+  <p><em>Session 14 — Lead stages, follow-up cadence, and data discipline.</em></p>
+
+  <h3>Pipeline Stages</h3>
+  <p><strong>Cold → Contacted → Qualified → Proposal → Demo Flight → Close</strong></p>
+
+  <h3>Salesforce Training Resources</h3>
+  <div>
+    <a class="file-link" href="Teams_Channel/Salesforce/Salesforce Data Entry.docx">Salesforce Data Entry Guide</a>
+    <a class="file-link" href="Teams_Channel/Salesforce/Training Schedule.docx">Salesforce Training Schedule</a>
+    <a class="file-link" href="Teams_Channel/Salesforce/Customization Guide - JETNET for Salesforce V1.6.0.pdf">JETNET for Salesforce Guide</a>
+    <a class="file-link" href="Teams_Channel/JETNET/JETNET amendment Order Q-07005-1; add Josh Mack; 20240813.pdf">JETNET Amendment Order</a>
+  </div>
+
+  <h3>Sales Planning</h3>
+  <div>
+    <a class="file-link" href="Teams_Channel/Sales Commitments 2026/Sales Plan_2026 Overview.docx">2026 Sales Plan Overview</a>
+    <a class="file-link xls" href="Teams_Channel/Sales Commitments 2026/Sales Commitments 2026.xlsx">Sales Commitments 2026</a>
+    <a class="file-link xls" href="Teams_Channel/Sales Commitments 2026/Spread Sheet Template.xlsx">Tracking Spreadsheet Template</a>
+    <a class="file-link xls" href="Teams_Channel/_sales_summary.xlsx">Sales Summary</a>
+  </div>
+</div>
+
+<!-- ── DEMO FLIGHTS ── -->
+<div class="section" id="demo-flight">
+  <h2>Demo Flights &amp; Proposals <span class="phase-tag" style="background:var(--phase2)">Week 4</span></h2>
+  <p><em>Sessions 16–17 — The demo flight is the most powerful tool in the sales process.</em></p>
+
+  <h3>Demo Flight Structure</h3>
+  <div class="card-grid">
+    <div class="card">
+      <h4>Pre-Flight</h4>
+      <ul>
+        <li>Confirm prospect's typical mission</li>
+        <li>Plan route demonstrating key advantages</li>
+        <li>Brief demo pilot on persona &amp; hot buttons</li>
+        <li>Have printed spec sheet &amp; ROI ready</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>During Flight</h4>
+      <ul>
+        <li>Let the prospect fly if rated</li>
+        <li>Point out: climb rate, fuel flow, ride quality</li>
+        <li>Don't oversell — let the aircraft speak</li>
+        <li>Note reactions for post-flight debrief</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Post-Flight Debrief</h4>
+      <ul>
+        <li>"What stood out to you?"</li>
+        <li>"How does that compare to what you're used to?"</li>
+        <li>Bridge to proposal with specific numbers</li>
+      </ul>
+    </div>
+  </div>
+
+  <div>
+    <a class="file-link" href="Teams_Channel/Proper Demo Flight.docx">Proper Demo Flight Guide (with tips &amp; tricks)</a>
+    <a class="file-link" href="Teams_Channel/Flight log sheet.pdf">Flight Log Sheet</a>
+  </div>
+</div>
+
+<!-- ── CLOSING ── -->
+<div class="section" id="closing">
+  <h2>Closing Techniques <span class="phase-tag" style="background:var(--phase2)">Week 4</span></h2>
+  <p><em>Session 18 — Closing isn't a trick — it's the natural conclusion of a well-run process.</em></p>
+
+  <div class="card-grid">
+    <div class="card">
+      <h4>The Summary Close</h4>
+      <p>Restate their pain, your solution, and the ROI. "Based on everything we've discussed — the fuel savings, the range improvement, the resale value — does it make sense to schedule the installation?"</p>
+    </div>
+    <div class="card">
+      <h4>The Assumptive Close</h4>
+      <p>When buying signals are strong. "Let's look at the installation calendar. What quarter works best for your schedule?"</p>
+    </div>
+    <div class="card">
+      <h4>The Puppy Dog Close</h4>
+      <p>For hesitant prospects. "Why don't we schedule a demo flight so you can feel the difference yourself? No commitment, just data."</p>
+    </div>
+    <div class="card">
+      <h4>The Takeaway</h4>
+      <p>For stalled deals. "In the meantime, you'll fly about [X] hours and burn about [Y] more gallons than you would with ATLAS. Just something to think about."</p>
+    </div>
+  </div>
+
+  <h3>PSA &amp; Contract Forms</h3>
+  <div>
+    <a class="file-link folder" href="Teams_Channel/PSA forms/">Purchase &amp; Sale Agreement Forms</a>
+    <a class="file-link" href="Teams_Channel/Pre-pay Incentives[80].docx">Pre-Pay Incentives</a>
+    <a class="file-link" href="Teams_Channel/Marketing material for sales/Financing options for Tamarack Active Winglets.docx">Financing Options</a>
+    <a class="file-link" href="Teams_Channel/Pricing/2026 PRICING.pdf">2026 Pricing</a>
+  </div>
+</div>
+
+<!-- ── POST-SALE ── -->
+<div class="section" id="post-sale">
+  <h2>Post-Sale &amp; Referrals <span class="phase-tag" style="background:var(--phase2)">Week 4</span></h2>
+  <p><em>Session 19 — Check-in cadence: 1 week, 1 month, 3 months, 6 months post-install.</em></p>
+
+  <ul>
+    <li>Collect testimonials and FlightAware screenshots from satisfied customers</li>
+    <li><strong>Referral ask:</strong> "Who else in your hangar / flying club / ownership group should know about this?"</li>
+    <li>Turn customers into advocates</li>
+  </ul>
+
+  <h3>Customer Delivery &amp; Care</h3>
+  <div>
+    <a class="file-link" href="Teams_Channel/Customer Experience and Delivery Forms/Customer Stewardship Letter-follow up.pdf">Customer Stewardship Letter</a>
+    <a class="file-link" href="Teams_Channel/Customer Experience and Delivery Forms/PSA to completion checklist-Tamarack Customer Care.docx">PSA to Completion Checklist</a>
+    <a class="file-link" href="Teams_Channel/Customer Experience and Delivery Forms/What to expect-Aiken SC Tamarack Transformation Process.pdf">What to Expect — Aiken SC</a>
+    <a class="file-link" href="Teams_Channel/Customer Experience and Delivery Forms/What to expect-Sandpoint ID Tamarack Transformation Proces.pdf">What to Expect — Sandpoint ID</a>
+    <a class="file-link folder" href="Teams_Channel/Customer Experience and Delivery Forms/Delivery Checklist/">Delivery Checklists</a>
+    <a class="file-link folder" href="Teams_Channel/Customer Experience and Delivery Forms/AFMS, STC, warranty, parts log, maintenance log/">AFMS, STC, Warranty &amp; Maintenance Docs</a>
+    <a class="file-link folder" href="Teams_Channel/Customer Experience and Delivery Forms/ATLAS Laminated Checklist/">ATLAS Laminated Checklist</a>
+  </div>
+
+  <h3>Transformation Slot Scheduling</h3>
+  <div>
+    <a class="file-link xls" href="Teams_Channel/Transformation Slot Status (current and projected).xlsb">Transformation Slot Status</a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--              PHASE 3 — MASTERY                 -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<div class="section" id="live-calling">
+  <div class="week-header">
+    <h2>Supervised Live Calling <span class="phase-tag" style="background:var(--phase3)">Week 5</span></h2>
+  </div>
+  <p><em>Sessions 21–25 — Shadow, co-pilot, then solo with debrief.</em></p>
+
+  <table>
+    <tr><th>Day</th><th>Activity</th></tr>
+    <tr><td>1</td><td>Shadow a senior rep on live calls (listen only)</td></tr>
+    <tr><td>2</td><td>Co-pilot — take the lead with senior rep coaching in real time</td></tr>
+    <tr><td>3–4</td><td>Solo calls with post-call debrief after each</td></tr>
+    <tr><td>5</td><td>One-on-one mid-course correction with manager — review call recordings, identify top 3 strengths &amp; areas for improvement</td></tr>
+  </table>
+
+  <h3>Daily Debrief Questions</h3>
+  <ul>
+    <li>What went well?</li>
+    <li>What objection caught you off guard?</li>
+    <li>What would you do differently?</li>
+    <li>Did you update CRM with all activity?</li>
+  </ul>
+</div>
+
+<div class="section" id="advanced">
+  <h2>Advanced Topics <span class="phase-tag" style="background:var(--phase3)">Week 6</span></h2>
+  <p><em>Session 29 — Competitive landscape, MROs, trade shows, social media, performance planning guides.</em></p>
+  <ul>
+    <li>Competitive landscape — what other mods exist, how ATLAS compares</li>
+    <li>Working with maintenance facilities and MROs</li>
+    <li>Trade show and event selling (see <a href="#cjp">CJP materials</a> below)</li>
+    <li>Social media and digital lead generation basics</li>
+    <li>Reading and using performance planning guides and cruise charts with prospects</li>
+  </ul>
+
+  <h4 id="cjp">CJP Convention Materials</h4>
+  <div>
+    <a class="file-link" href="Teams_Channel/CJP/2023 Tamarack Aerospace CJP Convention After Action Notes and Takeaways.docx">CJP Convention After-Action Notes</a>
+    <a class="file-link xls" href="Teams_Channel/CJP/2023 CJP Booth Notes.xlsx">CJP Booth Notes</a>
+    <a class="file-link xls" href="Teams_Channel/CJP/2024 CJP Deer Valley RAIL.xlsx">2024 CJP Deer Valley RAIL</a>
+    <a class="file-link video" href="Teams_Channel/CJP/Sales Deck Video.mp4">Sales Deck Video</a>
+  </div>
+</div>
+
+<div class="section" id="certification">
+  <h2>Certification &amp; Graduation <span class="phase-tag" style="background:var(--phase3)">Week 6</span></h2>
+  <p><em>Session 30 — Written exam + oral board. Pass to become a Certified ATLAS Sales Professional.</em></p>
+
+  <h3>Written Exam (60 minutes)</h3>
+  <ul>
+    <li>Platform specifications (all models)</li>
+    <li>ROI calculation</li>
+    <li>SPIN methodology</li>
+    <li>Objection handling (scenario-based)</li>
+    <li>AD/company history talking points</li>
+  </ul>
+
+  <h3>Oral Board (30 minutes)</h3>
+  <ul>
+    <li>Panel of senior reps and manager</li>
+    <li>Random prospect scenario — must demonstrate product knowledge, persona ID, SPIN execution, objection handling, close attempt</li>
+  </ul>
+
+  <h3>Passing Criteria</h3>
+  <p><strong>85%</strong> on written exam + <strong>"Competent"</strong> rating on oral board = Certified ATLAS Sales Professional — cleared for independent territory assignment.</p>
+
+  <h3>Weekly Evaluation Rubric (1–5 scale)</h3>
+  <table>
+    <tr><th>Competency</th><th>Wk 1</th><th>Wk 2</th><th>Wk 3</th><th>Wk 4</th><th>Wk 5</th><th>Wk 6</th></tr>
+    <tr><td>Product Knowledge</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>SPIN Execution</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>Objection Handling</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>Persona Adaptation</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>Call Structure &amp; Pacing</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>ROI Articulation</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>CRM Discipline</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>Closing Confidence</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </table>
+  <p>Target: All competencies at <strong>4+</strong> by end of Week 6.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!--              REFERENCE SECTION                 -->
+<!-- ═══════════════════════════════════════════════ -->
+
+<div class="section" id="cheat-sheet">
+  <h2>Daily Reference — Cheat Sheet</h2>
+  <p>Print this. Tape it to your monitor. Know it cold.</p>
+
+  <h3>The 5 Numbers Per Model</h3>
+  <table>
+    <tr><th>Model</th><th>Fuel Savings</th><th>Range Gain</th><th>Payload Gain</th><th>Climb</th><th>Vref</th></tr>
+    <tr><td><strong>CJ</strong></td><td>28%</td><td>+300 nm</td><td>+322 lb</td><td>FL410 in 32 min (was 60+)</td><td>100%</td></tr>
+    <tr><td><strong>CJ1/CJ1+</strong></td><td>16–22%</td><td>+300 nm</td><td>+322 lb</td><td>+400 lb MZFW</td><td>100%</td></tr>
+    <tr><td><strong>CJ2</strong></td><td>22%</td><td>+450 nm</td><td>+721 lb</td><td>FL450 in 30 min (was 40+)</td><td>100%</td></tr>
+    <tr><td><strong>CJ2+</strong></td><td>22%</td><td>+450 nm</td><td>+725 lb</td><td>FL450 in 30 min</td><td>100%</td></tr>
+    <tr><td><strong>CJ3/CJ3+</strong></td><td>22%</td><td>+250 nm</td><td>+320 lb</td><td>FL450 in 25 min (was 30)</td><td>100%</td></tr>
+    <tr><td><strong>M2</strong></td><td>13%</td><td>+150 nm</td><td>+323 lb</td><td>FL410 in 22 min (was 30)</td><td>100%</td></tr>
+  </table>
+
+  <h3>SPIN Cheat Sheet</h3>
+  <p>
+    <strong>S</strong>ituation → What do you fly? How much? Where?<br/>
+    <strong>P</strong>roblem → What limits you? Fuel stops? Hot/high? Payload?<br/>
+    <strong>I</strong>mplication → What does that cost you? Time? Money? Missions?<br/>
+    <strong>N</strong>eed-Payoff → What would solving that be worth?
+  </p>
+
+  <h3>The 3-Part ROI</h3>
+  <ol>
+    <li><strong>Vref</strong> — 100% value at install (you get your money back in resale)</li>
+    <li><strong>Soft value</strong> — Safety, comfort, range, payload, aesthetics</li>
+    <li><strong>Fuel savings</strong> — Real-world data, calculate for their specific usage</li>
+  </ol>
+</div>
+
+<!-- ── TOOLS & ONE-PAGERS ── -->
+<div class="section" id="tools">
+  <h2>Sales Tools &amp; One-Pagers</h2>
+  <p>Single-page leave-behinds with key numbers, proof, and a call-to-action. Lead with the one-pager — use the rest as needed.</p>
+
+  <h3>Model One-Pagers</h3>
+  <div class="card-grid">
+    <div class="card">
+      <h4>Citation CJ</h4>
+      <p>28% fuel savings, +300 nm range, +322 lb payload</p>
+      <div class="links"><a href="Sales and Marketing/One-Pagers/SMARTWING for Citation CJ.md">One-Pager</a></div>
+    </div>
+    <div class="card">
+      <h4>Citation CJ1 / CJ1+</h4>
+      <p>16–22% fuel savings, +300 nm range, +400 lb MZFW</p>
+      <div class="links"><a href="Sales and Marketing/One-Pagers/SMARTWING for Citation CJ1-CJ1+.md">One-Pager</a></div>
+    </div>
+    <div class="card">
+      <h4>Citation CJ2</h4>
+      <p>22% fuel savings, +450 nm range, +721 lb payload</p>
+      <div class="links"><a href="Sales and Marketing/One-Pagers/SMARTWING for Citation CJ2.md">One-Pager</a></div>
+    </div>
+    <div class="card">
+      <h4>Citation CJ2+</h4>
+      <p>22% fuel savings, +450 nm range, +725 lb payload</p>
+      <div class="links"><a href="Sales and Marketing/One-Pagers/SMARTWING for Citation CJ2+.md">One-Pager</a></div>
+    </div>
+    <div class="card">
+      <h4>Citation CJ3 / CJ3+</h4>
+      <p>22% fuel savings, +250 nm range, transatlantic capable</p>
+      <div class="links"><a href="Sales and Marketing/One-Pagers/SMARTWING for Citation CJ3-CJ3+.md">One-Pager</a></div>
+    </div>
+    <div class="card">
+      <h4>Citation M2</h4>
+      <p>13% fuel savings, +150 nm range, YAW Damper INOP removed</p>
+      <div class="links"><a href="Sales and Marketing/One-Pagers/SMARTWING for Citation M2.md">One-Pager</a></div>
+    </div>
+  </div>
+
+  <h3>Sales Tools</h3>
+  <div>
+    <a class="file-link" href="Sales and Marketing/Sales Tools/Competitive Positioning Guide.md">Competitive Positioning Guide</a>
+    <a class="file-link" href="Sales and Marketing/Sales Tools/Follow-Up Sequence.md">Follow-Up Sequence</a>
+    <a class="file-link" href="Sales and Marketing/Sales Tools/ActiveCare and ForeFlight Talking Points.md">ActiveCare &amp; ForeFlight Talking Points</a>
+    <a class="file-link folder" href="Sales and Marketing/Sales Kits/">Sales Kits</a>
+    <a class="file-link folder" href="Sales and Marketing/Sales Tools/">All Sales Tools</a>
+  </div>
+
+  <h3 id="kickoff">2026 Sales Kickoff Presentation</h3>
+  <div>
+    <a class="file-link" href="Presentations/Internal/SMARTWING Internal Sales Kickoff 2026.md">Sales Kickoff 2026 (content)</a>
+    <a class="file-link ppt" href="Teams_Channel/Tamarack Aerospace.pptx">Tamarack Aerospace Deck (PowerPoint)</a>
+    <a class="file-link video" href="Teams_Channel/CJP/Sales Deck Video.mp4">Sales Deck Video</a>
+    <a class="file-link xls" href="Teams_Channel/Tamarack Video Index.xlsx">Video Index</a>
+  </div>
+</div>
+
+<!-- ── ACTIVECARE ── -->
+<div class="section" id="activecare">
+  <h2>ActiveCare Warranty &amp; ForeFlight Integration</h2>
+
+  <div class="card-grid">
+    <div class="card">
+      <h4>ActiveCare Warranty</h4>
+      <p>Extended warranty for the SMARTWING™ system. Use as a closing tool and for skeptic personas.</p>
+      <p><em>"Every installation is eligible for our ActiveCare Warranty. You're not just getting the performance upgrade — you're getting peace of mind."</em></p>
+    </div>
+    <div class="card">
+      <h4>ForeFlight Integration</h4>
+      <p>Fleet-wide performance profiles in ForeFlight. Range rings, fuel planning, and climb profiles update automatically post-install.</p>
+      <p><em>"ForeFlight has independently integrated our data. Plan a trip and see for yourself."</em></p>
+    </div>
+  </div>
+
+  <div>
+    <a class="file-link" href="Sales and Marketing/Sales Tools/ActiveCare and ForeFlight Talking Points.md">Full Talking Points Guide</a>
+    <a class="file-link" href="Teams_Channel/ActiveCare/Tamarack ActiveCare™ Announcement.docx">ActiveCare Announcement</a>
+    <a class="file-link" href="Teams_Channel/ActiveCare/TAMARACK ACTIVECARE PARTS PROGRAM TERMS AND CONDITIONS 2025.pdf">ActiveCare Terms &amp; Conditions</a>
+    <a class="file-link xls" href="Teams_Channel/ActiveCare/Tamarack ActiveCare Master Log.xlsx">ActiveCare Master Log</a>
+  </div>
+</div>
+
+<!-- ── SUSTAINABILITY ── -->
+<div class="section" id="sustainability">
+  <h2>Sustainability &amp; ESG</h2>
+  <p>For corporate flight departments, charter operators, and ESG-conscious prospects.</p>
+
+  <table>
+    <tr><th>Metric</th><th>Impact</th></tr>
+    <tr><td>Fuel burn reduction</td><td>13–28% depending on model</td></tr>
+    <tr><td>CO2 per CJ2 (300 hrs/yr)</td><td><strong>−66 tons/year</strong></td></tr>
+    <tr><td>Fleet potential</td><td>Eco-SMARTWING™ can eliminate <strong>1.6B tons CO2</strong> over 20 years</td></tr>
+  </table>
+
+  <div class="callout tip">
+    <strong>ESG Pitch</strong>
+    "SMARTWING™ reduces your fleet's CO2 by [X] tons/year — measurable, verifiable, and reportable. It's certified, it's proven across 220+ aircraft, and Vref gives you 100% return."
+  </div>
+
+  <div>
+    <a class="file-link" href="Sales and Marketing/One-Pagers/Sustainability Sell Sheet.md">Sustainability Sell Sheet</a>
+  </div>
+</div>
+
+<!-- ── INSTALLATION ── -->
+<div class="section" id="installation">
+  <h2>Installation Centers</h2>
+  <p>6 certified Transformation Centers worldwide. 7–10 day install includes custom paint scheme.</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <h4>DaVinci Jets — Charlotte, NC</h4>
+      <p>KCLT · +1 704.359.4674</p>
+    </div>
+    <div class="card">
+      <h4>Toledo Jet — Ft. Lauderdale, FL</h4>
+      <p>KFXE · +1 954.634.4690</p>
+    </div>
+    <div class="card">
+      <h4>Toledo Jet — Swanton, OH</h4>
+      <p>KTOL · +1 419.866.9050</p>
+    </div>
+    <div class="card">
+      <h4>Prince Aviation — Belgrade, Serbia</h4>
+      <p>LYBE · +381 222097585</p>
+    </div>
+    <div class="card">
+      <h4>Rheinland Air Service — Mönchengladbach, Germany</h4>
+      <p>EDLN · +49 21619948100</p>
+    </div>
+    <div class="card">
+      <h4>Pulse Aero — Adelaide, Australia</h4>
+      <p>YPAD · +61 8 8234 4023</p>
+    </div>
+  </div>
+
+  <div>
+    <a class="file-link" href="Sales and Marketing/One-Pagers/Installation Centers.md">Full Installation Centers Sheet</a>
+  </div>
+</div>
+
+<!-- ── EBOOKS ── -->
+<div class="section" id="ebooks">
+  <h2>Product eBooks (2025)</h2>
+  <p>Comprehensive model-specific eBooks — great for customer send-outs.</p>
+
+  <div>
+    <a class="file-link" href="Teams_Channel/Product eBooks/2025 eBooks/Tamarack CJ eBook_2025_V3.1 - Corrected.pdf">CJ eBook</a>
+    <a class="file-link" href="Teams_Channel/Product eBooks/2025 eBooks/Tamarack CJ1 eBook_2025_V3.1 - Corrected.pdf">CJ1 eBook</a>
+    <a class="file-link" href="Teams_Channel/Product eBooks/2025 eBooks/Tamarack CJ1+ eBook_2025_V3.1 - Corrected.pdf">CJ1+ eBook</a>
+    <a class="file-link" href="Teams_Channel/Product eBooks/2025 eBooks/Tamarack CJ2 eBook_2025_V3.1 - Corrected.pdf">CJ2 eBook</a>
+    <a class="file-link" href="Teams_Channel/Product eBooks/2025 eBooks/Tamarack CJ2+ eBook_2025_V3.1 - Corrected.pdf">CJ2+ eBook</a>
+    <a class="file-link" href="Teams_Channel/Product eBooks/2025 eBooks/Tamarack CJ3 eBook_2025_V3.1 - Corrected.pdf">CJ3 eBook</a>
+    <a class="file-link" href="Teams_Channel/Product eBooks/2025 eBooks/Tamarack CJ3+ eBook_2025_V3.1 - Corrected.pdf">CJ3+ eBook</a>
+    <a class="file-link" href="Teams_Channel/Product eBooks/2025 eBooks/Tamarack M2 eBook_2025_V3.1 - Corrected.pdf">M2 eBook</a>
+    <a class="file-link" href="Teams_Channel/Product eBooks/2025 eBooks/Tamarack M2 GEN2 eBook_2025_V3.1 - Corrected.pdf">M2 GEN2 eBook</a>
+  </div>
+
+  <h3>eBook Series (Marketing)</h3>
+  <div>
+    <a class="file-link folder" href="Teams_Channel/Marketing material for sales/eBooks/Maximum Flight Efficiency/">Maximum Flight Efficiency eBook</a>
+    <a class="file-link folder" href="Teams_Channel/Marketing material for sales/eBooks/Tamarack Active Winglets Take You Further/">Take You Further eBook</a>
+    <a class="file-link" href="Teams_Channel/Tips and Tricks E-book.pdf">Tips and Tricks E-book</a>
+  </div>
+</div>
+
+<!-- ── WINGS ── -->
+<div class="section" id="wings">
+  <h2>WINGS FAA Pilot Proficiency Course</h2>
+  <p>Tamarack offers an FAA WINGS pilot proficiency course — valuable for prospects regardless of purchase intent. Use it as a relationship builder and trust signal.</p>
+
+  <div>
+    <a class="file-link" href="Teams_Channel/WINGS Course/WINGS Powerpoint mr 2025.04.21.pdf">WINGS Presentation (PDF)</a>
+    <a class="file-link ppt" href="Teams_Channel/WINGS Course/WINGS Powerpoint mr 2025.04.21.pptx">WINGS Presentation (PowerPoint)</a>
+    <a class="file-link" href="Teams_Channel/WINGS Course/WINGS_Proficiency-Course_Intro_Thumbnail.pdf">Course Intro</a>
+    <a class="file-link" href="Teams_Channel/WINGS Course/WINGS_Proficiency-Course_Exterior-Walk-Around_Thumbnail.pdf">Exterior Walk-Around</a>
+    <a class="file-link" href="Teams_Channel/WINGS Course/WINGS_Proficiency-Course_Cockpit-Orientation_Thumbnail.pdf">Cockpit Orientation</a>
+    <a class="file-link" href="Teams_Channel/WINGS Course/WINGS_Proficiency-Course_Emergency-Procedures_Thumbnail.pdf">Emergency Procedures</a>
+    <a class="file-link img" href="Teams_Channel/WINGS Course/ATLAS INOP IN-FLIGHT exceprt from TAG-1101-0099.png">ATLAS INOP In-Flight Excerpt</a>
+  </div>
+
+  <h3>Curriculum Development</h3>
+  <div>
+    <a class="file-link" href="Teams_Channel/WINGS Course/WINGS FAA pilot proficiency Program curriculum/WINGS training program.docx">WINGS Training Program</a>
+    <a class="file-link" href="Teams_Channel/WINGS Course/WINGS FAA pilot proficiency Program curriculum/WINGS outline HG.docx">WINGS Outline</a>
+    <a class="file-link xls" href="Teams_Channel/WINGS Course/WINGS FAA pilot proficiency Program curriculum/WINGS program video list.xlsx">Video List</a>
+    <a class="file-link" href="Teams_Channel/WINGS Course/WINGS FAA pilot proficiency Program curriculum/#1 video WINGS Voiceover INTRODUCTION VIDEO Final Draft.docx">Intro Video Voiceover Script</a>
+    <a class="file-link" href="Teams_Channel/WINGS Course/WINGS FAA pilot proficiency Program curriculum/WINGS Video #2 aerodynamic review voice over script.docx">Aerodynamic Review Voiceover</a>
+  </div>
+</div>
+
+<!-- ── FORMS ── -->
+<div class="section" id="forms">
+  <h2>Forms, Checklists &amp; Technical Docs</h2>
+
+  <h3>Purchase &amp; Sale Agreements</h3>
+  <div>
+    <a class="file-link folder" href="Teams_Channel/PSA forms/">All PSA Forms</a>
+    <a class="file-link" href="Teams_Channel/PSA forms/TAG-7300-1000_R-16 P&S (KSZT) 2026.pdf">Standard P&amp;S Agreement 2026</a>
+  </div>
+
+  <h3>Customer Delivery</h3>
+  <div>
+    <a class="file-link folder" href="Teams_Channel/Customer Experience and Delivery Forms/">All Customer Delivery Forms</a>
+    <a class="file-link" href="Teams_Channel/Customer Experience and Delivery Forms/PSA to completion checklist-Customer Care.docx">PSA to Completion Checklist</a>
+  </div>
+
+  <h3>Technical References</h3>
+  <div>
+    <a class="file-link" href="Teams_Channel/Customer Experience and Delivery Forms/AFMS, STC, warranty, parts log, maintenance log/STC SA03842NY.pdf">STC SA03842NY</a>
+    <a class="file-link" href="Teams_Channel/Customer Experience and Delivery Forms/AFMS, STC, warranty, parts log, maintenance log/AFMS 525 M023_R-C (1).pdf">AFMS 525</a>
+    <a class="file-link" href="Teams_Channel/Customer Experience and Delivery Forms/AFMS, STC, warranty, parts log, maintenance log/Limited warranty TAG-7300-0018_R-02 .pdf">Limited Warranty</a>
+    <a class="file-link" href="Teams_Channel/Customer Experience and Delivery Forms/AFMS, STC, warranty, parts log, maintenance log/maintenance manual 525 525A 525B TAG-1100-0101_R-H.pdf">Maintenance Manual (525/525A/525B)</a>
+    <a class="file-link" href="Teams_Channel/Customer Experience and Delivery Forms/AFMS, STC, warranty, parts log, maintenance log/Illustrated parts catalog TAG-1100-0103_R-D.pdf">Illustrated Parts Catalog</a>
+  </div>
+
+  <h3>Fleet Data &amp; Logs</h3>
+  <div>
+    <a class="file-link" href="Teams_Channel/Tamarack_FleetDataForm_V1.pdf">Fleet Data Collection Form</a>
+    <a class="file-link" href="Teams_Channel/Flight log sheet.pdf">Flight Log Sheet</a>
+    <a class="file-link img" href="Teams_Channel/ATLAS Payload weights.JPG">ATLAS Payload Weights</a>
+  </div>
+</div>
+
+<!-- ── PRICING ── -->
+<div class="section" id="pricing">
+  <h2>Pricing &amp; Incentives</h2>
+  <div>
+    <a class="file-link" href="Teams_Channel/Pricing/2026 PRICING.pdf">2026 Pricing</a>
+    <a class="file-link" href="Teams_Channel/Sales Commitments 2026/TAG 2026 PRICING.pdf">TAG 2026 Pricing</a>
+    <a class="file-link" href="Teams_Channel/Pre-pay Incentives[80].docx">Pre-Pay Incentives</a>
+    <a class="file-link" href="Teams_Channel/Marketing material for sales/Financing options for Tamarack Active Winglets.docx">Financing Options</a>
+  </div>
+</div>
+
+<!-- ── PHOTOS ── -->
+<div class="section" id="photos">
+  <h2>Photo &amp; Graphic Library</h2>
+  <p>High-quality aircraft photos, hero images, diagrams, and graphics for presentations and emails.</p>
+
+  <h3>Winglet Photos (by model)</h3>
+  <div>
+    <a class="file-link img" href="Teams_Channel/Winglet Pictures/Tamarack CitationJet Winglet White picture.png">CitationJet</a>
+    <a class="file-link img" href="Teams_Channel/Winglet Pictures/Tamarack CJ1 3x3 picture.png">CJ1</a>
+    <a class="file-link img" href="Teams_Channel/Winglet Pictures/Tamarack CJ2 3x3 picture.png">CJ2</a>
+    <a class="file-link img" href="Teams_Channel/Winglet Pictures/Tamarack CJ2+ 3x3 picture.png">CJ2+</a>
+    <a class="file-link img" href="Teams_Channel/Winglet Pictures/Tamarack CJ3 2x2 picture.png">CJ3</a>
+    <a class="file-link img" href="Teams_Channel/Winglet Pictures/Tamarack CJ3+ 2x2 picture.png">CJ3+</a>
+    <a class="file-link img" href="Teams_Channel/Winglet Pictures/Tamarack M2 2x2 picture.png">M2</a>
+    <a class="file-link img" href="Teams_Channel/Winglet Pictures/Tamarack M2 GEN2 2x2 picture.png">M2 GEN2</a>
+    <a class="file-link img" href="Teams_Channel/Winglet Pictures/King Air 350 picture.png">King Air 350</a>
+  </div>
+
+  <h3>Hero &amp; Lifestyle Images</h3>
+  <div>
+    <a class="file-link img" href="Teams_Channel/Winglet Pictures/Winglet Aircraft over clouds.png">Over Clouds</a>
+    <a class="file-link img" href="Teams_Channel/Winglet Pictures/Winglet Aircraft over mountains.png">Over Mountains</a>
+    <a class="file-link img" href="Teams_Channel/Winglet Pictures/Tamarack Winglet over mountain range.png">Mountain Range</a>
+    <a class="file-link img" href="Teams_Channel/Winglet Pictures/CJ3 Sunset picture.png">CJ3 Sunset</a>
+    <a class="file-link img" href="Teams_Channel/Winglet Pictures/Sunset Winglet Picture.png">Sunset Winglet</a>
+    <a class="file-link img" href="Teams_Channel/Winglet Pictures/runway picture.png">Runway</a>
+  </div>
+
+  <h3>Technical Graphics</h3>
+  <div>
+    <a class="file-link img" href="Teams_Channel/Graphics/Internal diagram.png">Internal Diagram</a>
+    <a class="file-link img" href="Teams_Channel/Graphics/Captureairflow over a wing.JPG">Airflow Over a Wing</a>
+    <a class="file-link img" href="Teams_Channel/Graphics/Wingtip vortices w and wo winglets.JPG">Vortices With/Without Winglets</a>
+    <a class="file-link img" href="Teams_Channel/Graphics/ATLAS INOP Button.jpg">ATLAS INOP Button</a>
+    <a class="file-link img" href="Teams_Channel/Graphics/CJ Panel with ATLAS INOP Button.jpg">CJ Panel with ATLAS INOP</a>
+    <a class="file-link img" href="Teams_Channel/Graphics/Icing testing.png">Icing Test 1</a>
+    <a class="file-link img" href="Teams_Channel/Graphics/Icing testing 2.png">Icing Test 2</a>
+    <a class="file-link img" href="Teams_Channel/Graphics/Icing testing 3.png">Icing Test 3</a>
+    <a class="file-link img" href="Teams_Channel/Winglet Pictures/Winglet wingspan all models picture.png">Wingspan All Models</a>
+  </div>
+
+  <h3>Logos &amp; Templates</h3>
+  <div>
+    <a class="file-link folder" href="Teams_Channel/Marketing material for sales/Logos/">Logos</a>
+    <a class="file-link folder" href="Teams_Channel/Marketing material for sales/Templates/">Templates</a>
+    <a class="file-link folder" href="Teams_Channel/Marketing material for sales/Graphics/">Marketing Graphics</a>
+    <a class="file-link folder" href="Teams_Channel/Marketing material for sales/Images/">Marketing Images</a>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<div style="margin-top:60px;padding:20px 0;border-top:1px solid var(--border);text-align:center;color:var(--muted);font-size:13px;">
+  <p><strong>SMARTWING™ Sales Training Portal</strong> — Tamarack Aerospace Group — Internal Use Only</p>
+  <p>220+ installations worldwide | FAA &amp; EASA Certified | tamarackaero.com</p>
+  <p style="margin-top:8px">Last updated: April 2026</p>
+</div>
+
+</div><!-- /main -->
+
+<script>
+// Highlight active sidebar link on scroll
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('.sidebar a[href^="#"]');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 100) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+</script>
+</body>
+</html>
