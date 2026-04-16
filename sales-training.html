@@ -92,7 +92,41 @@ tr:hover td{background:#f8fafc;}
   .hero-stats{grid-template-columns:1fr 1fr !important;}
   .flight-record{flex-direction:column !important;}
   .flight-record .route-line{font-size:18px !important;}
+  .user-bar{right:8px !important;left:calc(var(--sidebar-w) + 8px) !important;}
 }
+
+/* ── login modal ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;display:flex;align-items:center;justify-content:center;}
+.modal-box{background:#fff;border-radius:14px;padding:32px 36px;max-width:400px;width:90%;box-shadow:0 8px 40px rgba(0,0,0,.2);}
+.modal-box h2{margin:0 0 8px;font-size:22px;}
+.modal-box p{font-size:14px;color:var(--muted);margin:0 0 20px;}
+.modal-box input{width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-size:15px;margin-bottom:14px;box-sizing:border-box;}
+.modal-box button{width:100%;padding:10px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;}
+.modal-box button:hover{background:var(--accent2);}
+
+/* ── user bar ── */
+.user-bar{position:fixed;top:57px;right:24px;left:calc(var(--sidebar-w) + 24px);background:#fff;border-bottom:1px solid var(--border);padding:8px 16px;display:flex;align-items:center;gap:12px;z-index:89;font-size:13px;}
+.user-bar .user-name{font-weight:600;color:var(--accent);}
+.user-bar .progress-fill{flex:1;height:6px;background:#e2e8f0;border-radius:3px;overflow:hidden;}
+.user-bar .progress-fill-inner{height:100%;background:var(--green);border-radius:3px;transition:width .3s;}
+.user-bar .progress-text{font-size:12px;color:var(--muted);white-space:nowrap;}
+.user-bar .logout-btn{font-size:12px;color:var(--muted);cursor:pointer;border:none;background:none;padding:2px 6px;}
+.user-bar .logout-btn:hover{color:var(--accent);}
+.user-bar .mgr-link{font-size:12px;color:var(--accent2);text-decoration:none;margin-left:auto;white-space:nowrap;}
+.has-user-bar .main{margin-top:calc(56px + 36px);}
+.has-user-bar .sidebar{top:calc(56px + 36px);}
+
+/* ── section tracking ── */
+.section-track{display:flex;align-items:center;gap:10px;margin:10px 0 14px;padding:8px 12px;background:#f8fafc;border:1px solid var(--border);border-radius:8px;font-size:13px;}
+.section-track label{display:flex;align-items:center;gap:6px;cursor:pointer;font-weight:600;color:var(--accent);white-space:nowrap;}
+.section-track input[type=checkbox]{width:16px;height:16px;accent-color:var(--green);cursor:pointer;}
+.section-track .note-toggle{margin-left:auto;font-size:12px;color:var(--muted);cursor:pointer;border:none;background:none;padding:2px 8px;border-radius:4px;}
+.section-track .note-toggle:hover{background:#e2e8f0;color:var(--text);}
+.section-notes{margin:0 0 16px;display:none;}
+.section-notes.open{display:block;}
+.section-notes textarea{width:100%;min-height:60px;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;resize:vertical;box-sizing:border-box;}
+.section-notes textarea:focus{outline:none;border-color:var(--accent2);box-shadow:0 0 0 2px rgba(26,111,181,.15);}
+.section-notes .note-status{font-size:11px;color:var(--muted);margin-top:4px;text-align:right;}
 
 /* ── hero section ── */
 .hero-banner{background:linear-gradient(135deg,#0a2e52 0%,#0f4c81 40%,#1a6fb5 100%);color:#fff;border-radius:14px;padding:40px 36px 32px;margin-bottom:48px;position:relative;overflow:hidden;}
@@ -1523,41 +1557,221 @@ tr:hover td{background:#f8fafc;}
 </div><!-- /main -->
 
 <script>
-// Highlight active sidebar link on scroll
-const sections = document.querySelectorAll('.section[id]');
+// ── Config ──────────────────────────────────────────────────────────
+const API = '/api';
+const TRACKABLE = [
+  'hero','textron','welcome','collateral',
+  'aero','platforms','gen2','spin','probing','personas','roi','stories','hard-conversations',
+  'cold-call','prospecting','objections','followup','competitive','crm','demo-flight','closing','post-sale',
+  'live-calling','advanced','certification'
+];
+
+// ── State ───────────────────────────────────────────────────────────
+let currentUser = null;   // {id, name}
+let progressData = {};    // section_id -> {completed, notes}
+let saveTimers = {};
+
+// ── Sidebar scroll highlight ────────────────────────────────────────
+const allSections = document.querySelectorAll('.section[id]');
 const navLinks = document.querySelectorAll('.sidebar a[href^="#"]');
 window.addEventListener('scroll', () => {
   let current = '';
-  sections.forEach(s => {
-    if (window.scrollY >= s.offsetTop - 100) current = s.id;
-  });
-  navLinks.forEach(a => {
-    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
-  });
+  allSections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
 });
 
-// Build mini-thumbnails for image links in the Photo & Graphic Library.
+// ── Photo thumbnails ────────────────────────────────────────────────
 document.querySelectorAll('#photos a.file-link.img[href]').forEach(link => {
   const href = link.getAttribute('href') || '';
   if (!/\.(png|jpe?g|gif|webp|bmp|svg)$/i.test(href)) return;
-
   const thumb = document.createElement('img');
-  thumb.className = 'mini-thumb';
-  thumb.src = href;
+  thumb.className = 'mini-thumb'; thumb.src = href;
   thumb.alt = link.textContent.trim() + ' thumbnail';
-  thumb.loading = 'lazy';
-  thumb.decoding = 'async';
-
-  thumb.addEventListener('load', () => {
-    link.classList.add('has-thumb');
-  });
-
-  thumb.addEventListener('error', () => {
-    thumb.remove();
-  });
-
+  thumb.loading = 'lazy'; thumb.decoding = 'async';
+  thumb.addEventListener('load', () => link.classList.add('has-thumb'));
+  thumb.addEventListener('error', () => thumb.remove());
   link.prepend(thumb);
 });
+
+// ── API helpers ─────────────────────────────────────────────────────
+async function api(path, opts = {}) {
+  const res = await fetch(API + path, {
+    headers: {'Content-Type': 'application/json'},
+    ...opts
+  });
+  if (!res.ok) throw new Error(`API ${res.status}`);
+  return res.json();
+}
+
+// ── Login ───────────────────────────────────────────────────────────
+function showLogin() {
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.innerHTML = `
+    <div class="modal-box">
+      <h2>Welcome to Sales Training</h2>
+      <p>Enter your name to track your progress through the course. Your manager can see completion status and any notes you leave.</p>
+      <input id="login-name" type="text" placeholder="Your full name" autocomplete="name" />
+      <button id="login-btn">Start Training</button>
+    </div>`;
+  document.body.appendChild(overlay);
+
+  const input = document.getElementById('login-name');
+  const btn = document.getElementById('login-btn');
+  input.focus();
+
+  async function doLogin() {
+    const name = input.value.trim();
+    if (!name) { input.style.borderColor = '#dc2626'; return; }
+    btn.textContent = 'Loading...'; btn.disabled = true;
+    try {
+      const user = await api('/users', { method: 'POST', body: JSON.stringify({ name }) });
+      currentUser = user;
+      localStorage.setItem('st_user', JSON.stringify(user));
+      overlay.remove();
+      await loadProgress();
+      injectTrackingUI();
+    } catch (e) {
+      btn.textContent = 'Start Training'; btn.disabled = false;
+      alert('Could not connect to the progress server. Training content is still available — tracking will work once the server is online.');
+      overlay.remove();
+    }
+  }
+  btn.addEventListener('click', doLogin);
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+}
+
+async function loadProgress() {
+  if (!currentUser) return;
+  try {
+    progressData = await api(`/progress/${currentUser.id}`);
+  } catch { progressData = {}; }
+}
+
+// ── Tracking UI injection ───────────────────────────────────────────
+function injectTrackingUI() {
+  if (!currentUser) return;
+  document.body.classList.add('has-user-bar');
+
+  // User bar
+  const bar = document.createElement('div');
+  bar.className = 'user-bar';
+  bar.id = 'user-bar';
+  const completed = TRACKABLE.filter(id => progressData[id]?.completed).length;
+  const pct = Math.round((completed / TRACKABLE.length) * 100);
+  bar.innerHTML = `
+    <span class="user-name">${esc(currentUser.name)}</span>
+    <span class="progress-text" id="progress-text">${completed}/${TRACKABLE.length} sections (${pct}%)</span>
+    <div class="progress-fill"><div class="progress-fill-inner" id="progress-bar" style="width:${pct}%"></div></div>
+    <a class="mgr-link" href="manager-dashboard.html" target="_blank">Manager Dashboard</a>
+    <button class="logout-btn" id="logout-btn">Switch User</button>`;
+  document.body.appendChild(bar);
+
+  document.getElementById('logout-btn').addEventListener('click', () => {
+    localStorage.removeItem('st_user');
+    location.reload();
+  });
+
+  // Inject checkbox + notes into each trackable section
+  TRACKABLE.forEach(id => {
+    const section = document.getElementById(id);
+    if (!section) return;
+    const h2 = section.querySelector('h2');
+    if (!h2) return;
+
+    const data = progressData[id] || { completed: false, notes: '' };
+
+    // Track bar
+    const track = document.createElement('div');
+    track.className = 'section-track';
+    track.innerHTML = `
+      <label><input type="checkbox" data-section="${id}" ${data.completed ? 'checked' : ''} /> Mark complete</label>
+      <button class="note-toggle" data-section="${id}">📝 Notes${data.notes ? ' ●' : ''}</button>`;
+    h2.insertAdjacentElement('afterend', track);
+
+    // Notes area
+    const notes = document.createElement('div');
+    notes.className = 'section-notes' + (data.notes ? '' : '');
+    notes.id = 'notes-' + id;
+    notes.innerHTML = `
+      <textarea data-section="${id}" placeholder="Your notes, questions, or feedback on this section...">${esc(data.notes)}</textarea>
+      <div class="note-status" id="note-status-${id}"></div>`;
+    track.insertAdjacentElement('afterend', notes);
+
+    // Checkbox handler
+    track.querySelector('input[type=checkbox]').addEventListener('change', function() {
+      saveSection(id, this.checked, null);
+    });
+
+    // Note toggle
+    track.querySelector('.note-toggle').addEventListener('click', function() {
+      notes.classList.toggle('open');
+      if (notes.classList.contains('open')) notes.querySelector('textarea').focus();
+    });
+
+    // Notes auto-save (debounced)
+    notes.querySelector('textarea').addEventListener('input', function() {
+      const sid = this.dataset.section;
+      clearTimeout(saveTimers[sid]);
+      const statusEl = document.getElementById('note-status-' + sid);
+      if (statusEl) statusEl.textContent = 'Saving...';
+      saveTimers[sid] = setTimeout(() => saveSection(sid, null, this.value), 800);
+    });
+  });
+}
+
+async function saveSection(sectionId, completed, notes) {
+  if (!currentUser) return;
+  const existing = progressData[sectionId] || { completed: false, notes: '' };
+  const payload = {
+    section_id: sectionId,
+    completed: completed !== null ? completed : existing.completed,
+    notes: notes !== null ? notes : existing.notes
+  };
+  progressData[sectionId] = { completed: payload.completed, notes: payload.notes };
+  updateProgressBar();
+
+  // Update note toggle dot
+  const toggle = document.querySelector(`.note-toggle[data-section="${sectionId}"]`);
+  if (toggle) toggle.textContent = `📝 Notes${payload.notes ? ' ●' : ''}`;
+
+  try {
+    await api(`/progress/${currentUser.id}`, { method: 'POST', body: JSON.stringify(payload) });
+    const statusEl = document.getElementById('note-status-' + sectionId);
+    if (statusEl && notes !== null) { statusEl.textContent = 'Saved'; setTimeout(() => statusEl.textContent = '', 2000); }
+  } catch (e) {
+    const statusEl = document.getElementById('note-status-' + sectionId);
+    if (statusEl) statusEl.textContent = 'Save failed — will retry';
+  }
+}
+
+function updateProgressBar() {
+  const completed = TRACKABLE.filter(id => progressData[id]?.completed).length;
+  const pct = Math.round((completed / TRACKABLE.length) * 100);
+  const bar = document.getElementById('progress-bar');
+  const text = document.getElementById('progress-text');
+  if (bar) bar.style.width = pct + '%';
+  if (text) text.textContent = `${completed}/${TRACKABLE.length} sections (${pct}%)`;
+}
+
+function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+// ── Boot ────────────────────────────────────────────────────────────
+(async function boot() {
+  const saved = localStorage.getItem('st_user');
+  if (saved) {
+    try {
+      currentUser = JSON.parse(saved);
+      await loadProgress();
+      injectTrackingUI();
+    } catch {
+      localStorage.removeItem('st_user');
+      showLogin();
+    }
+  } else {
+    showLogin();
+  }
+})();
 </script>
 </body>
 </html>

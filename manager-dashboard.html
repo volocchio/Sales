@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Training Progress — Manager Dashboard</title>
+<style>
+:root{--bg:#f8fafc;--card:#fff;--accent:#0f4c81;--accent2:#1a6fb5;--green:#16a34a;--border:#e2e8f0;--text:#1e293b;--muted:#64748b;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:24px;}
+h1{font-size:24px;margin-bottom:4px;}
+.subtitle{color:var(--muted);font-size:14px;margin-bottom:24px;}
+a{color:var(--accent2);text-decoration:none;}
+a:hover{text-decoration:underline;}
+
+/* summary cards */
+.summary{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:32px;}
+.summary-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center;}
+.summary-card .num{font-size:36px;font-weight:800;color:var(--accent);display:block;}
+.summary-card .label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;}
+
+/* team table */
+.team-table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:32px;}
+.team-table th{background:var(--accent);color:#fff;padding:10px 14px;text-align:left;font-size:13px;font-weight:600;}
+.team-table td{padding:10px 14px;border-bottom:1px solid var(--border);font-size:13px;}
+.team-table tr:hover td{background:#f1f5f9;}
+.team-table .progress-bar-cell{width:120px;}
+.mini-bar{height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden;min-width:100px;}
+.mini-bar-fill{height:100%;border-radius:4px;transition:width .3s;}
+.pct-low{background:#dc2626;}
+.pct-mid{background:#d97706;}
+.pct-high{background:var(--green);}
+.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;}
+.clickable{cursor:pointer;color:var(--accent2);font-weight:600;}
+.clickable:hover{text-decoration:underline;}
+
+/* detail panel */
+.detail-panel{display:none;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px;margin-bottom:32px;}
+.detail-panel.open{display:block;}
+.detail-panel h2{font-size:20px;margin-bottom:4px;}
+.detail-panel .close-btn{float:right;background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);padding:0 4px;}
+.detail-panel .close-btn:hover{color:var(--text);}
+.section-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px;margin-top:16px;}
+.section-item{border:1px solid var(--border);border-radius:8px;padding:12px 14px;}
+.section-item.done{border-left:3px solid var(--green);background:#f0fdf4;}
+.section-item.pending{border-left:3px solid #e2e8f0;}
+.section-item h4{font-size:14px;margin:0 0 4px;display:flex;align-items:center;gap:6px;}
+.section-item .note-text{font-size:12px;color:var(--muted);margin-top:6px;padding:8px 10px;background:#f8fafc;border-radius:6px;white-space:pre-wrap;}
+.section-item .ts{font-size:11px;color:var(--muted);margin-top:4px;}
+
+.loading{text-align:center;padding:60px;color:var(--muted);font-size:16px;}
+.error{text-align:center;padding:60px;color:#dc2626;font-size:16px;}
+.back-link{display:inline-block;margin-bottom:16px;font-size:13px;}
+@media(max-width:768px){.section-grid{grid-template-columns:1fr;} body{padding:12px;}}
+</style>
+</head>
+<body>
+
+<a class="back-link" href="sales-training.html">&larr; Back to Training Portal</a>
+<h1>📊 Sales Training — Manager Dashboard</h1>
+<p class="subtitle">Real-time progress for all team members taking the SMARTWING™ sales training course.</p>
+
+<div id="content"><div class="loading">Loading dashboard data...</div></div>
+
+<script>
+const API = '/api';
+const SECTIONS = {
+  hero: 'Proven Performance',
+  textron: 'Textron & Tamarack',
+  welcome: 'Welcome & Overview',
+  collateral: 'Collateral Library Map',
+  aero: 'Aerodynamic Principles',
+  platforms: 'Platform Deep Dives',
+  gen2: 'GEN2 Models',
+  spin: 'SPIN Selling',
+  probing: 'Probing Questions',
+  personas: 'Buyer Personas',
+  roi: 'ROI Framework',
+  stories: 'Customer Stories',
+  'hard-conversations': 'Hard Conversations',
+  'cold-call': 'Cold Calling',
+  prospecting: 'Prospecting',
+  objections: 'Objection Handling',
+  followup: 'Follow-Up Sequence',
+  competitive: 'Competitive Positioning',
+  crm: 'CRM & Pipeline',
+  'demo-flight': 'Demo Flights',
+  closing: 'Proposals & Closing',
+  'post-sale': 'Post-Sale',
+  'live-calling': 'Live Calling',
+  advanced: 'Advanced Topics',
+  certification: 'Certification'
+};
+const SECTION_IDS = Object.keys(SECTIONS);
+const TOTAL = SECTION_IDS.length;
+
+function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+function pctClass(p) { return p >= 70 ? 'pct-high' : p >= 30 ? 'pct-mid' : 'pct-low'; }
+function timeAgo(iso) {
+  if (!iso) return 'Never';
+  const d = new Date(iso);
+  const now = new Date();
+  const mins = Math.floor((now - d) / 60000);
+  if (mins < 1) return 'Just now';
+  if (mins < 60) return mins + 'm ago';
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return hrs + 'h ago';
+  const days = Math.floor(hrs / 24);
+  return days + 'd ago';
+}
+
+async function loadDashboard() {
+  const el = document.getElementById('content');
+  try {
+    const res = await fetch(API + '/dashboard');
+    if (!res.ok) throw new Error('API error');
+    const data = await res.json();
+    render(data);
+  } catch (e) {
+    el.innerHTML = '<div class="error">Could not load dashboard. Is the progress API running?</div>';
+  }
+}
+
+function render(users) {
+  const el = document.getElementById('content');
+  if (!users.length) {
+    el.innerHTML = '<div class="loading">No team members have started the training yet.</div>';
+    return;
+  }
+
+  const totalCompleted = users.reduce((s, u) => s + u.completed_count, 0);
+  const avgPct = Math.round((totalCompleted / (users.length * TOTAL)) * 100) || 0;
+  const notesCount = users.reduce((s, u) => s + Object.values(u.sections).filter(v => v.notes).length, 0);
+  const fullyDone = users.filter(u => u.completed_count === TOTAL).length;
+
+  let html = `
+    <div class="summary">
+      <div class="summary-card"><span class="num">${users.length}</span><span class="label">Team Members</span></div>
+      <div class="summary-card"><span class="num">${avgPct}%</span><span class="label">Avg Completion</span></div>
+      <div class="summary-card"><span class="num">${notesCount}</span><span class="label">Notes & Questions</span></div>
+      <div class="summary-card"><span class="num">${fullyDone}</span><span class="label">Fully Certified</span></div>
+    </div>
+
+    <div class="detail-panel" id="detail-panel">
+      <button class="close-btn" onclick="document.getElementById('detail-panel').classList.remove('open')">&times;</button>
+      <div id="detail-content"></div>
+    </div>
+
+    <table class="team-table">
+      <tr>
+        <th>Name</th>
+        <th>Progress</th>
+        <th class="progress-bar-cell"></th>
+        <th>Notes</th>
+        <th>Last Active</th>
+        <th>Started</th>
+      </tr>`;
+
+  users.forEach(u => {
+    const done = u.completed_count;
+    const pct = Math.round((done / TOTAL) * 100);
+    const notes = Object.values(u.sections).filter(v => v.notes).length;
+    html += `
+      <tr>
+        <td><span class="clickable" onclick="showDetail(${u.id})">${esc(u.name)}</span></td>
+        <td>${done}/${TOTAL} (${pct}%)</td>
+        <td class="progress-bar-cell"><div class="mini-bar"><div class="mini-bar-fill ${pctClass(pct)}" style="width:${pct}%"></div></div></td>
+        <td>${notes ? '<strong>' + notes + '</strong>' : '0'}</td>
+        <td>${timeAgo(u.last_active)}</td>
+        <td>${u.created_at ? new Date(u.created_at).toLocaleDateString() : '—'}</td>
+      </tr>`;
+  });
+
+  html += '</table>';
+  el.innerHTML = html;
+
+  // Store data for detail view
+  window._dashData = users;
+}
+
+function showDetail(userId) {
+  const users = window._dashData || [];
+  const u = users.find(x => x.id === userId);
+  if (!u) return;
+
+  const panel = document.getElementById('detail-panel');
+  const content = document.getElementById('detail-content');
+
+  let html = `<h2>${esc(u.name)}</h2>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:16px;">
+      ${u.completed_count}/${TOTAL} sections completed · Last active: ${timeAgo(u.last_active)}
+    </p>
+    <div class="section-grid">`;
+
+  SECTION_IDS.forEach(sid => {
+    const data = u.sections[sid];
+    const done = data?.completed;
+    const notes = data?.notes || '';
+    const ts = data?.updated_at;
+    html += `
+      <div class="section-item ${done ? 'done' : 'pending'}">
+        <h4>${done ? '✅' : '⬜'} ${esc(SECTIONS[sid])}</h4>
+        ${ts ? `<div class="ts">Updated: ${timeAgo(ts)}</div>` : ''}
+        ${notes ? `<div class="note-text">${esc(notes)}</div>` : ''}
+      </div>`;
+  });
+
+  html += '</div>';
+  content.innerHTML = html;
+  panel.classList.add('open');
+  panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+loadDashboard();
+// Auto-refresh every 60 seconds
+setInterval(loadDashboard, 60000);
+</script>
+</body>
+</html>

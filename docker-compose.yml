@@ -6,6 +6,18 @@ services:
     networks:
       - caddy-net
 
+  progress-api:
+    build: ./progress_api
+    container_name: progress-api
+    restart: unless-stopped
+    volumes:
+      - progress-data:/data
+    networks:
+      - caddy-net
+
+volumes:
+  progress-data:
+
 networks:
   caddy-net:
     external: true
