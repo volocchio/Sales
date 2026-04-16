@@ -95,7 +95,7 @@ tr:hover td{background:#f8fafc;}
   .user-bar{right:8px !important;left:calc(var(--sidebar-w) + 8px) !important;}
 }
 
-/* ── login modal ── */
+/* ── login modal (legacy, kept for fallback) ── */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;display:flex;align-items:center;justify-content:center;}
 .modal-box{background:#fff;border-radius:14px;padding:32px 36px;max-width:400px;width:90%;box-shadow:0 8px 40px rgba(0,0,0,.2);}
 .modal-box h2{margin:0 0 8px;font-size:22px;}
@@ -103,6 +103,33 @@ tr:hover td{background:#f8fafc;}
 .modal-box input{width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-size:15px;margin-bottom:14px;box-sizing:border-box;}
 .modal-box button{width:100%;padding:10px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;}
 .modal-box button:hover{background:var(--accent2);}
+
+/* ── splash screen ── */
+.splash{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(160deg,#020c1b 0%,#0a2e52 30%,#0f4c81 55%,#1a6fb5 80%,#2d8fd5 100%);
+  color:#fff;overflow:hidden;transition:opacity .6s ease,visibility .6s ease;}
+.splash.hidden{opacity:0;visibility:hidden;pointer-events:none;}
+.splash::before{content:"";position:absolute;top:-20%;right:-10%;width:700px;height:700px;background:radial-gradient(circle,rgba(255,255,255,.04) 0%,transparent 70%);border-radius:50%;}
+.splash::after{content:"";position:absolute;bottom:-30%;left:-15%;width:900px;height:900px;background:radial-gradient(circle,rgba(26,111,181,.15) 0%,transparent 60%);border-radius:50%;}
+.splash-inner{position:relative;z-index:1;text-align:center;max-width:720px;width:90%;padding:40px 20px;}
+.splash-badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 18px;border:1px solid rgba(255,255,255,.25);border-radius:20px;margin-bottom:28px;color:rgba(255,255,255,.7);}
+.splash h1{font-size:clamp(32px,5vw,52px);font-weight:800;line-height:1.15;margin:0 0 12px;letter-spacing:-0.5px;}
+.splash h1 span{background:linear-gradient(135deg,#60a5fa,#38bdf8,#22d3ee);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.splash-sub{font-size:clamp(15px,2vw,18px);opacity:.75;margin:0 0 40px;line-height:1.6;}
+.splash-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:0 0 48px;}
+.splash-stat{background:rgba(255,255,255,.06);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:20px 12px;}
+.splash-stat .num{font-size:clamp(28px,4vw,42px);font-weight:800;display:block;line-height:1.1;background:linear-gradient(135deg,#fff,#93c5fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.splash-stat .label{font-size:11px;text-transform:uppercase;letter-spacing:1px;opacity:.6;margin-top:6px;display:block;}
+.splash-login{max-width:400px;margin:0 auto;background:rgba(255,255,255,.08);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:28px 32px;}
+.splash-login h3{font-size:18px;margin:0 0 6px;font-weight:700;}
+.splash-login p{font-size:13px;opacity:.65;margin:0 0 18px;}
+.splash-login input{width:100%;padding:12px 16px;border:1px solid rgba(255,255,255,.2);border-radius:10px;font-size:15px;background:rgba(255,255,255,.08);color:#fff;box-sizing:border-box;margin-bottom:12px;outline:none;transition:border-color .2s;}
+.splash-login input::placeholder{color:rgba(255,255,255,.4);}
+.splash-login input:focus{border-color:rgba(96,165,250,.6);box-shadow:0 0 0 3px rgba(96,165,250,.15);}
+.splash-login button{width:100%;padding:12px;background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.3px;transition:transform .15s,box-shadow .15s;}
+.splash-login button:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(37,99,235,.4);}
+.splash-quote{margin-top:36px;font-style:italic;font-size:14px;opacity:.5;line-height:1.6;}
+@media(max-width:600px){.splash-stats{grid-template-columns:repeat(2,1fr);} .splash-login{padding:20px 22px;}}
 
 /* ── user bar ── */
 .user-bar{position:fixed;top:57px;right:24px;left:calc(var(--sidebar-w) + 24px);background:#fff;border-bottom:1px solid var(--border);padding:8px 16px;display:flex;align-items:center;gap:12px;z-index:89;font-size:13px;}
@@ -158,6 +185,31 @@ tr:hover td{background:#f8fafc;}
 </style>
 </head>
 <body>
+
+<!-- ═══════════ SPLASH SCREEN ═══════════ -->
+<div class="splash" id="splash">
+  <div class="splash-inner">
+    <div class="splash-badge">Tamarack Aerospace — New Hire Onboarding</div>
+    <h1>Welcome to<br/><span>SMARTWING™</span> Sales Training</h1>
+    <p class="splash-sub">6 weeks. 30 sessions. One goal: make you the most knowledgeable person in the room on every sales call.</p>
+
+    <div class="splash-stats">
+      <div class="splash-stat"><span class="num">220+</span><span class="label">Aircraft Flying</span></div>
+      <div class="splash-stat"><span class="num">30+</span><span class="label">Patents</span></div>
+      <div class="splash-stat"><span class="num">100%</span><span class="label">Vref Retained</span></div>
+      <div class="splash-stat"><span class="num">1,853 nm</span><span class="label">CJ World Record</span></div>
+    </div>
+
+    <div class="splash-login" id="splash-login">
+      <h3>Let's get started</h3>
+      <p>Enter your name to begin tracking your progress.</p>
+      <input id="splash-name" type="text" placeholder="Your full name" autocomplete="name" />
+      <button id="splash-btn">Enter Training Portal →</button>
+    </div>
+
+    <p class="splash-quote">"Our CEO personally set the CJ world record at 1,853 nm nonstop.<br/>You're not selling theory — you're selling proven results."</p>
+  </div>
+</div>
 
 <!-- ═══════════ TOP BAR ═══════════ -->
 <div class="top-bar">
@@ -2692,36 +2744,29 @@ async function api(path, opts = {}) {
 
 // ── Login ───────────────────────────────────────────────────────────
 function showLogin() {
-  const overlay = document.createElement('div');
-  overlay.className = 'modal-overlay';
-  overlay.innerHTML = `
-    <div class="modal-box">
-      <h2>Welcome to Sales Training</h2>
-      <p>Enter your name to track your progress through the course. Your manager can see completion status and any notes you leave.</p>
-      <input id="login-name" type="text" placeholder="Your full name" autocomplete="name" />
-      <button id="login-btn">Start Training</button>
-    </div>`;
-  document.body.appendChild(overlay);
+  // Show the splash screen
+  const splash = document.getElementById('splash');
+  splash.classList.remove('hidden');
 
-  const input = document.getElementById('login-name');
-  const btn = document.getElementById('login-btn');
+  const input = document.getElementById('splash-name');
+  const btn = document.getElementById('splash-btn');
   input.focus();
 
   async function doLogin() {
     const name = input.value.trim();
-    if (!name) { input.style.borderColor = '#dc2626'; return; }
+    if (!name) { input.style.borderColor = 'rgba(239,68,68,.7)'; return; }
     btn.textContent = 'Loading...'; btn.disabled = true;
     try {
       const user = await api('/users', { method: 'POST', body: JSON.stringify({ name }) });
       currentUser = user;
       localStorage.setItem('st_user', JSON.stringify(user));
-      overlay.remove();
+      splash.classList.add('hidden');
       await loadProgress();
       injectTrackingUI();
     } catch (e) {
-      btn.textContent = 'Start Training'; btn.disabled = false;
+      btn.textContent = 'Enter Training Portal →'; btn.disabled = false;
       alert('Could not connect to the progress server. Training content is still available — tracking will work once the server is online.');
-      overlay.remove();
+      splash.classList.add('hidden');
     }
   }
   btn.addEventListener('click', doLogin);
@@ -2845,10 +2890,12 @@ function esc(s) { const d = document.createElement('div'); d.textContent = s || 
 
 // ── Boot ────────────────────────────────────────────────────────────
 (async function boot() {
+  const splash = document.getElementById('splash');
   const saved = localStorage.getItem('st_user');
   if (saved) {
     try {
       currentUser = JSON.parse(saved);
+      splash.classList.add('hidden');
       await loadProgress();
       injectTrackingUI();
     } catch {
