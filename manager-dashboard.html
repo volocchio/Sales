@@ -51,7 +51,8 @@ a:hover{text-decoration:underline;}
 /* notes panel */
 .notes-panel{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px;margin-bottom:32px;}
 .notes-panel h2{font-size:18px;margin:0 0 16px;display:flex;align-items:center;gap:8px;}
-.note-card{border:1px solid var(--border);border-left:3px solid #d97706;border-radius:8px;padding:12px 16px;margin-bottom:10px;}
+.note-card{border:1px solid var(--border);border-left:3px solid #d97706;border-radius:8px;padding:12px 16px;margin-bottom:10px;cursor:pointer;transition:background .15s;}
+.note-card:hover{background:rgba(255,255,255,.04);}
 .note-card .note-meta{font-size:12px;color:var(--muted);margin-bottom:6px;display:flex;gap:12px;flex-wrap:wrap;}
 .note-card .note-meta strong{color:var(--accent);}
 .note-card .note-body{font-size:13px;white-space:pre-wrap;line-height:1.5;}
@@ -187,7 +188,7 @@ function render(users) {
   users.forEach(u => {
     Object.entries(u.sections).forEach(([sid, data]) => {
       if (data.notes) {
-        allNotes.push({ user: u.name, userId: u.id, section: SECTIONS[sid] || sid, notes: data.notes, updated: data.updated_at });
+        allNotes.push({ user: u.name, userId: u.id, sectionId: sid, section: SECTIONS[sid] || sid, notes: data.notes, updated: data.updated_at });
       }
     });
   });
@@ -198,8 +199,8 @@ function render(users) {
     html += '<p class="note-empty">No notes or questions submitted yet.</p>';
   } else {
     allNotes.forEach(n => {
-      html += `<div class="note-card">
-        <div class="note-meta"><strong><span class="clickable" onclick="showDetail(${n.userId})">${esc(n.user)}</span></strong> <span>📄 ${esc(n.section)}</span> <span>🕐 ${timeAgo(n.updated)}</span></div>
+      html += `<div class="note-card" onclick="window.open('sales-training.html#${n.sectionId}','_blank')" title="Open ${esc(n.section)} in training portal">
+        <div class="note-meta"><strong><span class="clickable" onclick="event.stopPropagation();showDetail(${n.userId})">${esc(n.user)}</span></strong> <span>📄 ${esc(n.section)}</span> <span>🕐 ${timeAgo(n.updated)}</span></div>
         <div class="note-body">${esc(n.notes)}</div>
       </div>`;
     });
