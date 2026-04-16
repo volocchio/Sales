@@ -1,4 +1,4 @@
-# Deploy this repo to VPS and sync Teams_Channel static assets.
+# Deploy this repo to VPS and sync static assets.
 # Usage: .\deploy.ps1 [-m "message"] [-NoPush] [-SkipTeamsSync]
 param(
 	[Parameter(ValueFromRemainingArguments = $true)]
@@ -7,7 +7,19 @@ param(
 	[switch]$SkipTeamsSync
 )
 
+$SSH = "ssh -i /home/honeybadger/.ssh/id_ed25519 -o ServerAliveInterval=30 -o ServerAliveCountMax=10"
+$VPS = "root@185.164.110.65"
+$REPO_VPS = "/root/.openclaw/workspace-tag_coding/Sales"
+$SITE_DIR = "/var/www/sales-training"
+
 & "$env:USERPROFILE\Dev\deploy-vps.ps1" @ForwardArgs
+if ($LASTEXITCODE -ne 0) {
+	exit $LASTEXITCODE
+}
+
+# Copy HTML + static files from the git repo to the served directory
+Write-Host "Syncing HTML files from git repo to static site..."
+& wsl ssh -i /home/honeybadger/.ssh/id_ed25519 $VPS "cp $REPO_VPS/*.html $REPO_VPS/*.mjs $REPO_VPS/package*.json $SITE_DIR/ 2>/dev/null; echo ok"
 if ($LASTEXITCODE -ne 0) {
 	exit $LASTEXITCODE
 }
@@ -30,9 +42,9 @@ $rest = $teamsPath.Substring(2) -replace '\\', '/'
 $wslTeamsPath = "/mnt/$drive$rest"
 
 Write-Host "Syncing Teams_Channel to VPS static site..."
-& wsl rsync -az --delete --mkpath -e "ssh -i /home/honeybadger/.ssh/id_ed25519 -o ServerAliveInterval=30 -o ServerAliveCountMax=10" "$wslTeamsPath/" "root@185.164.110.65:/var/www/sales-training/Teams_Channel/"
+& wsl rsync -az --delete --mkpath -e "$SSH" "$wslTeamsPath/" "${VPS}:${SITE_DIR}/Teams_Channel/"
 if ($LASTEXITCODE -ne 0) {
 	exit $LASTEXITCODE
 }
 
-Write-Host "Teams_Channel sync complete."
+Write-Host "Deploy complete."
