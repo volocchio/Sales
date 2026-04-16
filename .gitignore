@@ -1,4 +1,5 @@
-﻿Teams_Channel/**
+﻿*.pst
+Teams_Channel/**
 !Teams_Channel/
 
 # Auto-generated allowlist for Teams links referenced in sales-training.html
