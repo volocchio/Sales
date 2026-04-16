@@ -48,6 +48,15 @@ a:hover{text-decoration:underline;}
 .section-item .note-text{font-size:12px;color:var(--muted);margin-top:6px;padding:8px 10px;background:#f8fafc;border-radius:6px;white-space:pre-wrap;}
 .section-item .ts{font-size:11px;color:var(--muted);margin-top:4px;}
 
+/* notes panel */
+.notes-panel{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px;margin-bottom:32px;}
+.notes-panel h2{font-size:18px;margin:0 0 16px;display:flex;align-items:center;gap:8px;}
+.note-card{border:1px solid var(--border);border-left:3px solid #d97706;border-radius:8px;padding:12px 16px;margin-bottom:10px;}
+.note-card .note-meta{font-size:12px;color:var(--muted);margin-bottom:6px;display:flex;gap:12px;flex-wrap:wrap;}
+.note-card .note-meta strong{color:var(--accent);}
+.note-card .note-body{font-size:13px;white-space:pre-wrap;line-height:1.5;}
+.note-empty{color:var(--muted);font-size:14px;padding:12px 0;}
+
 .loading{text-align:center;padding:60px;color:var(--muted);font-size:16px;}
 .error{text-align:center;padding:60px;color:#dc2626;font-size:16px;}
 .back-link{display:inline-block;margin-bottom:16px;font-size:13px;}
@@ -137,7 +146,7 @@ function render(users) {
     <div class="summary">
       <div class="summary-card"><span class="num">${users.length}</span><span class="label">Team Members</span></div>
       <div class="summary-card"><span class="num">${avgPct}%</span><span class="label">Avg Completion</span></div>
-      <div class="summary-card"><span class="num">${notesCount}</span><span class="label">Notes & Questions</span></div>
+      <div class="summary-card" style="cursor:pointer" onclick="document.getElementById('notes-panel').scrollIntoView({behavior:'smooth'})"><span class="num">${notesCount}</span><span class="label">Notes & Questions</span></div>
       <div class="summary-card"><span class="num">${fullyDone}</span><span class="label">Fully Certified</span></div>
     </div>
 
@@ -165,13 +174,38 @@ function render(users) {
         <td><span class="clickable" onclick="showDetail(${u.id})">${esc(u.name)}</span></td>
         <td>${done}/${TOTAL} (${pct}%)</td>
         <td class="progress-bar-cell"><div class="mini-bar"><div class="mini-bar-fill ${pctClass(pct)}" style="width:${pct}%"></div></div></td>
-        <td>${notes ? '<strong>' + notes + '</strong>' : '0'}</td>
+        <td>${notes ? '<span class="clickable" onclick="showDetail(' + u.id + ')">' + notes + '</span>' : '0'}</td>
         <td>${timeAgo(u.last_active)}</td>
         <td>${u.created_at ? new Date(u.created_at).toLocaleDateString() : '—'}</td>
       </tr>`;
   });
 
   html += '</table>';
+
+  // ── All Notes & Questions panel ──
+  const allNotes = [];
+  users.forEach(u => {
+    Object.entries(u.sections).forEach(([sid, data]) => {
+      if (data.notes) {
+        allNotes.push({ user: u.name, userId: u.id, section: SECTIONS[sid] || sid, notes: data.notes, updated: data.updated_at });
+      }
+    });
+  });
+  allNotes.sort((a, b) => (b.updated || '').localeCompare(a.updated || ''));
+
+  html += `<div class="notes-panel" id="notes-panel"><h2>📝 Notes &amp; Questions (${allNotes.length})</h2>`;
+  if (allNotes.length === 0) {
+    html += '<p class="note-empty">No notes or questions submitted yet.</p>';
+  } else {
+    allNotes.forEach(n => {
+      html += `<div class="note-card">
+        <div class="note-meta"><strong><span class="clickable" onclick="showDetail(${n.userId})">${esc(n.user)}</span></strong> <span>📄 ${esc(n.section)}</span> <span>🕐 ${timeAgo(n.updated)}</span></div>
+        <div class="note-body">${esc(n.notes)}</div>
+      </div>`;
+    });
+  }
+  html += '</div>';
+
   el.innerHTML = html;
 
   // Store data for detail view

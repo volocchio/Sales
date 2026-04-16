@@ -129,7 +129,10 @@ tr:hover td{background:#f8fafc;}
 .splash-login button{width:100%;padding:12px;background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.3px;transition:transform .15s,box-shadow .15s;}
 .splash-login button:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(37,99,235,.4);}
 .splash-quote{margin-top:36px;font-style:italic;font-size:14px;opacity:.5;line-height:1.6;}
-@media(max-width:600px){.splash-stats{grid-template-columns:repeat(2,1fr);} .splash-login{padding:20px 22px;}}
+.splash-gallery{display:flex;gap:12px;margin:0 0 32px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:4px 0;}
+.splash-gallery img{width:180px;height:120px;object-fit:cover;border-radius:12px;border:1px solid rgba(255,255,255,.15);scroll-snap-align:center;flex-shrink:0;opacity:.85;transition:opacity .3s,transform .3s;}
+.splash-gallery img:hover{opacity:1;transform:scale(1.05);}
+@media(max-width:600px){.splash-stats{grid-template-columns:repeat(2,1fr);} .splash-login{padding:20px 22px;} .splash-gallery img{width:140px;height:90px;}}
 
 /* ── user bar ── */
 .user-bar{position:fixed;top:57px;right:24px;left:calc(var(--sidebar-w) + 24px);background:#fff;border-bottom:1px solid var(--border);padding:8px 16px;display:flex;align-items:center;gap:12px;z-index:89;font-size:13px;}
@@ -195,9 +198,17 @@ tr:hover td{background:#f8fafc;}
 
     <div class="splash-stats">
       <div class="splash-stat"><span class="num">220+</span><span class="label">Aircraft Flying</span></div>
-      <div class="splash-stat"><span class="num">30+</span><span class="label">Patents</span></div>
+      <div class="splash-stat"><span class="num">163K+</span><span class="label">Fleet Flight Hours</span></div>
+      <div class="splash-stat"><span class="num">4</span><span class="label">NAA / FAI Records</span></div>
       <div class="splash-stat"><span class="num">100%</span><span class="label">Vref Retained</span></div>
-      <div class="splash-stat"><span class="num">1,853 nm</span><span class="label">CJ World Record</span></div>
+    </div>
+
+    <div class="splash-gallery">
+      <img src="Teams_Channel/Winglet Pictures/Winglet Aircraft over mountains.png" alt="SMARTWING over mountains" />
+      <img src="Teams_Channel/Winglet Pictures/Sunset Winglet Picture.png" alt="Winglet at sunset" />
+      <img src="Teams_Channel/Winglet Pictures/King Air 350 picture.png" alt="King Air 350 with SMARTWING" />
+      <img src="Teams_Channel/Winglet Pictures/Winglet Aircraft over clouds.png" alt="SMARTWING above the clouds" />
+      <img src="Teams_Channel/Winglet Pictures/Tamarack Winglet over mountain range.png" alt="Winglet over mountain range" />
     </div>
 
     <div class="splash-login" id="splash-login">
@@ -207,7 +218,7 @@ tr:hover td{background:#f8fafc;}
       <button id="splash-btn">Enter Training Portal →</button>
     </div>
 
-    <p class="splash-quote">"Our CEO personally set the CJ world record at 1,853 nm nonstop.<br/>You're not selling theory — you're selling proven results."</p>
+    <p class="splash-quote">"Four NAA/FAI world records. 220+ aircraft. 163,000+ fleet hours.<br/>You're not selling theory — you're selling proven results."</p>
   </div>
 </div>
 
@@ -297,16 +308,45 @@ tr:hover td{background:#f8fafc;}
       </div>
     </div>
 
-    <h3 style="margin:28px 0 12px;font-size:16px;text-transform:uppercase;letter-spacing:1px;opacity:.7;position:relative;z-index:1;">Record Flights — CEO Nick Guida</h3>
+    <h3 style="margin:28px 0 12px;font-size:16px;text-transform:uppercase;letter-spacing:1px;opacity:.7;position:relative;z-index:1;">NAA / FAI World Records</h3>
 
     <div class="flight-record">
       <span class="record-icon">🥇</span>
       <div>
         <div class="route-line">CJ Nonstop — 1,853 nm</div>
-        <div class="route-detail">6 hours 16 minutes · 26 kt tailwind · Citation CJ World Record</div>
+        <div class="route-detail">6 hours 16 minutes · 26 kt tailwind · Citation CJ World Record · Nick Guida</div>
       </div>
       <span class="record-badge">World Record</span>
     </div>
+
+    <div class="flight-record">
+      <span class="record-icon">🥇</span>
+      <div>
+        <div class="route-line">CJ1 NAA Speed Record — Portland, ME → Palm Beach, FL</div>
+        <div class="route-detail">1,386 mi nonstop · 4 hr 35 min · 281.64 mph avg · 2,610 lbs fuel · Nick Guida &amp; Wick Zimmerman (Jan 2021)</div>
+      </div>
+      <span class="record-badge">NAA Record</span>
+    </div>
+
+    <div class="flight-record">
+      <span class="record-icon">🥇</span>
+      <div>
+        <div class="route-line">King Air 350 — Spokane, WA → Orlando, FL Nonstop</div>
+        <div class="route-detail">2,032.8 NM · 7 hr 46 min · NAA &amp; FAI certified · Nick Guida &amp; Lorin Meyers (Oct 15, 2022)</div>
+      </div>
+      <span class="record-badge">NAA + FAI</span>
+    </div>
+
+    <div class="flight-record">
+      <span class="record-icon">🥇</span>
+      <div>
+        <div class="route-line">King Air 350 — Orlando, FL → Henderson, NV</div>
+        <div class="route-detail">1,770.7 NM · 8 hr 8 min · Headwinds &amp; icing · One stop ABQ · NAA &amp; FAI certified (Oct 21, 2022)</div>
+      </div>
+      <span class="record-badge">NAA + FAI</span>
+    </div>
+
+    <h3 style="margin:28px 0 12px;font-size:16px;text-transform:uppercase;letter-spacing:1px;opacity:.7;position:relative;z-index:1;">CEO Proof Flights</h3>
 
     <div class="flight-record">
       <span class="record-icon">✈️</span>
@@ -401,7 +441,7 @@ tr:hover td{background:#f8fafc;}
 
     <div style="margin-top:24px;padding:16px;background:rgba(255,255,255,.1);border-radius:10px;font-size:14px;position:relative;z-index:1;">
       <strong>🛡️ Your Mental Armor</strong><br/>
-      When a prospect says "I heard they don't work" — you don't argue. You say: <em>"Our CEO personally set the CJ world record at 1,853 nm nonstop. He's flown Paris, Texas to Paris, France in one stop. We have 220+ aircraft flying today, a CJ3 that went around the world, and Part 135 operators running daily commercial flights on SMARTWING™. I'd love to show you the FlightAware data."</em>
+      When a prospect says "I heard they don't work" — you don't argue. You say: <em>"Our CEO holds multiple NAA and FAI world records — CJ at 1,853 nm nonstop, CJ1 speed record Portland to Palm Beach, and two King Air 350 records certified by both the NAA and FAI. We have 220+ aircraft flying today with 163,000+ fleet hours, a CJ3 that went around the world, and Part 135 operators running daily commercial flights on SMARTWING™. I'd love to show you the FlightAware data."</em>
     </div>
 
   </div>
@@ -611,7 +651,7 @@ tr:hover td{background:#f8fafc;}
     <ul style="margin-top:8px">
       <li><strong>Be matter-of-fact:</strong> "The installation economics didn't work for their service centers — we do it in 250 hours, they needed 750+. When a separate incident triggered regulatory review, they used that as the exit ramp."</li>
       <li><strong>Pivot to the vindication:</strong> "Both EASA and the FAA lifted the grounding within 77 days. The NTSB's final report found no design deficiency. And in 2024, the NTSB granted our petition for reconsideration — that almost never happens."</li>
-      <li><strong>Land on strength:</strong> "We've installed 185+ aircraft, logged 81,000+ flight hours on the STC, diversified into military and airline programs, and we're in active conversations with Textron about working together again. The product speaks for itself."</li>
+      <li><strong>Land on strength:</strong> "We've installed 220+ aircraft, logged 163,000+ flight hours on the STC, diversified into military and airline programs, and we're in active conversations with Textron about working together again. The product speaks for itself."</li>
     </ul>
   </div>
 
@@ -790,7 +830,7 @@ tr:hover td{background:#f8fafc;}
     <li><strong>Parts Manufacture Approval (PMA):</strong> Separate FAA approval to manufacture and sell the STC — quality control, traceability from every part back to raw material, annual FAA audits</li>
     <li><strong>Part 145 Repair Station:</strong> Tamarack and its Transformation Centers are FAA-approved repair stations for installation</li>
     <li><strong>Fleet monitoring:</strong> FAA and Tamarack jointly review fleet data. Issues trigger service bulletins or Airworthiness Directives</li>
-    <li><strong>Fleet today:</strong> 185+ aircraft, 81,000+ flight hours on the SMARTWING STC</li>
+    <li><strong>Fleet today:</strong> 220+ aircraft, 163,000+ flight hours on the SMARTWING STC</li>
   </ul>
 
   <div class="callout">
@@ -934,7 +974,7 @@ tr:hover td{background:#f8fafc;}
     <tr><td>Block Fuel Burn</td><td>900 pph</td><td>600–650 pph</td><td><strong>−28%</strong></td></tr>
     <tr><td>Range @ MCT</td><td>1,100 nm / 3 hr</td><td>1,400 nm / 4 hr</td><td><strong>+300 nm</strong></td></tr>
   </table>
-  <div class="callout tip"><strong>🏆 CJ World Record</strong> 1,853 nm nonstop with 26 kt tailwind — 6 hours, 16 minutes.</div>
+  <div class="callout tip"><strong>🏆 CJ World Record</strong> 1,853 nm nonstop with 26 kt tailwind — 6 hours, 16 minutes. Also: CJ1 NAA speed record (1,386 mi, 281.64 mph avg) and two King Air 350 NAA/FAI records.</div>
   <div>
     <a class="file-link" href="Teams_Channel/By model-Sales Documents/CJ/CJ Specs OEM vs ATLAS.pdf">CJ Specs OEM vs ATLAS</a>
     <a class="file-link" href="Sales and Marketing/One-Pagers/SMARTWING for Citation CJ.md">CJ One-Pager</a>
@@ -1291,7 +1331,10 @@ tr:hover td{background:#f8fafc;}
 
   <h4>Key Stories to Know</h4>
   <ul>
-    <li><strong>CJ World Record:</strong> 1,853 nm nonstop — 6 hr 16 min with 26 kt tailwind</li>
+    <li><strong>CJ World Record:</strong> 1,853 nm nonstop — 6 hr 16 min with 26 kt tailwind (Nick Guida)</li>
+    <li><strong>CJ1 NAA Speed Record:</strong> Portland, ME → Palm Beach, FL — 1,386 mi nonstop, 4 hr 35 min, 281.64 mph avg (Nick Guida &amp; Wick Zimmerman, Jan 2021)</li>
+    <li><strong>King Air 350 NAA/FAI Record:</strong> Spokane → Orlando nonstop — 2,032.8 NM, 7 hr 46 min (Nick Guida &amp; Lorin Meyers, Oct 2022)</li>
+    <li><strong>King Air 350 NAA/FAI Record (Westbound):</strong> Orlando → Henderson, NV — 1,770.7 NM, headwinds &amp; icing, 8 hr 8 min</li>
     <li><strong>CJ3 Shannon → Gander:</strong> Transatlantic crossing — stock CJ3 can't do it</li>
     <li><strong>Mosier World Trip:</strong> CJ3 around the world — global reliability proven</li>
     <li><strong>Air Charter Scotland:</strong> Part 135 commercial ops on CJ1 — daily reliability</li>
