@@ -89,7 +89,38 @@ tr:hover td{background:#f8fafc;}
   .sidebar{display:none;}
   .main{margin-left:0;padding:20px 16px 60px;}
   .card-grid{grid-template-columns:1fr;}
+  .hero-stats{grid-template-columns:1fr 1fr !important;}
+  .flight-record{flex-direction:column !important;}
+  .flight-record .route-line{font-size:18px !important;}
 }
+
+/* ── hero section ── */
+.hero-banner{background:linear-gradient(135deg,#0a2e52 0%,#0f4c81 40%,#1a6fb5 100%);color:#fff;border-radius:14px;padding:40px 36px 32px;margin-bottom:48px;position:relative;overflow:hidden;}
+.hero-banner::before{content:"";position:absolute;top:-60px;right:-60px;width:300px;height:300px;background:rgba(255,255,255,.04);border-radius:50%;}
+.hero-banner::after{content:"";position:absolute;bottom:-80px;left:-40px;width:250px;height:250px;background:rgba(255,255,255,.03);border-radius:50%;}
+.hero-banner h2{font-size:28px;margin-bottom:6px;position:relative;z-index:1;border:none;}
+.hero-banner .hero-sub{font-size:15px;opacity:.8;margin-bottom:24px;position:relative;z-index:1;}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:24px 0;position:relative;z-index:1;}
+.hero-stat{background:rgba(255,255,255,.1);backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:16px;text-align:center;}
+.hero-stat .num{font-size:32px;font-weight:800;display:block;line-height:1.2;}
+.hero-stat .label{font-size:12px;opacity:.75;text-transform:uppercase;letter-spacing:.5px;}
+.flight-record{display:flex;align-items:center;gap:16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:14px 18px;margin:8px 0;position:relative;z-index:1;}
+.flight-record .record-icon{font-size:24px;flex-shrink:0;}
+.flight-record .route-line{font-size:20px;font-weight:700;letter-spacing:.5px;white-space:nowrap;}
+.flight-record .route-detail{font-size:13px;opacity:.8;margin-top:2px;}
+.flight-record .record-badge{margin-left:auto;background:rgba(255,215,0,.2);border:1px solid rgba(255,215,0,.4);color:#ffd700;font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;}
+.testimonial-strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:20px 0;position:relative;z-index:1;}
+.testimonial-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:16px 18px;font-size:13px;font-style:italic;line-height:1.6;}
+.testimonial-card .attribution{font-style:normal;font-weight:600;margin-top:8px;font-size:12px;opacity:.7;}
+
+/* ── textron section ── */
+.timeline-item{display:flex;gap:16px;margin:12px 0;position:relative;}
+.timeline-item::before{content:"";position:absolute;left:15px;top:32px;bottom:-12px;width:2px;background:var(--border);}
+.timeline-item:last-child::before{display:none;}
+.timeline-dot{width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;z-index:1;}
+.timeline-content{padding:4px 0 16px;}
+.timeline-content h4{margin:0 0 4px;font-size:15px;}
+.timeline-content p{font-size:13px;color:var(--muted);margin:0;}
 </style>
 </head>
 <body>
@@ -103,7 +134,9 @@ tr:hover td{background:#f8fafc;}
 <!-- ═══════════ SIDEBAR NAV ═══════════ -->
 <nav class="sidebar">
   <h3>Getting Started</h3>
-  <a href="#welcome">Welcome & Overview</a>
+  <a href="#hero">Proven Performance</a>
+  <a href="#textron">Textron &amp; Tamarack</a>
+  <a href="#welcome">Welcome &amp; Overview</a>
   <a href="#collateral">Collateral Library Map</a>
 
   <h3>Phase 1 — Foundation <span class="badge badge-p1">Wk 1–2</span></h3>
@@ -148,6 +181,159 @@ tr:hover td{background:#f8fafc;}
 
 <!-- ═══════════ MAIN CONTENT ═══════════ -->
 <div class="main">
+
+<!-- ▀▀▀▀▀▀▀▀▀▀ HERO — PROVEN PERFORMANCE ▀▀▀▀▀▀▀▀▀▀ -->
+<div class="section" id="hero">
+  <div class="hero-banner">
+    <h2>🏆 The Record Speaks for Itself</h2>
+    <p class="hero-sub">Before you pick up the phone, know this: SMARTWING™ doesn't just promise performance — it's been proven on world-record flights by our own CEO and by customers around the globe. You're not selling theory. You're selling verified, FlightAware-tracked, FAA-certified results.</p>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="num">220+</span>
+        <span class="label">Aircraft Flying</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num">30+</span>
+        <span class="label">Patents</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num">100%</span>
+        <span class="label">Vref Value Retained</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num">6</span>
+        <span class="label">Installation Centers</span>
+      </div>
+    </div>
+
+    <h3 style="margin:28px 0 12px;font-size:16px;text-transform:uppercase;letter-spacing:1px;opacity:.7;position:relative;z-index:1;">Record Flights — CEO Nick Guida</h3>
+
+    <div class="flight-record">
+      <span class="record-icon">🥇</span>
+      <div>
+        <div class="route-line">CJ Nonstop — 1,853 nm</div>
+        <div class="route-detail">6 hours 16 minutes · 26 kt tailwind · Citation CJ World Record</div>
+      </div>
+      <span class="record-badge">World Record</span>
+    </div>
+
+    <div class="flight-record">
+      <span class="record-icon">✈️</span>
+      <div>
+        <div class="route-line">KSZT → KHPN Nonstop</div>
+        <div class="route-detail">Sandpoint, ID to White Plains, NY · Coast-to-coast in a Citation CJ — a mission stock CJs can't reliably make</div>
+      </div>
+      <span class="record-badge">Nonstop</span>
+    </div>
+
+    <div class="flight-record">
+      <span class="record-icon">✈️</span>
+      <div>
+        <div class="route-line">CJ3: KSZT → KORL Nonstop</div>
+        <div class="route-detail">Sandpoint, ID to Orlando, FL · Cross-country in a single leg</div>
+      </div>
+      <span class="record-badge">Nonstop</span>
+    </div>
+
+    <div class="flight-record">
+      <span class="record-icon">🌍</span>
+      <div>
+        <div class="route-line">Paris, TX → Paris, France</div>
+        <div class="route-detail">One fuel stop · Citation CJ · A flight that should be impossible in a light jet — SMARTWING™ made it routine</div>
+      </div>
+      <span class="record-badge">One Stop</span>
+    </div>
+
+    <div class="flight-record">
+      <span class="record-icon">🌊</span>
+      <div>
+        <div class="route-line">Shannon 🇮🇪 → Gander 🇨🇦</div>
+        <div class="route-detail">CJ3 Transatlantic crossing · Stock CJ3 cannot reliably fly this mission</div>
+      </div>
+      <span class="record-badge">Transatlantic</span>
+    </div>
+
+    <h3 style="margin:28px 0 12px;font-size:16px;text-transform:uppercase;letter-spacing:1px;opacity:.7;position:relative;z-index:1;">Customer Proof Flights</h3>
+
+    <div class="flight-record">
+      <span class="record-icon">🌏</span>
+      <div>
+        <div class="route-line">CJ3 Around the World — Mosier</div>
+        <div class="route-detail">Complete circumnavigation · Diverse conditions, airports, and weather — global reliability proven</div>
+      </div>
+      <span class="record-badge">World Trip</span>
+    </div>
+
+    <div class="flight-record">
+      <span class="record-icon">🇩🇰</span>
+      <div>
+        <div class="route-line">CJ2 OY-NDP — 1,471 nm Nonstop</div>
+        <div class="route-detail">FlightAware verified · Customer-operated · European long-range mission</div>
+      </div>
+      <span class="record-badge">Verified</span>
+    </div>
+
+    <div class="flight-record">
+      <span class="record-icon">🏢</span>
+      <div>
+        <div class="route-line">Air Charter Scotland — CJ1 Part 135 Ops</div>
+        <div class="route-detail">Daily commercial charter operations · Proving reliability under Part 135 demands</div>
+      </div>
+      <span class="record-badge">Commercial</span>
+    </div>
+
+    <div class="flight-record">
+      <span class="record-icon">🎯</span>
+      <div>
+        <div class="route-line">Drew Forhan — 200th SMARTWING™ Install</div>
+        <div class="route-detail">CJ2+ owner · Upgraded from CJ1+ · Became Tamarack's most visible customer advocate</div>
+      </div>
+      <span class="record-badge">200th Install</span>
+    </div>
+
+    <h3 style="margin:28px 0 12px;font-size:16px;text-transform:uppercase;letter-spacing:1px;opacity:.7;position:relative;z-index:1;">What Owners Say</h3>
+
+    <div class="testimonial-strip">
+      <div class="testimonial-card">
+        "The fuel savings alone justified the investment. But the climb performance and ride quality are what really changed how I use the aircraft."
+        <div class="attribution">— Citation CJ Owner</div>
+      </div>
+      <div class="testimonial-card">
+        "We looked at trading up to a larger aircraft. SMARTWING™ gave us bigger-aircraft performance at a fraction of the cost."
+        <div class="attribution">— Citation CJ2 Owner</div>
+      </div>
+      <div class="testimonial-card">
+        "The climb rate improvement is noticeable from the first flight. Getting to FL450 in 25 minutes instead of 30 means you're in clean air and saving fuel sooner."
+        <div class="attribution">— Citation CJ3 Pilot</div>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;padding:16px;background:rgba(255,255,255,.1);border-radius:10px;font-size:14px;position:relative;z-index:1;">
+      <strong>🛡️ Your Mental Armor</strong><br/>
+      When a prospect says "I heard they don't work" — you don't argue. You say: <em>"Our CEO personally set the CJ world record at 1,853 nm nonstop. He's flown Paris, Texas to Paris, France in one stop. We have 220+ aircraft flying today, a CJ3 that went around the world, and Part 135 operators running daily commercial flights on SMARTWING™. I'd love to show you the FlightAware data."</em>
+    </div>
+
+  </div>
+</div>
+
+<!-- ▀▀▀▀▀▀▀▀▀▀ TEXTRON & TAMARACK ▀▀▀▀▀▀▀▀▀▀ -->
+<div class="section" id="textron">
+  <h2>Textron &amp; Tamarack — The Relationship</h2>
+  <p><em>Understanding this history is essential. Prospects will ask. You need to know the full arc — the partnership, the product, and the path forward.</em></p>
+
+  <div class="callout warn">
+    <strong>⚠️ Content Pending</strong>
+    A detailed write-up of the Textron–Tamarack relationship is being prepared by leadership. This section will cover:
+    <ul style="margin-top:8px">
+      <li>The initial meeting and early collaboration</li>
+      <li>Working together on the STC certification process</li>
+      <li>The period of troubled waters — what happened and why</li>
+      <li>Current status and path forward</li>
+      <li>How to discuss this with prospects confidently</li>
+    </ul>
+  </div>
+</div>
 
 <!-- ▀▀▀▀▀▀▀▀▀▀ WELCOME ▀▀▀▀▀▀▀▀▀▀ -->
 <div class="section" id="welcome">
