@@ -1,0 +1,18 @@
+project_name: Example Part 23 STC Program Without Positions
+project_type: stc
+project_subject: Cabin panel minor change package
+regulatory_core: part-23
+certification_basis: Part 21 STC process with Part 23 normal-category standards
+cert_repo_version: main
+governing_source_ids:
+  - faa-14-cfr-part-21-current
+  - faa-14-cfr-part-23-current
+adopted_position_ids: []
+deliverable_templates:
+  - templates/certification-basis-template.md
+  - templates/compliance-report-template.md
+output_directory: output/example-part23-stc-no-positions
+project_specific_deviations:
+  - none
+notes: >-
+  Example manifest intentionally omits adopted positions to demonstrate builder suggestions.

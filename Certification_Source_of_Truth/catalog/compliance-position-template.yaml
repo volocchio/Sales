@@ -1,0 +1,16 @@
+position_id: cp-example-001
+title: Example Compliance Position Title
+scope:
+  - airframe
+  - avionics
+  - flight-test
+statement: >-
+  State the reusable certification or compliance position in one controlled paragraph.
+rationale: >-
+  Explain why this position is technically and procedurally defensible.
+source_ids:
+  - faa-mosaic-final-rule-2025-13972
+owner: certification-team
+approval_status: draft
+revision: 0
+last_reviewed: 2026-04-20

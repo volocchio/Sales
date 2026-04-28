@@ -148,6 +148,18 @@ tr:hover td{background:#f8fafc;}
 
 /* ── section tracking ── */
 .section-track{display:flex;align-items:center;gap:10px;margin:10px 0 14px;padding:8px 12px;background:#f8fafc;border:1px solid var(--border);border-radius:8px;font-size:13px;}
+.section-track.section-track-bottom{margin:28px 0 8px;padding:12px 16px;background:#f0fdf4;border:1px solid #bbf7d0;border-left:4px solid var(--green);}
+.section-track.section-track-bottom label{color:#15803d;}
+
+/* ── memory items (QRH-style) ── */
+.memory-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:14px 0 18px;}
+.memory-card{background:#fef2f2;border:1px solid #fecaca;border-left:4px solid #dc2626;border-radius:8px;padding:14px 16px;}
+.memory-card .memory-num{font-size:22px;font-weight:800;color:#b91c1c;line-height:1.1;margin-bottom:4px;}
+.memory-card .memory-lbl{font-size:12px;color:#7f1d1d;line-height:1.4;}
+
+/* ── scaffold callout for in-progress content ── */
+.scaffold{background:repeating-linear-gradient(45deg,#fffbeb,#fffbeb 8px,#fef3c7 8px,#fef3c7 16px);border:1px dashed #d97706;border-radius:8px;padding:14px 18px;margin:12px 0;font-size:14px;color:#78350f;}
+.scaffold strong{display:block;margin-bottom:4px;color:#78350f;}
 .section-track label{display:flex;align-items:center;gap:6px;cursor:pointer;font-weight:600;color:var(--accent);white-space:nowrap;}
 .section-track input[type=checkbox]{width:16px;height:16px;accent-color:var(--green);cursor:pointer;}
 .section-track .note-toggle{margin-left:auto;font-size:12px;color:var(--muted);cursor:pointer;border:none;background:none;padding:2px 8px;border-radius:4px;}
@@ -282,6 +294,158 @@ tr:hover td{background:#f8fafc;}
 
 <!-- ═══════════ MAIN CONTENT ═══════════ -->
 <div class="main">
+
+<!-- ▀▀▀▀▀▀▀▀▀▀ WELCOME / DAY-ONE EXPECTATIONS ▀▀▀▀▀▀▀▀▀▀ -->
+<div class="section" id="welcome">
+  <h2>Welcome &mdash; Day-One Expectations</h2>
+  <p><em>Read this first. Today you join the team that brought active load alleviation to general aviation. Here is exactly what to do today, this week, and over the next month.</em></p>
+
+  <div class="callout tip">
+    <strong>📌 Your Day-One Mission</strong>
+    Read this entire portal end-to-end (skim what you don't understand yet). Don't try to memorize everything — the goal today is <em>orientation</em>, not mastery. Then check in with Jacob and Nick at end-of-day with the questions you wrote down.
+  </div>
+
+  <h3>Today (Day 1)</h3>
+  <ul class="checklist">
+    <li>Read the <a href="#welcome">Welcome</a>, <a href="#glossary">Definitions &amp; Acronyms</a>, and <a href="#memory-items">Memory Items</a> sections — in that order</li>
+    <li>Skim the <a href="#collateral">Collateral Library Map</a> so you know where things live</li>
+    <li>Review the <a href="#hero">Proven Performance</a> hero section — these are the records you're selling</li>
+    <li>Open the splash screen badges: 700+ installs, 22% fuel savings, FL450, &le;25 min climb. Memorize.</li>
+    <li>Open the full training program: <a class="file-link" href="Training/ATLAS Sales Training Program.docx.md">ATLAS Sales Training Program</a></li>
+    <li>Set up your Salesforce login &mdash; see the <a href="#crm">Salesforce &amp; JetNet</a> section</li>
+    <li>End of day: write down 5 questions and bring them to your Day-2 check-in</li>
+  </ul>
+
+  <h3>This Week (Phase 1 &mdash; Foundation)</h3>
+  <p>Work through Sessions 1&ndash;10 in the sidebar (Phase 1). Goal by Friday: you can explain <em>why winglets work</em>, name the 5 numbers per model, and walk through the <a href="#stories">customer stories</a> without notes.</p>
+  <ul class="checklist">
+    <li>Read every section under <strong>Phase 1 &mdash; Foundation</strong> in the sidebar</li>
+    <li>Mark each section complete using the green bar at the bottom (your manager sees progress in real time)</li>
+    <li>Open the <a href="#calculators">Calculators &amp; Tools</a> section and run one sample mission in the CJ3 Cruise Calculator</li>
+    <li>Complete the <a href="#wings">WINGS pilot proficiency course</a> (interactive, 90 min)</li>
+  </ul>
+
+  <h3>The 4-Week Arc</h3>
+  <table>
+    <tr><th>Phase</th><th>Weeks</th><th>Focus</th><th>Sessions</th></tr>
+    <tr><td style="color:var(--phase1);font-weight:700">Phase 1 — Foundation</td><td>1</td><td>Product knowledge, aerodynamics, sales methodology, customer psychology</td><td>1–10</td></tr>
+    <tr><td style="color:var(--phase2);font-weight:700">Phase 2 — Execution</td><td>2–3</td><td>Call craft, prospecting, objection handling, demo flights, closing</td><td>11–20</td></tr>
+    <tr><td style="color:var(--phase3);font-weight:700">Phase 3 — Mastery</td><td>4</td><td>Supervised live calling, independent prospecting, certification</td><td>21–30</td></tr>
+  </table>
+
+  <div class="progress-bar">
+    <div class="seg" style="background:var(--phase1)" title="Phase 1: Foundation"></div>
+    <div class="seg" style="background:var(--phase2)" title="Phase 2: Execution"></div>
+    <div class="seg" style="background:var(--phase2)" title="Phase 2: Execution"></div>
+    <div class="seg" style="background:var(--phase3)" title="Phase 3: Mastery"></div>
+  </div>
+
+  <h3>How This Portal Works</h3>
+  <ul>
+    <li><strong>Sidebar = your roadmap.</strong> Sections are ordered: Start Here → Company Background → Phase 1 → 2 → 3 → Reference.</li>
+    <li><strong>Mark complete at the bottom.</strong> The green "Mark this section complete" bar appears at the END of each tracked section. Check it after you've read the content, not before.</li>
+    <li><strong>Notes are private to you</strong>, but visible to Jacob &amp; Nick on the manager dashboard.</li>
+    <li><strong>Documents open in a built-in viewer.</strong> Click any <code>.md</code> or <code>.docx</code> link and it renders in-browser. Use "Open Original" or "Print / PDF" from the viewer's top bar if you want a download.</li>
+  </ul>
+</div>
+
+<!-- ▀▀▀▀▀▀▀▀▀▀ GLOSSARY / DEFINITIONS ▀▀▀▀▀▀▀▀▀▀ -->
+<div class="section" id="glossary">
+  <h2>Definitions &amp; Acronyms</h2>
+  <p><em>The aviation and product vocabulary you'll hear on every call. Bookmark this and come back as needed.</em></p>
+
+  <h3>Tamarack &amp; Product Terms</h3>
+  <table>
+    <tr><th>Term</th><th>Meaning</th></tr>
+    <tr><td><strong>SMARTWING™</strong></td><td>Tamarack's complete winglet system &mdash; the marketed product name. Includes the winglet structure, ATLAS load-alleviation system, and TACS control surfaces.</td></tr>
+    <tr><td><strong>ATLAS</strong></td><td><em>Active Technology Load Alleviation System.</em> The accelerometer-driven control system that automatically deflects the TACS to cancel gust loads before they reach the wing &mdash; the engineering breakthrough that lets us add 2&ndash;3&times; more span without structural penalty.</td></tr>
+    <tr><td><strong>TACS</strong></td><td><em>Tamarack Active Camber Surface.</em> The small control surface on the trailing edge of each winglet that ATLAS commands in real time.</td></tr>
+    <tr><td><strong>GEN2</strong></td><td>The second-generation SMARTWING product (currently shipping). Improvements over GEN1 in actuation speed, reliability, and field serviceability.</td></tr>
+    <tr><td><strong>ActiveCare</strong></td><td>Tamarack's parts-program coverage for ATLAS components. Predictable per-hour cost, similar to engine programs.</td></tr>
+    <tr><td><strong>PSA</strong></td><td><em>Purchase &amp; Sale Agreement.</em> Our contract with the customer. PSA forms live in <a class="file-link folder" href="Teams_Channel/PSA forms/">PSA forms/</a>.</td></tr>
+    <tr><td><strong>OEM</strong></td><td><em>Original Equipment Manufacturer</em> &mdash; usually means Textron Aviation (Cessna) for our installed base.</td></tr>
+  </table>
+
+  <h3>Certification &amp; Regulatory</h3>
+  <table>
+    <tr><th>Term</th><th>Meaning</th></tr>
+    <tr><td><strong>STC</strong></td><td><em>Supplemental Type Certificate.</em> The FAA approval that lets us legally modify a type-certified aircraft. SMARTWING is sold as an STC. The STC is the <strong>only</strong> legal modification path &mdash; not a "field approval", not a "337".</td></tr>
+    <tr><td><strong>TC</strong></td><td><em>Type Certificate.</em> The original FAA approval for the airframe (held by the OEM).</td></tr>
+    <tr><td><strong>337</strong></td><td>FAA Form 337 &mdash; major repair/alteration record. Filed after install; not an approval mechanism.</td></tr>
+    <tr><td><strong>AD</strong></td><td><em>Airworthiness Directive.</em> Mandatory FAA action on a safety issue. We have AD talking points in <a class="file-link folder" href="Sales and Marketing/AD/">Sales and Marketing/AD/</a>.</td></tr>
+    <tr><td><strong>DO-160</strong></td><td>RTCA environmental qualification standard for avionics (lightning, EMI, vibration, temperature). ATLAS is fully DO-160 qualified.</td></tr>
+    <tr><td><strong>BVID</strong></td><td><em>Barely Visible Impact Damage.</em> The hidden-damage threshold composite parts must survive at full load. ATLAS winglets pass.</td></tr>
+    <tr><td><strong>RVSM</strong></td><td><em>Reduced Vertical Separation Minimums.</em> The 1,000-ft separation regime above FL290. SMARTWING preserves RVSM compliance.</td></tr>
+    <tr><td><strong>AOG</strong></td><td><em>Aircraft on Ground.</em> Highest-priority service status. ActiveCare reduces AOG exposure.</td></tr>
+  </table>
+
+  <h3>Performance &amp; Operations</h3>
+  <table>
+    <tr><th>Term</th><th>Meaning</th></tr>
+    <tr><td><strong>FL</strong></td><td><em>Flight Level.</em> Altitude in hundreds of feet at standard pressure (29.92). FL450 = 45,000 ft.</td></tr>
+    <tr><td><strong>MCT</strong></td><td><em>Maximum Continuous Thrust.</em> The thrust setting used for our published "Range @ MCT" numbers.</td></tr>
+    <tr><td><strong>MZFW</strong></td><td><em>Maximum Zero-Fuel Weight.</em> Max weight before fuel is loaded. SMARTWING raises MZFW on most models.</td></tr>
+    <tr><td><strong>MTOW</strong></td><td><em>Maximum Takeoff Weight.</em></td></tr>
+    <tr><td><strong>Payload</strong></td><td>Useful weight: passengers + bags + cargo (NOT fuel). The "Max Payload" delta is one of the strongest selling points.</td></tr>
+    <tr><td><strong>Block Fuel Burn</strong></td><td>Average pounds per hour over an entire mission (taxi-to-taxi), not just cruise. Reported in <code>pph</code>.</td></tr>
+    <tr><td><strong>TOLD</strong></td><td><em>Takeoff and Landing Data.</em> Performance numbers for V-speeds, runway distances, climb rates.</td></tr>
+    <tr><td><strong>Vref / V-speeds</strong></td><td>Reference airspeed at landing threshold (Vref) and other certified speeds (V1, Vr, V2, Vmo).</td></tr>
+    <tr><td><strong>N1</strong></td><td>Engine fan speed (% of max). Used in cruise-power planning &mdash; see the CJ3 Cruise Calculator.</td></tr>
+    <tr><td><strong>FADEC</strong></td><td><em>Full Authority Digital Engine Control.</em> Computer-managed engine control (CJ2+ and later have it). Big sales angle on CJ2+.</td></tr>
+    <tr><td><strong>AOA</strong></td><td><em>Angle of Attack.</em> The angle between the wing chord and oncoming air. Stall is an AOA limit, not a speed limit.</td></tr>
+    <tr><td><strong>FBO</strong></td><td><em>Fixed-Base Operator.</em> The terminal/ramp service business at an airport.</td></tr>
+    <tr><td><strong>Part 91 / Part 135</strong></td><td>FAA operating rules: 91 = private; 135 = on-demand charter. Both fly our airplanes; sales angles differ.</td></tr>
+  </table>
+
+  <h3>Sales Methodology</h3>
+  <table>
+    <tr><th>Term</th><th>Meaning</th></tr>
+    <tr><td><strong>SPIN</strong></td><td>Situation / Problem / Implication / Need-payoff &mdash; the questioning framework we use. See the <a href="#spin">SPIN Selling</a> section.</td></tr>
+    <tr><td><strong>JetNet</strong></td><td>Industry database of aircraft ownership, hours, transactions. Our primary prospecting source &mdash; integrated into Salesforce.</td></tr>
+    <tr><td><strong>Salesforce</strong></td><td>Our CRM. All leads, calls, emails, and pipeline live here. See <a href="#crm">Salesforce &amp; JetNet</a>.</td></tr>
+  </table>
+</div>
+
+<!-- ▀▀▀▀▀▀▀▀▀▀ MEMORY ITEMS (QRH-STYLE) ▀▀▀▀▀▀▀▀▀▀ -->
+<div class="section" id="memory-items">
+  <h2>Memory Items &mdash; Know Cold</h2>
+  <div class="callout warn">
+    <strong>🚨 QRH Memory Items</strong>
+    Just like a pilot's Quick Reference Handbook, these are the facts you must recall <em>without looking</em>. They appear highlighted in red throughout the portal so you'll see them again and again. By end of Week 1, you should be able to recite every one of them from memory.
+  </div>
+
+  <h3>The 5 Numbers Every Rep Must Know Cold</h3>
+  <div class="memory-grid">
+    <div class="memory-card"><div class="memory-num">22%</div><div class="memory-lbl">Block fuel-burn reduction (typical)</div></div>
+    <div class="memory-card"><div class="memory-num">FL450</div><div class="memory-lbl">Initial cruise altitude (most models)</div></div>
+    <div class="memory-card"><div class="memory-num">≤25 min</div><div class="memory-lbl">Time to FL450 (CJ2+, CJ3)</div></div>
+    <div class="memory-card"><div class="memory-num">+300–500 nm</div><div class="memory-lbl">Range gain @ MCT, depending on model</div></div>
+    <div class="memory-card"><div class="memory-num">+320–725 lb</div><div class="memory-lbl">Max payload increase, depending on model</div></div>
+  </div>
+
+  <h3>The Per-Model Cheat (memorize the row for the model you're pitching)</h3>
+  <table>
+    <tr><th>Model</th><th>Fuel Savings</th><th>Range Gain</th><th>Payload Gain</th><th>Climb to FL450</th></tr>
+    <tr><td><strong>CJ</strong></td><td>~28%</td><td>+300 nm</td><td>+322 lb</td><td>FL410 in ≤32 min</td></tr>
+    <tr><td><strong>CJ1 / CJ1+</strong></td><td>~28%</td><td>+340–420 nm</td><td>+322 lb</td><td>FL410 in ≤32 min</td></tr>
+    <tr><td><strong>CJ2</strong></td><td>~22%</td><td>+450 nm</td><td>+721 lb</td><td>FL450 in ≤30 min</td></tr>
+    <tr><td><strong>CJ2+</strong></td><td>~24%</td><td>+500 nm</td><td>+725 lb</td><td>FL450 in ≤25 min (FADEC)</td></tr>
+    <tr><td><strong>CJ3 / CJ3+</strong></td><td>~22%</td><td>+250 nm</td><td>+320 lb</td><td>FL450 in ≤25 min</td></tr>
+    <tr><td><strong>M2</strong></td><td>~13%</td><td>+150 nm</td><td>+323 lb</td><td>FL410 in ≤22 min</td></tr>
+  </table>
+
+  <h3>Non-Negotiable Facts</h3>
+  <ul class="checklist">
+    <li><strong>STC is the only legal install path.</strong> Not a 337, not a field approval. Don't let a prospect or A&amp;P confuse the issue.</li>
+    <li><strong>Cessna opened the engineering vault.</strong> SMARTWING was developed <em>with</em> Textron, not in a garage. 5+ years, hundreds of joint sessions.</li>
+    <li><strong>700+ installs.</strong> Real fleet, real flights, FlightAware-tracked. We sell verified history, not promises.</li>
+    <li><strong>FAA STC + EASA + Transport Canada.</strong> Three top-tier airworthiness authorities. Global ops are covered.</li>
+    <li><strong>RVSM preserved.</strong> No re-cert burden for the customer.</li>
+    <li><strong>Full DO-160 lightning &amp; EMI qualified.</strong> Year-long lab testing in Wichita.</li>
+    <li><strong>BVID-tested composite parts.</strong> Hidden impact damage doesn't reduce ultimate load capability.</li>
+    <li><strong>Part of the Safe-to-Land Initiative.</strong> Shorter landing distances on the most accident-prone phase of flight.</li>
+  </ul>
+</div>
 
 <!-- ▀▀▀▀▀▀▀▀▀▀ HERO — PROVEN PERFORMANCE ▀▀▀▀▀▀▀▀▀▀ -->
 <div class="section" id="hero">
@@ -472,6 +636,16 @@ tr:hover td{background:#f8fafc;}
     <h2>WINGS FAA Pilot Proficiency Course</h2>
     <p>Tamarack offers an FAA WINGS pilot proficiency course — valuable for prospects regardless of purchase intent. Use it as a relationship builder and trust signal.</p>
 
+    <div class="callout tip">
+      <strong>✨ Take the interactive course online</strong>
+      The official FAA WINGS Program is delivered through faasafety.gov. Completing it gives the pilot real FAA WINGS credit (counts toward currency in lieu of a flight review). Walk prospects through the signup the first time — it's a great way to stay in touch.
+      <br/><br/>
+      <a class="file-link" href="https://www.faasafety.gov/WINGS/pub/learn_more.aspx" target="_blank" rel="noopener">FAA WINGS → faasafety.gov</a>
+      <a class="file-link" href="https://www.faasafety.gov/WINGS/pub/default.aspx" target="_blank" rel="noopener">WINGS Pilot Proficiency Portal</a>
+    </div>
+
+    <h3>Local Course Materials &mdash; Reference Files</h3>
+    <p>Use these alongside the online course, or as standalone training material with prospects who want a guided walkthrough.</p>
     <div>
       <a class="file-link" href="Teams_Channel/WINGS Course/WINGS Powerpoint mr 2025.04.21.pdf">WINGS Presentation (PDF)</a>
       <a class="file-link ppt" href="Teams_Channel/WINGS Course/WINGS Powerpoint mr 2025.04.21.pptx">WINGS Presentation (PowerPoint)</a>
@@ -487,7 +661,7 @@ tr:hover td{background:#f8fafc;}
       <a class="file-link" href="Teams_Channel/WINGS Course/WINGS FAA pilot proficiency Program curriculum/WINGS training program.docx">WINGS Training Program</a>
       <a class="file-link" href="Teams_Channel/WINGS Course/WINGS FAA pilot proficiency Program curriculum/WINGS outline HG.docx">WINGS Outline</a>
       <a class="file-link xls" href="Teams_Channel/WINGS Course/WINGS FAA pilot proficiency Program curriculum/WINGS program video list.xlsx">Video List</a>
-      <a class="file-link" href="Teams_Channel/WINGS Course/WINGS FAA pilot proficiency Program curriculum/#1 video WINGS Voiceover INTRODUCTION VIDEO Final Draft.docx">Intro Video Voiceover Script</a>
+      <a class="file-link" href="Teams_Channel/WINGS Course/WINGS FAA pilot proficiency Program curriculum/%231%20video%20WINGS%20Voiceover%20INTRODUCTION%20VIDEO%20Final%20Draft.docx">Intro Video Voiceover Script</a>
       <a class="file-link" href="Teams_Channel/WINGS Course/WINGS FAA pilot proficiency Program curriculum/WINGS Video #2 aerodynamic review voice over script.docx">Aerodynamic Review Voiceover</a>
     </div>
   </div>
@@ -896,40 +1070,6 @@ tr:hover td{background:#f8fafc;}
   </table>
 </div>
 
-<!-- ▀▀▀▀▀▀▀▀▀▀ WELCOME ▀▀▀▀▀▀▀▀▀▀ -->
-<div class="section" id="welcome">
-  <h2>Welcome to Tamarack Aerospace</h2>
-  <p>This training program runs <strong>4 weeks (30 sessions)</strong> and will turn you into a certified ATLAS Sales Professional capable of independently prospecting, qualifying, pitching, handling objections, closing, and supporting post-sale follow-through across all Citation, M2, and King Air platforms.</p>
-
-  <div class="progress-bar">
-    <div class="seg" style="background:var(--phase1)" title="Phase 1: Foundation"></div>
-    <div class="seg" style="background:var(--phase2)" title="Phase 2: Execution"></div>
-    <div class="seg" style="background:var(--phase2)" title="Phase 2: Execution"></div>
-    <div class="seg" style="background:var(--phase3)" title="Phase 3: Mastery"></div>
-  </div>
-
-  <table>
-    <tr><th>Phase</th><th>Weeks</th><th>Focus</th><th>Sessions</th></tr>
-    <tr><td style="color:var(--phase1);font-weight:700">Phase 1 — Foundation</td><td>1</td><td>Product knowledge, aerodynamics, sales methodology, customer psychology</td><td>1–10</td></tr>
-    <tr><td style="color:var(--phase2);font-weight:700">Phase 2 — Execution</td><td>2–3</td><td>Call craft, prospecting, objection handling, demo flights, closing</td><td>11–20</td></tr>
-    <tr><td style="color:var(--phase3);font-weight:700">Phase 3 — Mastery</td><td>4</td><td>Supervised live calling, independent prospecting, certification</td><td>21–30</td></tr>
-  </table>
-
-  <div class="callout">
-    <strong>📋 Full Training Curriculum</strong>
-    The complete 30-session training program with daily schedules, assessments, and role-play scenarios:
-    <br/><a class="file-link" href="Training/ATLAS Sales Training Program.docx.md">ATLAS Sales Training Program</a>
-  </div>
-
-  <h3>Day 1 Assignments</h3>
-  <ul class="checklist">
-    <li>Read this entire training portal — bookmark it</li>
-    <li>Tour the collateral library (folder structure below)</li>
-    <li>Read the <a href="#aero">Aerodynamic Principles</a> section</li>
-    <li>Review the <a href="#kickoff">2026 Sales Kickoff</a> presentation</li>
-  </ul>
-</div>
-
 <!-- ▀▀▀▀▀▀▀▀▀▀ COLLATERAL MAP ▀▀▀▀▀▀▀▀▀▀ -->
 <div class="section" id="collateral">
   <h2>Collateral Library Map</h2>
@@ -1053,7 +1193,7 @@ tr:hover td{background:#f8fafc;}
     <tr><td>Max Payload</td><td>1,700 lb</td><td>2,425 lb</td><td><strong>+725 lb</strong></td></tr>
     <tr><td>Time to FL450</td><td>35+ min</td><td>≤25 min</td><td><strong>−10 min</strong></td></tr>
     <tr><td>Block Fuel Burn</td><td>920 pph</td><td>680–700 pph</td><td><strong>−24%</strong></td></tr>
-    <tr><td>Range @ MCT</td><td>1,300 nm</td><td>1,800 nm</td><td><strong>+500 nm</strong></td></tr>
+    <tr><td>Range @ MCT</td><td>1,300 nm / 4 hr</td><td>1,800 nm / 5 hr</td><td><strong>+500 nm</strong></td></tr>
   </table>
   <div class="callout"><strong>⚡ FADEC Advantage</strong> CJ2+ pilots are used to FADEC managing their engines. With ATLAS, that same FADEC authority at FL450 means the aircraft is climbing and cruising with confidence the CJ2 can&rsquo;t match. The CJ2+ was already the better airplane &mdash; ATLAS makes the gap massive.</div>
   <div class="callout"><strong>🗣️ Talk Track:</strong> &ldquo;Your CJ2+ already has the better engines and FADEC. ATLAS unlocks what those engines were always capable of &mdash; FL450, 1,800 nm range, and 24% less fuel. You bought the right airplane. Now let it perform.&rdquo;</div>
@@ -1078,7 +1218,7 @@ tr:hover td{background:#f8fafc;}
     <a class="file-link" href="Teams_Channel/By model-Sales Documents/CJ3 & CJ3+/CJ3+ Specs OEM vs ATLAS.pdf">CJ3+ Specs OEM vs ATLAS</a>
     <a class="file-link" href="Sales and Marketing/One-Pagers/SMARTWING for Citation CJ3-CJ3+.md">CJ3/CJ3+ One-Pager</a>
     <a class="file-link folder" href="Teams_Channel/By model-Sales Documents/CJ3 & CJ3+/Charts and Graphs/">CJ3 Charts &amp; Graphs</a>
-    <a class="file-link folder" href="Teams_Channel/By model-Sales Documents/CJ3 & CJ3+/525B Flight stories/">CJ3 Flight Stories</a>
+    <a class="file-link folder" href="Aircraft Models/CJ3-CJ3+/Flight Stories/">CJ3 Flight Stories</a>
     <a class="file-link folder" href="Teams_Channel/By model-Sales Documents/CJ3 & CJ3+/Flight Aware flight- ATLAS equipped/">CJ3 FlightAware Tracks</a>
     <a class="file-link xls" href="Aircraft Models/CJ3-CJ3+/CJ3 Cruise Calculator All Mach Numbers New N1 Calc.xlsm">CJ3 Cruise Calculator</a>
   </div>
@@ -1390,7 +1530,7 @@ tr:hover td{background:#f8fafc;}
   <div class="callout tip"><strong>📖 Build Your Story Bank</strong> Select 2 stories per model that resonate with you. Practice telling each in under 90 seconds.</div>
 
   <div>
-    <a class="file-link folder" href="Teams_Channel/By model-Sales Documents/CJ3 & CJ3+/525B Flight stories/">CJ3 Flight Stories Folder</a>
+    <a class="file-link folder" href="Aircraft Models/CJ3-CJ3+/Flight Stories/">CJ3 Flight Stories Folder</a>
     <a class="file-link" href="Teams_Channel/Proper Demo Flight.docx">Proper Demo Flight Guide</a>
     <a class="file-link" href="Teams_Channel/Tips and Tricks E-book.pdf">Tips and Tricks E-book</a>
   </div>
@@ -1630,20 +1770,58 @@ tr:hover td{background:#f8fafc;}
   </div>
 </div>
 
-<!-- ── CRM ── -->
+<!-- ── SALESFORCE & JETNET ── -->
 <div class="section" id="crm">
-  <h2>CRM &amp; Pipeline Management <span class="phase-tag" style="background:var(--phase2)">Wk 2</span></h2>
-  <p><em>Session 14 — Lead stages, follow-up cadence, and data discipline.</em></p>
+  <h2>Salesforce &amp; JetNet <span class="phase-tag" style="background:var(--phase2)">Wk 2</span></h2>
+  <p><em>Session 14 — Where leads come from, how we track them, and the data discipline that keeps the pipeline honest.</em></p>
+
+  <h3>The Two Tools, In One Sentence</h3>
+  <ul>
+    <li><strong>JetNet</strong> = the industry database of who owns what airplane, how many hours, last transaction. It is our <em>prospect source</em>.</li>
+    <li><strong>Salesforce</strong> = our CRM. Every prospect, call, email, demo, and proposal lives here. It is our <em>system of record</em>.</li>
+    <li>JetNet flows <em>into</em> Salesforce via the JetNet-for-Salesforce integration so a JetNet record becomes a Salesforce lead with one click.</li>
+  </ul>
 
   <h3>Pipeline Stages</h3>
-  <p><strong>Cold → Contacted → Qualified → Proposal → Demo Flight → Close</strong></p>
+  <p><strong>Cold &rarr; Contacted &rarr; Qualified &rarr; Proposal &rarr; Demo Flight &rarr; Close</strong></p>
+
+  <div class="scaffold">
+    <strong>🚧 DRAFT — to be filled in by Nick &amp; Jacob</strong>
+    The detailed Salesforce process below is a scaffold. Final stage definitions, required-field lists, and JetNet-to-SF workflow steps still need to be written by sales leadership. The <em>JetNet for Salesforce Customization Guide</em> is current; the <em>Salesforce Data Entry</em> doc is unfinished.
+  </div>
+
+  <h3>Required Fields by Stage <em>(scaffold)</em></h3>
+  <table>
+    <tr><th>Stage</th><th>Required SF Fields</th><th>Exit Criteria</th></tr>
+    <tr><td>Cold</td><td>Tail #, model, owner, owner type (Part 91 / 135 / fleet), state, hours/year (from JetNet)</td><td>Outbound contact made</td></tr>
+    <tr><td>Contacted</td><td>+ Decision-maker name &amp; role, primary mission profile, current pain points</td><td>Pain qualified, budget range surfaced</td></tr>
+    <tr><td>Qualified</td><td>+ Budget, decision timeline, install center preference</td><td>Verbal interest in proposal</td></tr>
+    <tr><td>Proposal</td><td>+ Configuration, install slot target, ROI scenarios run in CJ3 Cruise Calculator</td><td>Proposal sent</td></tr>
+    <tr><td>Demo Flight</td><td>+ Demo date, attendees, base airport</td><td>Demo flown &amp; debriefed</td></tr>
+    <tr><td>Close</td><td>+ PSA executed, deposit received, install date</td><td>Deal closed-won</td></tr>
+  </table>
+
+  <h3>JetNet → Salesforce Workflow <em>(scaffold)</em></h3>
+  <ol>
+    <li>Run a JetNet saved search filtered by model + region (e.g., "CJ2+ owners, Western US, &gt;200 hrs/yr").</li>
+    <li>Review results. For each promising tail, click <strong>"Send to Salesforce"</strong> in the JetNet panel.</li>
+    <li>JetNet creates a Salesforce Lead with owner, model, hours, last-transaction data pre-filled.</li>
+    <li>Assign Lead to yourself; set stage = <strong>Cold</strong>; schedule first-touch task.</li>
+    <li>After first call, convert Lead to Account + Contact + Opportunity; advance to <strong>Contacted</strong>.</li>
+  </ol>
 
   <h3>Salesforce Training Resources</h3>
   <div>
-    <a class="file-link" href="Teams_Channel/Salesforce/Salesforce Data Entry.docx">Salesforce Data Entry Guide</a>
+    <a class="file-link" href="Teams_Channel/Salesforce/Salesforce Data Entry.docx">Salesforce Data Entry Guide <em>(unfinished)</em></a>
     <a class="file-link" href="Teams_Channel/Salesforce/Training Schedule.docx">Salesforce Training Schedule</a>
-    <a class="file-link" href="Teams_Channel/Salesforce/Customization Guide - JETNET for Salesforce V1.6.0.pdf">JETNET for Salesforce Guide</a>
-    <a class="file-link" href="Teams_Channel/JETNET/JETNET amendment Order Q-07005-1; add Josh Mack; 20240813.pdf">JETNET Amendment Order</a>
+    <a class="file-link" href="Teams_Channel/Salesforce/Customization Guide - JETNET for Salesforce V1.6.0.pdf">JETNET for Salesforce Guide (current)</a>
+  </div>
+
+  <h3>JetNet Resources</h3>
+  <p>The current JetNet documentation lives on the JetNet website in video format — the local one-pager is outdated. Use these links rather than older PDFs.</p>
+  <div>
+    <a class="file-link" href="https://www.jetnet.com/" target="_blank" rel="noopener">JetNet Login &rarr; jetnet.com</a>
+    <a class="file-link" href="Teams_Channel/JETNET/JETNET amendment Order Q-07005-1; add Josh Mack; 20240813.pdf">JetNet Account Amendment Order</a>
   </div>
 
   <h3>Sales Planning</h3>
@@ -2198,6 +2376,48 @@ tr:hover td{background:#f8fafc;}
   </ol>
 </div>
 
+<!-- ── CALCULATORS & TOOLS ── -->
+<div class="section" id="calculators">
+  <h2>Calculators &amp; Tools</h2>
+  <p>The simulators and spreadsheets the sales team uses to model real customer missions.</p>
+
+  <h3>🚀 Tamarack Mission Analysis (hosted simulator)</h3>
+  <p>Real flight physics for any Citation on any route in the world &mdash; <strong>Flatwing vs. Tamarack side-by-side</strong>. This is the most powerful tool we have for live sales calls because it answers the prospect's actual question: <em>"What does this do for <strong>my</strong> missions?"</em> Use it on every qualified call.</p>
+  <div>
+    <a class="file-link" href="https://mission-analysis.voloaltro.tech" target="_blank" rel="noopener">Open Mission Analysis →</a>
+    <a class="file-link" href="Training/Tamarack Mission Analysis - Quick Start Guide.md">How to Run It (Quick Start Guide)</a>
+  </div>
+  <div class="callout tip"><strong>💡 Sales tip</strong> Always pick <strong>Compare</strong> mode (Flatwing vs. Tamarack) and run the prospect's own top-3 routes. The delta is the pitch.</div>
+
+  <h3>CJ3 Cruise Calculator (Excel)</h3>
+  <p>Customer-facing spreadsheet for the 525B series (CJ3 / CJ3+). Enter weight, altitude, ISA deviation, and Mach number; get fuel burn and range. Open in Excel &mdash; the macro-enabled <code>.xlsm</code> won't run in Google Sheets.</p>
+  <div>
+    <a class="file-link xls" href="Aircraft Models/CJ3-CJ3+/CJ3 Cruise Calculator All Mach Numbers New N1 Calc.xlsm">CJ3 Cruise Calculator (.xlsm)</a>
+  </div>
+  <h4>How to use it (quick start)</h4>
+  <ol>
+    <li>Download the file and open in Excel. Click <strong>Enable Editing</strong> then <strong>Enable Macros</strong> &mdash; the N1 lookup is macro-driven.</li>
+    <li>Pick the <strong>Mach number</strong> tab matching the cruise speed you want to model (M.66 through M.75).</li>
+    <li>Enter <strong>cruise weight</strong> (lb), <strong>altitude</strong> (FL), and <strong>ISA deviation</strong> (°C).</li>
+    <li>Read the resulting <strong>N1 %</strong>, <strong>fuel flow (pph)</strong>, and <strong>TAS (kt)</strong>.</li>
+    <li>To compare stock vs. ATLAS, run the same mission inputs at the stock cruise altitude (typically FL410) and the ATLAS cruise altitude (FL450), then divide ranges.</li>
+  </ol>
+  <div class="callout tip"><strong>💡 Sales tip</strong> Run the calculator <em>live</em> on the customer's actual top-3 routes. The number that lands the deal is the one they didn't expect.</div>
+
+  <h3>Drag Charts (Performance Step Tool)</h3>
+  <p>Visualizes how stepping up altitude reduces drag and burn. Useful for explaining <em>why</em> ATLAS pays back so fast.</p>
+  <div>
+    <a class="file-link xls" href="Training/Marketing/General/Drag Charts with step.xlsm">Drag Charts with Step (.xlsm)</a>
+  </div>
+
+  <h3>Sales Planning Spreadsheets</h3>
+  <div>
+    <a class="file-link xls" href="Teams_Channel/Sales Commitments 2026/Sales Commitments 2026.xlsx">Sales Commitments 2026</a>
+    <a class="file-link xls" href="Teams_Channel/Sales Commitments 2026/Spread Sheet Template.xlsx">Tracking Spreadsheet Template</a>
+    <a class="file-link xls" href="Teams_Channel/_sales_summary.xlsx">Sales Summary</a>
+  </div>
+</div>
+
 <!-- ── TOOLS & ONE-PAGERS ── -->
 <div class="section" id="tools">
   <h2>Sales Tools &amp; One-Pagers</h2>
@@ -2274,7 +2494,7 @@ tr:hover td{background:#f8fafc;}
 
   <div>
     <a class="file-link" href="Sales and Marketing/Sales Tools/ActiveCare and ForeFlight Talking Points.md">Full Talking Points Guide</a>
-    <a class="file-link" href="Teams_Channel/ActiveCare/Tamarack ActiveCare&#8482; Announcement.docx">ActiveCare Announcement</a>
+    <a class="file-link" href="Teams_Channel/ActiveCare/Tamarack%20ActiveCare%E2%84%A2%20Announcement.docx">ActiveCare Announcement</a>
     <a class="file-link" href="Teams_Channel/ActiveCare/TAMARACK ACTIVECARE PARTS PROGRAM TERMS AND CONDITIONS 2025.pdf">ActiveCare Terms &amp; Conditions</a>
     <a class="file-link xls" href="Teams_Channel/ActiveCare/Tamarack ActiveCare Master Log.xlsx">ActiveCare Master Log</a>
   </div>
@@ -2760,10 +2980,10 @@ tr:hover td{background:#f8fafc;}
 // ── Config ──────────────────────────────────────────────────────────
 const API = '/api';
 const TRACKABLE = [
-  'hero','textron','textron-divergence','patents','cert-engineering','welcome','collateral',
+  'hero','textron','textron-divergence','patents','cert-engineering','welcome','glossary','memory-items','collateral',
   'aero','platforms','gen2','spin','probing','personas','roi','stories','hard-conversations',
   'cold-call','prospecting','objections','followup','competitive','crm','demo-flight','closing','post-sale',
-  'live-calling','advanced','certification','contacts'
+  'live-calling','advanced','certification','calculators','contacts'
 ];
 
 // ── State ───────────────────────────────────────────────────────────
@@ -2778,6 +2998,23 @@ window.addEventListener('scroll', () => {
   let current = '';
   allSections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
   navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+});
+
+// ── Document viewer routing ─────────────────────────────────────
+// Route .md and .docx links through viewer.html so they render in-browser
+// instead of downloading or showing raw text. PDFs and Office files keep
+// their default behavior. Per Tiara's feedback: uniform link behavior.
+document.addEventListener('click', function (e) {
+  const a = e.target.closest('a[href]');
+  if (!a) return;
+  if (a.target === '_blank') return; // explicit new-tab links: leave alone
+  const href = a.getAttribute('href') || '';
+  if (!href || href.startsWith('#') || /^[a-z]+:/i.test(href)) return;
+  // Only intercept extensions the viewer handles
+  if (!/\.(md|markdown|docx)(\?|$)/i.test(href)) return;
+  e.preventDefault();
+  // Preserve any existing query/hash on the href
+  window.location.href = 'viewer.html?file=' + encodeURIComponent(href);
 });
 
 // ── Photo thumbnails ────────────────────────────────────────────────
@@ -2874,13 +3111,13 @@ function injectTrackingUI() {
 
     const data = progressData[id] || { completed: false, notes: '' };
 
-    // Track bar
+    // Track bar — append at the END of the section so reps mark complete
+    // after reading, not before. (Per Tiara feedback 2026-04.)
     const track = document.createElement('div');
-    track.className = 'section-track';
+    track.className = 'section-track section-track-bottom';
     track.innerHTML = `
-      <label><input type="checkbox" data-section="${id}" ${data.completed ? 'checked' : ''} /> Mark complete</label>
+      <label><input type="checkbox" data-section="${id}" ${data.completed ? 'checked' : ''} /> Mark this section complete</label>
       <button class="note-toggle" data-section="${id}">📝 Notes${data.notes ? ' ●' : ''}</button>`;
-    h2.insertAdjacentElement('afterend', track);
 
     // Notes area
     const notes = document.createElement('div');
@@ -2889,7 +3126,9 @@ function injectTrackingUI() {
     notes.innerHTML = `
       <textarea data-section="${id}" placeholder="Your notes, questions, or feedback on this section...">${esc(data.notes)}</textarea>
       <div class="note-status" id="note-status-${id}"></div>`;
-    track.insertAdjacentElement('afterend', notes);
+
+    section.appendChild(track);
+    section.appendChild(notes);
 
     // Checkbox handler
     track.querySelector('input[type=checkbox]').addEventListener('change', function() {

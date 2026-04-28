@@ -1,0 +1,207 @@
+positions:
+  - position_id: cp-part23-stc-basis-001
+    title: Part 23 STC programs should explicitly map Part 21 change process to Part 23 technical requirements
+    scope:
+      - part-23
+      - stc
+      - certification-basis
+    statement: >-
+      For normal-category STC programs, the certification basis should be documented as a
+      Part 21 change pathway paired with explicitly identified Part 23 technical requirement
+      clusters and selected means of compliance.
+    rationale: >-
+      This prevents report sets from citing technical requirements without showing the governing
+      change process and applicability logic that the FAA uses to evaluate STC basis integrity.
+    source_ids:
+      - faa-14-cfr-part-21-current
+      - faa-14-cfr-part-23-current
+      - faa-small-airplane-regs-policy-portal
+    owner: certification-team
+    approval_status: draft
+    revision: 0
+    last_reviewed: 2026-04-20
+
+  - position_id: cp-part25-systems-safety-001
+    title: Part 25 compliance packages should preserve systems-safety traceability from failure condition to ICA constraints
+    scope:
+      - part-25
+      - systems-safety
+      - continued-airworthiness
+    statement: >-
+      For transport-category programs, compliance reporting should preserve explicit traceability
+      from failure-condition classification and probability assumptions through verification evidence
+      to resulting operating limitations, maintenance requirements, and ICA constraints.
+    rationale: >-
+      Part 25 integrates design, systems, and continued-airworthiness obligations; breaking these
+      links can produce technically complete analyses that still fail certification traceability.
+    source_ids:
+      - faa-14-cfr-part-25-current
+      - faa-14-cfr-part-21-current
+    owner: certification-team
+    approval_status: draft
+    revision: 0
+    last_reviewed: 2026-04-20
+
+  - position_id: cp-part23-moc-traceability-002
+    title: Part 23 compliance matrices should link each requirement cluster to an explicit means of compliance and evidence set
+    scope:
+      - part-23
+      - means-of-compliance
+      - traceability
+    statement: >-
+      Each applicable Part 23 requirement cluster should identify the selected means of
+      compliance and the associated project evidence package so the certification path can be
+      reviewed without reconstructing intent from separate documents.
+    rationale: >-
+      A requirement-only matrix is insufficient when multiple acceptable means exist; explicit
+      mapping improves review speed and reduces interpretation drift across projects.
+    source_ids:
+      - faa-14-cfr-part-23-current
+      - faa-small-airplane-regs-policy-portal
+    owner: certification-team
+    approval_status: draft
+    revision: 0
+    last_reviewed: 2026-04-20
+
+  - position_id: cp-part23-ica-planning-003
+    title: Part 23 programs should define ICA deliverables during certification planning, not post-finding cleanup
+    scope:
+      - part-23
+      - continued-airworthiness
+      - planning
+    statement: >-
+      ICA-related requirements and resulting deliverables should be planned with the initial
+      certification basis and verification strategy so maintenance and inspection impacts are
+      reflected in early design and compliance decisions.
+    rationale: >-
+      Late ICA definition creates avoidable redesign and rework, especially where inspection
+      access, intervals, and limitations are linked to substantiation assumptions.
+    source_ids:
+      - faa-14-cfr-part-23-current
+      - faa-14-cfr-part-21-current
+    owner: certification-team
+    approval_status: draft
+    revision: 0
+    last_reviewed: 2026-04-20
+
+  - position_id: cp-part23-flight-test-consistency-004
+    title: Part 23 flight test plans should be cross-checked against assumed configuration and performance limits used in analysis
+    scope:
+      - part-23
+      - flight-test
+      - performance
+    statement: >-
+      Flight test planning should verify that tested configurations, loading, and operational
+      limits align with assumptions used in analysis and compliance narratives so resulting
+      findings remain valid for the declared basis.
+    rationale: >-
+      Certification conclusions can be invalidated when analysis assumptions and executed test
+      conditions diverge without controlled justification.
+    source_ids:
+      - faa-14-cfr-part-23-current
+      - faa-14-cfr-part-21-current
+    owner: certification-team
+    approval_status: draft
+    revision: 0
+    last_reviewed: 2026-04-20
+
+  - position_id: cp-part25-structure-loads-002
+    title: Part 25 structural substantiation should preserve a direct chain from loads assumptions to limit and ultimate criteria
+    scope:
+      - part-25
+      - structures
+      - loads
+    statement: >-
+      Structural reports should identify governing load assumptions and clearly tie them to
+      limit and ultimate criteria used for substantiation of each affected structural feature.
+    rationale: >-
+      Part 25 structural compliance depends on transparent load-path logic; hidden assumptions
+      increase risk of late review findings and re-analysis.
+    source_ids:
+      - faa-14-cfr-part-25-current
+    owner: certification-team
+    approval_status: draft
+    revision: 0
+    last_reviewed: 2026-04-20
+
+  - position_id: cp-part25-operating-limitations-003
+    title: Part 25 compliance narratives should explicitly connect technical findings to AFM limitations and markings
+    scope:
+      - part-25
+      - operating-limitations
+      - afm
+    statement: >-
+      Compliance conclusions should identify resulting AFM limitations, procedures, and relevant
+      markings or placards so approval artifacts reflect the operational controls required for
+      continued safe operation.
+    rationale: >-
+      Part 25 approval is incomplete if validated design constraints are not carried into
+      operating limitations and flight manual content.
+    source_ids:
+      - faa-14-cfr-part-25-current
+    owner: certification-team
+    approval_status: draft
+    revision: 0
+    last_reviewed: 2026-04-20
+
+  - position_id: cp-part25-ica-airworthiness-limitations-004
+    title: Part 25 ICA packages should surface all airworthiness limitations generated by damage tolerance and systems analyses
+    scope:
+      - part-25
+      - continued-airworthiness
+      - ica
+    statement: >-
+      ICA development should explicitly capture mandatory inspections, replacement times,
+      configuration controls, and related limitations derived from structural and systems
+      substantiation activities.
+    rationale: >-
+      Missing linkage between substantiation outputs and ICA limitations undermines continued
+      airworthiness compliance and can delay project approval.
+    source_ids:
+      - faa-14-cfr-part-25-current
+      - faa-14-cfr-part-21-current
+    owner: certification-team
+    approval_status: draft
+    revision: 0
+    last_reviewed: 2026-04-20
+
+  - position_id: cp-part25-change-impact-005
+    title: Part 25 change programs should document affected systems interactions before finalizing the means-of-compliance plan
+    scope:
+      - part-25
+      - design-change
+      - integration
+    statement: >-
+      For transport-category change programs, applicants should document cross-system and
+      cross-discipline interactions early and use that assessment to define compliance methods,
+      test scope, and impacted operating or maintenance controls.
+    rationale: >-
+      Part 25 change findings frequently arise from integration effects rather than single-system
+      compliance gaps; early interaction mapping reduces downstream surprises.
+    source_ids:
+      - faa-14-cfr-part-25-current
+      - faa-14-cfr-part-21-current
+    owner: certification-team
+    approval_status: draft
+    revision: 0
+    last_reviewed: 2026-04-20
+
+  - position_id: cp-part25-ewis-maintenance-006
+    title: Part 25 EWIS-related compliance assumptions should be reflected in maintainable inspection tasks and intervals
+    scope:
+      - part-25
+      - ewis
+      - continued-airworthiness
+    statement: >-
+      Where EWIS compliance depends on installation, separation, or environmental assumptions,
+      corresponding maintenance and inspection tasks should be defined so the approved condition
+      is preserved in service.
+    rationale: >-
+      EWIS compliance can degrade operationally if assumptions are not converted into practical
+      and enforceable maintenance actions.
+    source_ids:
+      - faa-14-cfr-part-25-current
+    owner: certification-team
+    approval_status: draft
+    revision: 0
+    last_reviewed: 2026-04-20

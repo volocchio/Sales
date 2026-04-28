@@ -1,0 +1,22 @@
+project_name: Example Part 23 STC Program
+project_type: stc
+project_subject: Brake cooling scoop installation
+regulatory_core: part-23
+certification_basis: Part 21 STC process with Part 23 normal-category standards
+cert_repo_version: main
+governing_source_ids:
+  - faa-14-cfr-part-21-current
+  - faa-14-cfr-part-23-current
+  - faa-small-airplane-regs-policy-portal
+adopted_position_ids:
+  - cp-part23-stc-basis-001
+  - cp-part23-moc-traceability-002
+  - cp-part23-ica-planning-003
+deliverable_templates:
+  - templates/certification-basis-template.md
+  - templates/compliance-report-template.md
+output_directory: output/example-part23-stc
+project_specific_deviations:
+  - none
+notes: >-
+  Example only. Replace with the actual STC subject, certification basis, and adopted positions.

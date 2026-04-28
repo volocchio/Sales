@@ -1,0 +1,135 @@
+sources:
+  - id: faa-14-cfr-part-21-current
+    title: 14 CFR Part 21 - Certification Procedures for Products and Articles
+    authority: FAA eCFR
+    document_type: regulation
+    status: active
+    applicability:
+      - part-21
+      - type-certificates
+      - amended-type-certificates
+      - supplemental-type-certificates
+      - changes-to-type-design
+      - instructions-for-continued-airworthiness
+    url: https://www.ecfr.gov/current/title-14/chapter-I/subchapter-C/part-21
+    tags:
+      - certification-procedures
+      - tc
+      - atc
+      - stc
+      - design-change
+      - 21.101
+    summary_path: knowledge/faa/part-21/summary.md
+    owner: certification-team
+    last_reviewed: 2026-04-20
+
+  - id: faa-14-cfr-part-23-current
+    title: "14 CFR Part 23 - Airworthiness Standards: Normal Category Airplanes"
+    authority: FAA eCFR
+    document_type: regulation
+    status: active
+    applicability:
+      - part-23
+      - normal-category-airplanes
+      - small-airplane-certification
+      - part-23-change-programs
+    url: https://www.ecfr.gov/current/title-14/chapter-I/subchapter-C/part-23
+    tags:
+      - airworthiness-standards
+      - performance-based
+      - means-of-compliance
+      - normal-category
+      - small-airplane
+    summary_path: knowledge/faa/part-23/summary.md
+    owner: certification-team
+    last_reviewed: 2026-04-20
+
+  - id: faa-14-cfr-part-25-current
+    title: "14 CFR Part 25 - Airworthiness Standards: Transport Category Airplanes"
+    authority: FAA eCFR
+    document_type: regulation
+    status: active
+    applicability:
+      - part-25
+      - transport-category-airplanes
+      - transport-category-change-programs
+      - complex-systems
+      - etops
+    url: https://www.ecfr.gov/current/title-14/chapter-I/subchapter-C/part-25
+    tags:
+      - airworthiness-standards
+      - transport-category
+      - systems-safety
+      - structures
+      - ewis
+      - operating-limitations
+    summary_path: knowledge/faa/part-25/summary.md
+    owner: certification-team
+    last_reviewed: 2026-04-20
+
+  - id: faa-small-airplane-regs-policy-portal
+    title: Small Airplane Regulations and Policies
+    authority: FAA
+    document_type: guidance_portal
+    status: active_reference_portal
+    applicability:
+      - part-23
+      - policy
+      - advisory-circulars
+      - accepted-standards
+      - means-of-compliance
+    url: https://www.faa.gov/aircraft/air_cert/design_approvals/small_airplanes/cos
+    tags:
+      - part-23
+      - policy
+      - advisory-circulars
+      - standards
+      - accepted-means-of-compliance
+    summary_path: knowledge/faa/part-23/policy-portal-summary.md
+    owner: certification-team
+    last_reviewed: 2026-04-20
+
+  - id: faa-mosaic-final-rule-2025-13972
+    title: Modernization of Special Airworthiness Certification
+    authority: FAA
+    document_type: final_rule
+    status: active
+    publication_date: 2025-07-24
+    effective_date: 2025-10-22
+    delayed_effective_date: 2026-07-24
+    applicability:
+      - light-sport aircraft
+      - sport pilot privileges
+      - special airworthiness certification
+      - small airplane certification ecosystem
+    url: https://www.federalregister.gov/documents/2025/07/24/2025-13972/modernization-of-special-airworthiness-certification
+    tags:
+      - mosaic
+      - lsa
+      - sport-pilot
+      - certification
+      - secondary-authority
+    summary_path: knowledge/faa/mosaic/summary.md
+    owner: certification-team
+    last_reviewed: 2026-04-20
+
+  - id: faa-mosaic-nprm-2023-14425
+    title: Modernization of Special Airworthiness Certification
+    authority: FAA
+    document_type: nprm
+    status: superseded_by_final_rule
+    publication_date: 2023-07-24
+    applicability:
+      - light-sport aircraft
+      - sport pilot privileges
+      - special airworthiness certification
+    url: https://www.federalregister.gov/documents/2023/07/24/2023-14425/modernization-of-special-airworthiness-certification
+    tags:
+      - mosaic
+      - nprm
+      - lsa
+      - sport-pilot
+      - historical-context
+    summary_path: knowledge/faa/mosaic/summary.md
+    owner: certification-team
+    last_reviewed: 2026-04-20

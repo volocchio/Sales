@@ -1,0 +1,22 @@
+project_name: Example Part 25 STC Program
+project_type: stc
+project_subject: Flight deck display and alerting system update
+regulatory_core: part-25
+certification_basis: Part 21 STC process with Part 25 transport-category standards
+cert_repo_version: main
+governing_source_ids:
+  - faa-14-cfr-part-21-current
+  - faa-14-cfr-part-25-current
+adopted_position_ids:
+  - cp-part25-systems-safety-001
+  - cp-part25-structure-loads-002
+  - cp-part25-operating-limitations-003
+  - cp-part25-ica-airworthiness-limitations-004
+deliverable_templates:
+  - templates/certification-basis-template.md
+  - templates/compliance-report-template.md
+output_directory: output/example-part25-stc
+project_specific_deviations:
+  - none
+notes: >-
+  Example only. Replace with the actual STC subject, amendment context, and approved positions.
