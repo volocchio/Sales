@@ -26,6 +26,8 @@ $PORTAL_SYNC = "/usr/local/bin/sync-and-update-portal.sh"
 function Invoke-RemoteBash {
 	param([string]$Script)
 	# Pass script via base64 over stdin to dodge nested-quoting hell.
+	# Strip CR so bash doesn't choke on Windows line endings.
+	$Script = $Script -replace "`r", ""
 	$encoded = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($Script))
 	& wsl ssh -i $SSH_KEY $VPS "echo $encoded | base64 -d | bash"
 	return $LASTEXITCODE
