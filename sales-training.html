@@ -244,6 +244,8 @@ tr:hover td{background:#f8fafc;}
 <nav class="sidebar">
   <h3>Getting Started</h3>
   <a href="#welcome">Welcome &amp; Overview</a>
+  <a href="#glossary">Definitions &amp; Acronyms</a>
+  <a href="#memory-items">Memory Items</a>
   <a href="#wings"><strong>WINGS Course</strong> <span class="badge" style="background:var(--green);">Start</span></a>
   <a href="#hero">Proven Performance</a>
   <a href="#textron">Textron &amp; Tamarack</a>
@@ -287,9 +289,10 @@ tr:hover td{background:#f8fafc;}
   <a href="#installation">Installation Centers</a>
   <a href="#ebooks">Product eBooks</a>
   <a href="#forms">Forms & Checklists</a>
+  <a href="#calculators">Calculators &amp; Tools</a>
   <a href="#contacts">Customer Contacts</a>
   <a href="#pricing">Pricing</a>
-  <a href="#photos">Photo & Graphic Library</a>
+  <a href="#photos">Photo &amp; Graphic Library</a>
 </nav>
 
 <!-- ═══════════ MAIN CONTENT ═══════════ -->
@@ -1214,8 +1217,8 @@ tr:hover td{background:#f8fafc;}
   </table>
   <div class="callout tip"><strong>🌍 Transatlantic Capable</strong> SMARTWING™ CJ3 completed Shannon → Gander. Mosier world trip proved global reliability.</div>
   <div>
-    <a class="file-link" href="Teams_Channel/By model-Sales Documents/CJ3 & CJ3+/CJ3 Specs OEM vs ATLAS.pdf">CJ3 Specs OEM vs ATLAS</a>
-    <a class="file-link" href="Teams_Channel/By model-Sales Documents/CJ3 & CJ3+/CJ3+ Specs OEM vs ATLAS.pdf">CJ3+ Specs OEM vs ATLAS</a>
+    <a class="file-link" href="Teams_Channel/By model-Sales Documents/CJ3 &amp; CJ3+/CJ3 Specs OEM vs ATLAS.pdf">CJ3 Specs OEM vs ATLAS</a>
+    <a class="file-link" href="Teams_Channel/By model-Sales Documents/CJ3 &amp; CJ3+/CJ3+ Specs OEM vs ATLAS.pdf">CJ3+ Specs OEM vs ATLAS</a>
     <a class="file-link" href="Sales and Marketing/One-Pagers/SMARTWING for Citation CJ3-CJ3+.md">CJ3/CJ3+ One-Pager</a>
     <a class="file-link folder" href="Teams_Channel/By model-Sales Documents/CJ3 & CJ3+/Charts and Graphs/">CJ3 Charts &amp; Graphs</a>
     <a class="file-link folder" href="Aircraft Models/CJ3-CJ3+/Flight Stories/">CJ3 Flight Stories</a>
@@ -3063,9 +3066,8 @@ window.addEventListener('scroll', () => {
 });
 
 // ── Document viewer routing ─────────────────────────────────────
-// Route .md and .docx links through viewer.html so they render in-browser
-// instead of downloading or showing raw text. PDFs and Office files keep
-// their default behavior. Per Tiara's feedback: uniform link behavior.
+// Route .md, .docx, and .pdf links through viewer.html so they render
+// in-browser instead of downloading or showing raw text.
 document.addEventListener('click', function (e) {
   const a = e.target.closest('a[href]');
   if (!a) return;
@@ -3073,7 +3075,7 @@ document.addEventListener('click', function (e) {
   const href = a.getAttribute('href') || '';
   if (!href || href.startsWith('#') || /^[a-z]+:/i.test(href)) return;
   // Only intercept extensions the viewer handles
-  if (!/\.(md|markdown|docx)(\?|$)/i.test(href)) return;
+  if (!/\.(md|markdown|docx|pdf)(\?|$)/i.test(href)) return;
   e.preventDefault();
   // Preserve any existing query/hash on the href
   window.location.href = 'viewer.html?file=' + encodeURIComponent(href);

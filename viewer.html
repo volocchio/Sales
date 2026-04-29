@@ -114,8 +114,10 @@ body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:v
       const notice = `<div class="notice">This is an in-browser preview of a Word document. For the original formatting, <a href="${file}" target="_blank" rel="noopener">download the .docx</a>.</div>`;
       contentEl.innerHTML = notice + result.value;
     } else if (ext === 'pdf') {
-      // Just embed the PDF
-      contentEl.innerHTML = `<embed src="${file}" type="application/pdf" style="width:100%;height:80vh;border:none;border-radius:6px;" />`;
+      // Encode each path segment so spaces / & / + in folder names don't break the URL
+      const encodedFile = file.split('/').map(encodeURIComponent).join('/');
+      // Use iframe — more reliable than <embed> in modern browsers
+      contentEl.innerHTML = `<iframe src="${encodedFile}" style="width:100%;height:80vh;border:none;border-radius:6px;" title="${filename}"></iframe>`;
     } else {
       // Unknown format - just offer download
       contentEl.innerHTML = `<div class="status">This file type (<code>.${ext}</code>) cannot be previewed in the browser.<br><br><a href="${file}" target="_blank" rel="noopener" style="display:inline-block;margin-top:12px;padding:10px 20px;background:#0f4c81;color:#fff;border-radius:6px;text-decoration:none;">Download ${filename}</a></div>`;
